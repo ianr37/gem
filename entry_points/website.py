@@ -1,6 +1,9 @@
 
 import os
 
+import mimetypes
+mimetypes.add_type("application/javascript", ".mjs", True)
+
 from flask import Flask, render_template
 
 app = Flask('gem', static_url_path='')
