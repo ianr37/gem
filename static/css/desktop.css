@@ -6,6 +6,9 @@ html {
   --article-color: black;
   --aside-background: var(--gem-green);
   --aside-color: black;
+  --button-background: lightgrey;
+  --button-border: black;
+  --button-color: black;
   --footer-background: var(--gem-green);
   --footer-color: black;
   --form-background: lightblue;
@@ -16,15 +19,14 @@ html {
   --main-color: black;
   --nav-background: var(--gem-green);
   --nav-color: black;
-  --button-background: lightgrey;
-  --button-border: black;
-  --button-color: black;
+  --section-background: lightgrey;
+  --section-color: black;
+  --table-data-background: PowderBlue;
+  --table-data-color: black;
   --table-header-background: Blue;
   --table-header-color: black;
   --table-label-background: CornflowerBlue;
   --table-label-color: black;
-  --table-data-background: PowderBlue;
-  --table-data-color: black;
   height: 100vh;
   width: 100vw;
 }
@@ -102,7 +104,7 @@ gem-body {
   flex-direction: column;
 }
 
-header {
+gem-header {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -112,7 +114,7 @@ header {
   color: var(--header-color);
 }
 
-main {
+gem-main {
   display: flex;
   background: var(--main-background);
   color: var(--main-color);
@@ -120,7 +122,7 @@ main {
   height: 100%;
 }
 
-main > nav {
+gem-main > gem-nav {
   display: flex;
   flex-direction: column;
   background: var(--nav-background);
@@ -128,18 +130,18 @@ main > nav {
   padding: 0.5em 0.5em 0.5em 0.5em;
 }
 
-main > nav > img {
+gem-main > gem-nav > img {
   width: 128px;
 }
 
-main > nav > menu {
+gem-main > gem-nav > gem-menu {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   height: 100%;
 }
 
-main > article {
+gem-main > gem-section {
   display: flex;
   flex-direction: column;
   background: var(--article-background);
@@ -148,7 +150,15 @@ main > article {
   padding: 0.5em 0.5em 0.5em 0.5em;
 }
 
-main > aside {
+gem-main > gem-section > gem-article {
+  display: flex;
+  flex-direction: column;
+  background: var(--article-background);
+  color: var(--article-color);
+  width: 100%;
+}
+
+gem-main > gem-aside {
   display: flex;
   flex-direction: column;
   background: var(--aside-background);
@@ -156,7 +166,7 @@ main > aside {
   padding: 0.5em 0.5em 0.5em 0.5em;
 }
 
-footer {
+gem-footer {
   display: flex;
   flex-direction: column;
   align-items: center;
