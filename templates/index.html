@@ -4,8 +4,8 @@
     <link rel="shortcut icon" href="logo.png"/>
     <title>Marquee</title>
     <script type="module">
-      import { GemBody } from "./js/desktop.mjs";
-      window.customElements.define('gem-body', GemBody, {extends: 'body'});
+      import { registerGemElements } from "./js/desktop.mjs";
+      registerGemElements();
     </script>
   </head>
   <gem-body>

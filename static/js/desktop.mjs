@@ -8,5 +8,10 @@ class GemBody extends HTMLBodyElement {
 
 }
 
-export { GemBody };
+const registerGemElements = () => {
+    window.customElements.define('gem-body', GemBody, {extends: 'body'});
+};
+
+
+export { registerGemElements };
 
