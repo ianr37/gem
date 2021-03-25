@@ -95,7 +95,7 @@ div.hbox > div:last-child {
 
 /* Desktop layout */
 
-body {
+gem-body {
   height: 100%;
   width: 100%;
   display: flex;

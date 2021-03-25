@@ -4,12 +4,11 @@
     <link rel="shortcut icon" href="logo.png"/>
     <title>Marquee</title>
     <script type="module">
-      import { App } from "./js/app.mjs";
-      const mount = window.document.querySelector('body')
-      const app = new App(mount);
+      import { GemBody } from "./js/desktop.mjs";
+      window.customElements.define('gem-body', GemBody, {extends: 'body'});
     </script>
   </head>
-  <body>
+  <gem-body>
     <header>
       <h1>Application Header</h1>
     </header>
@@ -32,14 +31,16 @@
             <button>Menu 4</button>
             <button>Menu 5</button>
           </menu>
-          <h4>Article header</h4>
-          <label>User Name</label>
-          <input type="text" name="username"/>
-          <label>Password</label>
-          <input type="password" name="password"/>
-          <menu>
-            <input type="submit"/>
-          </menu>
+          <section>
+            <h4>Article header</h4>
+            <label>User Name</label>
+            <input type="text" name="username"/>
+            <label>Password</label>
+            <input type="password" name="password"/>
+            <menu>
+              <input type="submit"/>
+            </menu>
+          </section>
         </article>
         <aside>
           Aside
@@ -48,5 +49,5 @@
     <footer>
       <span>&#169; Your Name Here</span>
     </footer>
-  </body>
+  </gem-body>
 </html>
