@@ -8,45 +8,45 @@
       registerGemElements();
     </script>
   </head>
-  <gem-body>
-    <gem-header>
+  <gem-body id="body">
+    <gem-header id="body">
       <h1>Gem Application Header</h1>
     </gem-header>
-    <gem-main>
-        <gem-nav>
+    <gem-main id="main">
+        <gem-nav id="nav">
           <img src="logo.png"/>
-          <gem-menu>
-            <button>Nav 1</button>
-            <button>Nav 2</button>
-            <button>Nav 3</button>
-            <button>Nav 4</button>
+          <gem-menu id="nav menu">
+            <gem-button>Nav 1</gem-button>
+            <gem-button>Nav 2</gem-button>
+            <gem-button>Nav 3</gem-button>
+            <gem-button>Nav 4</gem-button>
             <button>Nav 5</button>
           </gem-menu>
         </gem-nav>
-        <gem-section>
-          <gem-menu>
-            <button>Menu 1</button>
-            <button>Menu 2</button>
-            <button>Menu 3</button>
-            <button>Menu 4</button>
-            <button>Menu 5</button>
+        <gem-section id="section">
+          <gem-menu id="main menu">
+            <gem-button>Menu 1</gem-button>
+            <gem-button>Menu 2</gem-button>
+            <gem-button>Menu 3</gem-button>
+            <gem-button>Menu 4</gem-button>
+            <gem-button>Menu 5</gem-button>
           </gem-menu>
-          <gem-article>
+          <gem-article id="article">
             <h4>Article header</h4>
             <label>User Name</label>
             <input type="text" name="username"/>
             <label>Password</label>
             <input type="password" name="password"/>
-            <menu>
+            <menu id="form">
               <input type="submit"/>
             </menu>
           </gem-article>
         </gem-section>
-        <gem-aside>
+        <gem-aside id="aside">
           Aside
         </gem-aside>
     </gem-main>
-    <gem-footer>
+    <gem-footer id="footer">
       <span>&#169; Your Name Here</span>
     </gem-footer>
   </gem-body>
