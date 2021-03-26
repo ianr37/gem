@@ -186,21 +186,3 @@ gem-menu {
   padding: 0.5em 1em 0.5em 1em;
 }
 
-gem-button {
-  background-color: var(--button-background);
-  border: 2px outset ThreeDLightShadow;
-  color: var(--button-color);
-  cursor: default;
-  border-radius: 5px;
-  display: inline-block;
-  text-align: center;
-  padding: 0.5em 1em 0.5em 1em;
-  /*
-  whitespace: unset;
-  text-indent: 0;
-  text-shadow: initial;
-  text-transform: initial;
-  word-spacing: initial;
-  letter-spacing: initial;
-  */
-}
