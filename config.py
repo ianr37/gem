@@ -13,6 +13,7 @@ class Configuration(object):
 
 class DevelopmentConfiguration(Configuration):
     DEBUG = True
+    SEND_FILE_MAX_AGE_DEFAULT = 15
 
 class TestingConfiguration(Configuration):
     TESTING = True
