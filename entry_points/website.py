@@ -14,6 +14,6 @@ app.config.from_object(get_configuration(config_name))
 @app.route("/", methods=['GET'])
 def render_root_page():
     response = make_response(render_template('index.html'))
-    response.headers['Content-Security-Policy'] = "default-src 'self'"
+    response.headers['Content-Security-Policy'] = "default-src 'self'; script-src 'self'"
     return response
 

@@ -1,13 +1,10 @@
 
 import './desktop.css';
 import './logo.png';
-import './favicon.ico';
 
 import {GemApp} from './components';
-
-const app = new GemApp();
-
-for (const entry of app.generateDesktop()) {
-    document.body.appendChild(entry);
-}
+window.customElements.define('gem-app', GemApp, {extends: 'div'});
+const app = document.createElement('div', {is: 'gem-app'});
+app.classList.add('vbox');
+document.body.appendChild(app);
 
