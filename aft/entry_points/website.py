@@ -1,5 +1,7 @@
 
 import os
+import sys
+print('path:', sys.path)
 
 import mimetypes
 mimetypes.add_type("application/javascript", ".mjs", True)

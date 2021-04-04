@@ -5,6 +5,9 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
     mode,
+    entry: {
+        gem: './fore/gem.js',
+    },
     output: {
         assetModuleFilename: '[name][ext]',
     },
