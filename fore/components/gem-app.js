@@ -44,89 +44,6 @@ const template = `
     </body>
 `;
 
-const css = `
-    header {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-around;
-      padding: 0.5em 0em 0.5em 0em;
-      background: var(--header-background);
-      color: var(--header-color);
-    }
-
-    main {
-      display: flex;
-      background: var(--main-background);
-      color: var(--main-color);
-      width: 100%;
-      height: 100%;
-    }
-
-    main > nav {
-      display: flex;
-      flex-direction: column;
-      background: var(--nav-background);
-      color: var(--nav-color);
-      padding: 0.5em 0.5em 0.5em 0.5em;
-    }
-
-    main > nav > img {
-      width: 128px;
-    }
-
-    main > nav > menu {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-      height: 100%;
-    }
-
-    main > article {
-      display: flex;
-      flex-direction: column;
-      background: var(--article-background);
-      color: var(--article-color);
-      width: 100%;
-      padding: 0.5em 0.5em 0.5em 0.5em;
-    }
-
-    main > article > section {
-      display: flex;
-      flex-direction: column;
-      background: var(--article-background);
-      color: var(--article-color);
-      width: 100%;
-    }
-
-    main > aside {
-      display: flex;
-      flex-direction: column;
-      background: var(--aside-background);
-      color: var(--aside-color);
-      padding: 0.5em 0.5em 0.5em 0.5em;
-    }
-
-    footer {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-around;
-      padding: 0.5em 0em 0.5em 0em;
-      background: var(--footer-background);
-      color: var(--footer-color);
-    }
-
-    menu {
-      background-color: var(--menu-background);
-      color: var(--menu-color);
-      display: flex;
-      justify-content: space-around;
-      padding: 0.5em 1em 0.5em 1em;
-    }
-
-`;
-
 class GemApp extends HTMLDivElement {
 
     constructor()
@@ -152,7 +69,7 @@ class GemApp extends HTMLDivElement {
         const body = dom.querySelector('body');
         const result = [];
         for (const entry of body.childNodes) {
-            result.push(entry);
+            result.push(document.importNode(entry, true));
         }
         return result;
     }
