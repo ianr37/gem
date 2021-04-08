@@ -1,3 +1,3 @@
 
-export * from './gem-app.js';
+export * from './gem-root.js';
 

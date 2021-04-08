@@ -2,8 +2,8 @@
 import './desktop.css';
 import './logo.png';
 
-import {GemApp} from './components';
-window.customElements.define('gem-app', GemApp, {extends: 'div'});
-const app = document.createElement('div', {is: 'gem-app'});
-document.body.appendChild(app);
+import {GemRoot} from './components';
+window.customElements.define('gem-root', GemRoot, {extends: 'div'});
+const root = document.createElement('div', {is: 'gem-root'});
+document.body.appendChild(root);
 

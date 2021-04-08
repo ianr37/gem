@@ -42,7 +42,7 @@ const template = `
     </body>
 `;
 
-class GemApp extends HTMLDivElement {
+class GemRoot extends HTMLDivElement {
 
     constructor()
     {
@@ -74,5 +74,5 @@ class GemApp extends HTMLDivElement {
 
 }
 
-module.exports = { GemApp };
+module.exports = { GemRoot };
 
