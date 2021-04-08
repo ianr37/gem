@@ -106,87 +106,103 @@ div.hbox > div:last-child {
 body {
   height: 100%;
   width: 100%;
-  display: flex;
-  flex-direction: column;
 }
 
-header {
+body > div {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas: "header header header" "left center right" "footer footer footer";
+}
+
+body > div > header {
+  grid-area: header;
+  background: var(--header-background);
+  color: var(--header-color);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
   padding: 0.5em 0em 0.5em 0em;
-  background: var(--header-background);
-  color: var(--header-color);
 }
 
-main {
-  display: flex;
-  background: var(--main-background);
-  color: var(--main-color);
-  width: 100%;
-  height: 100%;
-}
-
-main > nav {
-  display: flex;
-  flex-direction: column;
+body > div > nav {
+  grid-area: left;
   background: var(--nav-background);
   color: var(--nav-color);
+  display: flex;
+  flex-direction: column;
   padding: 0.5em 0.5em 0.5em 0.5em;
 }
 
-main > nav > img {
+body > div > main {
+  grid-area: center;
+  background: var(--main-background);
+  color: var(--main-color);
+  display: flex;
+  flex-direction: column;
+  padding: 0.5em 0.5em 0.5em 0.5em;
+}
+
+body > div > aside {
+  grid-area: right;
+  background: var(--aside-background);
+  color: var(--aside-color);
+  display: flex;
+  flex-direction: column;
+  padding: 0.5em 0.5em 0.5em 0.5em;
+}
+
+body > div > footer {
+  grid-area: footer;
+  background: var(--footer-background);
+  color: var(--footer-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0.5em 0em 0.5em 0em;
+}
+
+/*  Left bar layout */
+
+body > div > nav > img {
   width: 128px;
 }
 
-main > nav > menu {
+body > div > nav > menu {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   height: 100%;
 }
 
-main > article {
-  display: flex;
-  flex-direction: column;
-  background: var(--article-background);
-  color: var(--article-color);
-  width: 100%;
-  padding: 0.5em 0.5em 0.5em 0.5em;
-}
+/*  Central layout
 
-main > article > section {
-  display: flex;
-  flex-direction: column;
-  background: var(--article-background);
-  color: var(--article-color);
-  width: 100%;
-}
-
-main > aside {
-  display: flex;
-  flex-direction: column;
-  background: var(--aside-background);
-  color: var(--aside-color);
-  padding: 0.5em 0.5em 0.5em 0.5em;
-}
-
-footer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  padding: 0.5em 0em 0.5em 0em;
-  background: var(--footer-background);
-  color: var(--footer-color);
-}
-
-menu {
+body > div > main > menu {
   background-color: var(--menu-background);
   color: var(--menu-color);
   display: flex;
   justify-content: space-around;
   padding: 0.5em 1em 0.5em 1em;
+}
+
+body > div > main > article {
+  display: flex;
+  flex-direction: column;
+  background: var(--article-background);
+  color: var(--article-color);
+  width: 100%;
+}
+
+/*  Right bar layout */
+
+body > div > aside > menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100%;
 }
 
