@@ -1,6 +1,6 @@
 
-import './desktop.css';
-import './logo.png';
+import './assets/desktop.css';
+import './assets/logo.png';
 
 import {GemRoot} from './components';
 window.customElements.define('gem-root', GemRoot, {extends: 'div'});
