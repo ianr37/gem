@@ -1,5 +1,5 @@
 
-class Command {
+export class Command {
 
     constructor(name, parameters) {
         this.name = name;
@@ -7,3 +7,4 @@ class Command {
     }
 
 }
+

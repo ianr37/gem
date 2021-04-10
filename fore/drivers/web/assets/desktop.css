@@ -1,7 +1,7 @@
 /*  Style Sheet for Gem. */
 
 html {
-  --gem-green: SpringGreen;
+  --gem-green: PaleGreen;
   --article-background: lightgrey;
   --article-color: black;
   --aside-background: var(--gem-green);

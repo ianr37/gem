@@ -1,4 +1,6 @@
 
+import { Command } from '../../../domain/index.mjs';
+
 const template = `
     <body>
         <header>
@@ -42,11 +44,12 @@ const template = `
     </body>
 `;
 
-class GemRoot extends HTMLDivElement {
+export class GemRoot extends HTMLDivElement {
 
     constructor()
     {
         super();
+        this.controller = null;
     }
 
     connectedCallback() {
@@ -54,11 +57,16 @@ class GemRoot extends HTMLDivElement {
             for (const element of this.generateDesktop()) {
                 this.appendChild(element);
             }
+            this.addEventListener('click', this.clickEventHandler);
         }
     }
 
     clickEventHandler(event) {
         console.log(`app received click`);
+        if (this.controller) {
+            const message = event.target.innerText;
+            this.controller.executeCommand(new Command(message, {}));
+        }
     }
 
     generateDesktop() {
@@ -73,6 +81,4 @@ class GemRoot extends HTMLDivElement {
     }
 
 }
-
-module.exports = { GemRoot };
 

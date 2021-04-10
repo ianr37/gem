@@ -1,5 +1,5 @@
 
-class GemForm extends HTMLFormElement {
+export class GemForm extends HTMLFormElement {
 
     constructor() {
         super();

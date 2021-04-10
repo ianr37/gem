@@ -1,5 +1,5 @@
 
-class Display {
+export class Form {
 
     constructor(name) {
         this.name = name;

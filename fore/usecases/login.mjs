@@ -1,5 +1,5 @@
 
-class Login {
+export class Login {
 
     constructor() {
         this.name = 'login';

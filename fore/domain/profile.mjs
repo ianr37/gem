@@ -2,7 +2,7 @@
 const accessTokenKey = 'access-token';
 const refreshTokenKey = 'refresh-token';
 
-class Profile {
+export class Profile {
 
     constructor(provider) {
         this.provider = provider;
@@ -26,3 +26,4 @@ class Profile {
     }
 
 }
+
