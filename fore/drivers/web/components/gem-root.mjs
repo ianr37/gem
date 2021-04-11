@@ -9,20 +9,20 @@ const template = `
         <nav>
           <img src="logo.png"/>
           <menu>
-              <button>Nav 1</button>
-              <button>Nav 2</button>
-              <button>Nav 3</button>
-              <button>Nav 4</button>
-              <button>Nav 5</button>
+              <button data-command="nav 1" title="I'm the first button on the navigation bar">Nav 1</button>
+              <button data-command="nav 2" title="I'm the second button on the navigation bar">Nav 2</button>
+              <button data-command="nav 3" title="I'm the third button on the navigation bar">Nav 3</button>
+              <button data-command="nav 4" title="I'm the four button on the navigation bar">Nav 4</button>
+              <button data-command="nav 5" title="I'm the fifth button on the navigation bar">Nav 5</button>
           </menu>
         </nav>
         <main>
           <menu>
-              <button>Menu 1</button>
-              <button>Menu 2</button>
-              <button>Menu 3</button>
-              <button>Menu 4</button>
-              <button>Menu 5</button>
+              <button data-command="menu 1" title="I'm the first button on the menu">Menu 1</button>
+              <button data-command="menu 2" title="I'm the second button on the menu">Menu 2</button>
+              <button data-command="menu 3" title="I'm the third button on the menu">Menu 3</button>
+              <button data-command="menu 4" title="I'm the fourth button on the menu">Menu 4</button>
+              <button data-command="menu 5" title="I'm the fifth button on the menu">Menu 5</button>
           </menu>
           <article>
               <h2>Article header</h2>
@@ -64,8 +64,12 @@ export class GemRoot extends HTMLDivElement {
     clickEventHandler(event) {
         console.log(`app received click`);
         if (this.controller) {
-            const message = event.target.innerText;
-            this.controller.executeCommand(new Command(message, {}));
+            const dataset = event.target.dataset;
+            if (dataset) {
+                this.controller.executeCommand(new Command(dataset.command, dataset.parameters));
+            } else {
+                console.log('no dataset on target');
+            }
         }
     }
 
