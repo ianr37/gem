@@ -1,5 +1,5 @@
 
-export class Form {
+class WorkflowTask {
 
     constructor(name) {
         this.name = name;
