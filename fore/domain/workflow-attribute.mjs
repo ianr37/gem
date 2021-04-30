@@ -1,5 +1,5 @@
 
-export class WorkflowParameter {
+export class WorkflowAttribute {
 
     constructor(x) {
         this.name = x.name;

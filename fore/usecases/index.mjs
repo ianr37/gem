@@ -1,3 +1,3 @@
 
-export * from './workflow_factory.mjs';
+export WorkflowFactory from './workflows/index.mjs';
 
