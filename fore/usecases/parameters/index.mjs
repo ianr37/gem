@@ -1,3 +1,3 @@
 
-export ParameterFactory from './factory.mjs
+export { ParameterFactory } from './factory.mjs';
 

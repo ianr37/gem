@@ -1,5 +1,5 @@
 
-import { WorkflowParameter } from '../domain/index.mjs';
+import { WorkflowParameter } from '../../domain/index.mjs';
 
 export class ParameterFactory {
 

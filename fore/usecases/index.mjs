@@ -1,3 +1,3 @@
 
-export WorkflowFactory from './workflows/index.mjs';
+export { WorkflowFactory } from './workflows/index.mjs';
 

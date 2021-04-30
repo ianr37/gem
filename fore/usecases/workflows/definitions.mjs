@@ -44,7 +44,8 @@ const loginWorkflow = `{
     ]
 }`;
 
-export definitions = new Map([
+export const definitions = new Map([
     ["home", homeWorkflow],
     ["logon", loginWorkflow]
 ]);
+

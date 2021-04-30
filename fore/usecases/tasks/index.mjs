@@ -1,3 +1,3 @@
 
-export TaskFactory from './factory.mjs
+export { TaskFactory } from './factory.mjs';
 

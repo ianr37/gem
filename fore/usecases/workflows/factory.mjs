@@ -17,10 +17,10 @@ export class WorkflowFactory {
             const wfd = JSON.parse(definitions.get(name));
             const flow = new Workflow(name);
             for (const parameter of wfd.parameters) {
-                flow.parameters.set(parameter.name) = this.parameterFactory.createParameter(parameter);
+                flow.parameters.set(parameter.name, this.parameterFactory.createParameter(parameter));
             }
             for (const task of wfd.tasks) {
-                flow.tasks.add(task.name) = this.taskFactory.createTask(task);
+                flow.tasks.add(task.name, this.taskFactory.createTask(task));
             }
         }
         return result;
