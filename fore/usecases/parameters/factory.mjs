@@ -7,8 +7,7 @@ export class ParameterFactory {
     }
 
     createParameter(x) {
-        let result = null;
-        return null;
+        return new WorkflowParameter(x);
     }
 
 }
