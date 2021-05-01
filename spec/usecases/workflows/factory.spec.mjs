@@ -7,18 +7,18 @@ describe('usecases', () => {
 
     beforeEach(() => {
         factory = new WorkflowFactory();
-        expect(factory).toBeDefined();
+        expect(factory).toBeTruthy();
     });
 
 
     it('should be able to return a workflow', () => {
         const workflow = factory.createWorkflow('home');
-        expect(workflow).toBeDefined();
+        expect(workflow).toBeTruthy();
     });
 
     it('should not find a non-existant workflow', () => {
         const workflow = factory.createWorkflow('does not exist');
-        expect(workflow).toBeNull();
+        expect(workflow).toEqual(null);
     });
 
 });

@@ -22,6 +22,7 @@ export class WorkflowFactory {
             for (const task of wfd.tasks) {
                 flow.tasks.push(task.name, this.taskFactory.createTask(task));
             }
+            result = flow;
         }
         return result;
     }
