@@ -44,8 +44,16 @@ const loginWorkflow = `{
     ]
 }`;
 
-export const definitions = new Map([
+const definitions = new Map([
     ["home", homeWorkflow],
     ["logon", loginWorkflow]
 ]);
+
+export const getDefinition = (name) => {
+    let result = null;
+    if (definitions.has(name)) {
+        result = JSON.parse(definitions.get(name));
+    }
+    return result;
+}
 

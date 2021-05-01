@@ -1,5 +1,5 @@
 
-class WorkflowTask {
+export class WorkflowTask {
 
     constructor(name) {
         this.name = name;
