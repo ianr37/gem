@@ -1,5 +1,5 @@
 
-import { WorkflowTask } from '../domain/workflow-task.mjs';
+import { WorkflowTask } from '../../domain/index.mjs';
 
 export class DisplayFormTask extends WorkflowTask {
 

@@ -46,6 +46,10 @@ export class WorkflowTask {
         this.name = name;
     }
 
+    execute(workflow) {
+        throw Error('execute method not yet implemented');
+    }
+
 }
 
 export class WorkflowStore {
