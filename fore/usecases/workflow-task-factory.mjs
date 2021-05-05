@@ -1,7 +1,7 @@
 
-import { WorkflowTask } from '../../domain/index.mjs';
+import { WorkflowTask } from '../domain/index.mjs';
 
-export class TaskFactory {
+export class WorkflowTaskFactory {
 
     constructor() {
     }

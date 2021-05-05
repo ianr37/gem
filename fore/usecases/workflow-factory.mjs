@@ -1,19 +1,19 @@
 
-import { Workflow, WorkflowParameter, WorkflowTask } from '../../domain/index.mjs';
-import { getDefinition } from './definitions.mjs';
-import { ParameterFactory } from '../parameters/index.mjs';
-import { TaskFactory } from '../tasks/index.mjs';
+import { Workflow, WorkflowParameter, WorkflowTask } from '../domain/index.mjs';
+import { WorkflowParameterFactory } from './workflow-parameter-factory.mjs';
+import { WorkflowTaskFactory } from './workflow-task-factory.mjs';
 
 export class WorkflowFactory {
 
-    constructor() {
-        this.parameterFactory = new ParameterFactory();
-        this.taskFactory = new TaskFactory();
+    constructor(store) {
+        this.store = store;
+        this.parameterFactory = new WorkflowParameterFactory();
+        this.taskFactory = new WorkflowTaskFactory();
     }
 
     createWorkflow(name) {
         let result = null;
-        const wfd = getDefinition(name);
+        const wfd = this.store.getDefinition(name);
         if (wfd) {
             const flow = new Workflow(name);
             for (const parameter of wfd.parameters) {

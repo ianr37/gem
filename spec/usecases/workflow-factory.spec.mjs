@@ -1,15 +1,17 @@
 
-import { WorkflowFactory } from '../../../fore/usecases/workflows/factory.mjs';
+import { WorkflowFactory } from '../../fore/usecases/index.mjs';
+import { SimpleWorkflowStore } from '../../fore/drivers/simple-workflow-store.mjs';
 
 describe('usecases', () => {
 
     let factory = null;
 
     beforeEach(() => {
-        factory = new WorkflowFactory();
+        const store = new SimpleWorkflowStore();
+        expect(store).toBeTruthy();
+        factory = new WorkflowFactory(store);
         expect(factory).toBeTruthy();
     });
-
 
     it('should be able to return a workflow', () => {
         const workflow = factory.createWorkflow('home');

@@ -1,19 +1,21 @@
 
+import { WorkflowStore } from '../domain/workflows.mjs';
+
 const homeWorkflow = `{
     "parameters": [],
     "tasks": [
         {"taskName": "Home", "taskClass": "DisplayHomeTask", "fields": []}
-        ]
+    ]
 }`;
 
 const loginWorkflow = `{
     "parameters": [
         {"name": "userName", "storageType": "string"},
-        {"name": "passPhrase", "storageType": "string"}],
-        {"name": "accessToken", "storageType": "string"}],
-        {"name": "refreshToken", "storageType": "string"}],
+        {"name": "passPhrase", "storageType": "string"},
+        {"name": "accessToken", "storageType": "string"},
+        {"name": "refreshToken", "storageType": "string"},
         {"name": "userProfile", "storageType": "UserProfile"}
-    ]
+    ],
     "tasks": [
         {"taskName": "Enter User ID", "taskClass": "DisplayFormTask",
             "fields": [
@@ -24,36 +26,32 @@ const loginWorkflow = `{
         {"name": "Request Tokens", "taskClass": "TxRequestTask", "url": "/api/login",
             "parameters": [
                 {"parameter": "userName", "alias": "userName"},
-                {"parameter": "passPhrase", "alias": "passPhrase"},
+                {"parameter": "passPhrase", "alias": "passPhrase"}
             ]
         },
         {"name": "Receive Tokens", "taskClass": "RxResponsetask",
             "parameters": [
                 {"parameter": "accessToken", "alias": "accessToken"},
                 {"parameter": "refreshToken", "alias": "refreshToken"},
-                {"parameter": "userProfile", "alias": "userProfile"},
+                {"parameter": "userProfile", "alias": "userProfile"}
             ]
         },
         {"name": "Store Tokens and Profile", "taskClass": "StoreLocallyTask",
             "parameters": [
                 {"parameter": "accessToken", "alias": "accessToken"},
                 {"parameter": "refreshToken", "alias": "refreshToken"},
-                {"parameter": "userProfile", "alias": "userProfile"},
+                {"parameter": "userProfile", "alias": "userProfile"}
             ]
         }
     ]
 }`;
 
-const definitions = new Map([
-    ["home", homeWorkflow],
-    ["logon", loginWorkflow]
-]);
+export class SimpleWorkflowStore extends WorkflowStore {
 
-export const getDefinition = (name) => {
-    let result = null;
-    if (definitions.has(name)) {
-        result = JSON.parse(definitions.get(name));
+    constructor() {
+        super();
+        this.addDefinition('home', homeWorkflow);
+        this.addDefinition('login', loginWorkflow);
     }
-    return result;
-}
 
+}

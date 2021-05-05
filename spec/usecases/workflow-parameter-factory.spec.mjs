@@ -1,12 +1,12 @@
 
-import { ParameterFactory } from '../../../fore/usecases/parameters/factory.mjs';
+import { WorkflowParameterFactory } from '../../fore/usecases/index.mjs';
 
 describe('ParameterFactory', () => {
 
     let factory = null;
 
     beforeEach(() => {
-        factory = new ParameterFactory();
+        factory = new WorkflowParameterFactory();
         expect(factory).toBeTruthy();
     });
 
