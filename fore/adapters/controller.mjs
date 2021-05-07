@@ -6,7 +6,7 @@ export class Controller {
     }
 
     executeCommand(command) {
-        console.log(`controller received ->${command.name}<-`);
+        return true;
     }
 
 }

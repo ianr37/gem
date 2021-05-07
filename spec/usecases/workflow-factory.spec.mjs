@@ -1,6 +1,7 @@
 
-import { WorkflowFactory } from '../../fore/usecases/index.mjs';
 import { SimpleWorkflowStore } from '../../fore/drivers/simple-workflow-store.mjs';
+import { Workflow, WorkflowStore } from '../../fore/domain/index.mjs';
+import { WorkflowFactory } from '../../fore/usecases/index.mjs';
 
 describe('usecases', () => {
 
@@ -8,14 +9,14 @@ describe('usecases', () => {
 
     beforeEach(() => {
         const store = new SimpleWorkflowStore();
-        expect(store).toBeTruthy();
+        expect(store instanceof WorkflowStore).toBeTrue();
         factory = new WorkflowFactory(store);
-        expect(factory).toBeTruthy();
+        expect(factory instanceof WorkflowFactory).toBeTrue();
     });
 
     it('should be able to return a workflow', () => {
         const workflow = factory.createWorkflow('home');
-        expect(workflow).toBeTruthy();
+        expect(workflow instanceof Workflow).toBeTrue();
     });
 
     it('should not find a non-existant workflow', () => {

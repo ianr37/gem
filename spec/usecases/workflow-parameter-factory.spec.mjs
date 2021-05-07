@@ -1,5 +1,6 @@
 
 import { WorkflowParameterFactory } from '../../fore/usecases/index.mjs';
+import { WorkflowParameter } from '../../fore/domain/index.mjs';
 
 describe('ParameterFactory', () => {
 
@@ -7,13 +8,13 @@ describe('ParameterFactory', () => {
 
     beforeEach(() => {
         factory = new WorkflowParameterFactory();
-        expect(factory).toBeTruthy();
+        expect(factory instanceof WorkflowParameterFactory).toBeTrue();
     });
 
     it('should be able to create a parameter', () => {
         const definition = {name: 'userName', storageType: 'string'};
         const parameter = factory.createParameter(definition);
-        expect(parameter).toBeTruthy();
+        expect(parameter instanceof WorkflowParameter).toBeTrue();
     });
 
     it('should only accept an object as its parameter', () => {
@@ -32,27 +33,27 @@ describe('ParameterFactory', () => {
 
     it('should have a default storage type', () => {
         const parameter = factory.createParameter({name: 'foo'});
-        expect(parameter).toBeTruthy();
+        expect(parameter instanceof WorkflowParameter).toBeTrue();
     });
 
     it('should string as a storage type', () => {
         const parameter = factory.createParameter({name: 'foo', storageType: 'string'});
-        expect(parameter).toBeTruthy();
+        expect(parameter instanceof WorkflowParameter).toBeTrue();
     });
 
     it('should accept number as a storage type', () => {
         const parameter = factory.createParameter({name: 'foo', storageType: 'number'});
-        expect(parameter).toBeTruthy();
+        expect(parameter instanceof WorkflowParameter).toBeTrue();
     });
 
     it('should accept boolean as a storage type', () => {
         const parameter = factory.createParameter({name: 'foo', storageType: 'boolean'});
-        expect(parameter).toBeTruthy();
+        expect(parameter instanceof WorkflowParameter).toBeTrue();
     });
 
     it('should accept object as a storage type', () => {
         const parameter = factory.createParameter({name: 'foo', storageType: 'object'});
-        expect(parameter).toBeTruthy();
+        expect(parameter instanceof WorkflowParameter).toBeTrue();
     });
 
     it('should not accept an unrecognised storage type', () => {
@@ -64,6 +65,7 @@ describe('ParameterFactory', () => {
 
     it('should accept values matching the default storage type', () => {
         const parameter = factory.createParameter({name: 'foo', value: 'bar'});
+        expect(parameter instanceof WorkflowParameter).toBeTrue();
     });
 
     it('should not accept an values clashing with its storage type', () => {

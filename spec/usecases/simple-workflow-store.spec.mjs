@@ -7,7 +7,7 @@ describe('usecases', () => {
 
     beforeEach(() => {
         store = new SimpleWorkflowStore();
-        expect(store).toBeTruthy();
+        expect(store instanceof SimpleWorkflowStore).toBeTrue();
     });
 
     it('should be able to return a definition', () => {

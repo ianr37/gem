@@ -8,12 +8,11 @@ describe('usecases', () => {
 
     beforeEach(() => {
         factory = new WorkflowTaskFactory();
-        expect(factory).toBeTruthy();
+        expect(factory instanceof WorkflowTaskFactory).toBeTrue();
     });
 
     it('should be able to return a workflow task of the correct type', () => {
         const task = factory.createTask('dummy', 'DisplayHomeTask');
-        expect(task).toBeTruthy();
         expect(task instanceof tasks.DisplayHomeTask).toBeTrue();
     });
 
