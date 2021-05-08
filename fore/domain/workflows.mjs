@@ -1,11 +1,23 @@
 
 export class Workflow {
 
-    constructor(name) {
+    constructor(name, presenter) {
+        this.flowId = Math.random() * 2**64;
         this.name = name;
+        this.presenter = presenter;
         this.step = 0;
         this.parameters = new Map();
         this.tasks = new Array();
+    }
+
+    executeAction(action) {
+        /*
+        - update parameters
+        - determine next step from action.action
+        */
+    }
+
+    start(presenter) {
     }
 
 }
@@ -42,8 +54,10 @@ export class WorkflowParameter {
 
 export class WorkflowTask {
 
-    constructor(name) {
+    constructor(name, workflowId) {
+        this.taskId = Math.random() * 2**64;
         this.name = name;
+        this.flowId = workflowId;
     }
 
     execute(workflow) {

@@ -1,7 +1,7 @@
 
 import { WorkflowTask } from '../../domain/index.mjs';
 
-export class DisplayFormTask extends WorkflowTask {
+export class DisplayTask extends WorkflowTask {
 
     constructor(name) {
         super(name);

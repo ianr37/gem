@@ -4,7 +4,7 @@ import { WorkflowStore } from '../domain/workflows.mjs';
 const homeWorkflow = `{
     "parameters": [],
     "tasks": [
-        {"taskName": "Home", "taskClass": "DisplayHomeTask", "fields": []}
+        {"taskName": "Home", "taskClass": "DisplayTask", "fields": []}
     ]
 }`;
 
@@ -17,7 +17,7 @@ const loginWorkflow = `{
         {"name": "userProfile", "storageType": "UserProfile"}
     ],
     "tasks": [
-        {"taskName": "Enter User ID", "taskClass": "DisplayFormTask",
+        {"taskName": "Enter User ID", "taskClass": "DisplayTask",
             "fields": [
                 {"parameter": "userName", "label": "User Name", "displayType": "text"},
                 {"parameter": "passPhrase", "label": "Pass Phrase", "displayType": "password"}

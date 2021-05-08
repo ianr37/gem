@@ -1,5 +1,5 @@
 
-import { Command } from '../../../domain/index.mjs';
+import { DriverAction } from '../../../domain/index.mjs';
 
 const template = `
     <body>
@@ -66,7 +66,7 @@ export class GemRoot extends HTMLDivElement {
         if (this.controller) {
             const dataset = event.target.dataset;
             if (dataset) {
-                this.controller.executeCommand(new Command(dataset.command, dataset.parameters));
+                this.controller.executeAction(new Action(dataset.taskId, dataset.command, dataset.parameters));
             } else {
                 console.log('no dataset on target');
             }

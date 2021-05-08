@@ -3,8 +3,7 @@ import { WorkflowTask } from '../domain/index.mjs';
 import * as tasks from './tasks/index.mjs';
 
 const knownTasks = new Map([
-    ['DisplayFormTask', tasks.DisplayFormTask],
-    ['DisplayHomeTask', tasks.DisplayHomeTask],
+    ['DisplayTask', tasks.DisplayTask],
     ['RxResponseTask', tasks.RxResponseTask],
     ['StoreLocallyTask', tasks.StoreLocallyTask],
     ['TxRequestTask', tasks.TxRequestTask]

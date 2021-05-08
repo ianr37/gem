@@ -12,8 +12,8 @@ describe('usecases', () => {
     });
 
     it('should be able to return a workflow task of the correct type', () => {
-        const task = factory.createTask('dummy', 'DisplayHomeTask');
-        expect(task instanceof tasks.DisplayHomeTask).toBeTrue();
+        const task = factory.createTask('dummy', 'DisplayTask');
+        expect(task instanceof tasks.DisplayTask).toBeTrue();
     });
 
     it('should not find a non-existant workflow task', () => {
