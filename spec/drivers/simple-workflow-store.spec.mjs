@@ -1,5 +1,5 @@
 
-import { SimpleWorkflowStore } from '../../fore/drivers/simple-workflow-store.mjs';
+import { SimpleWorkflowStore } from '../../fore/drivers/browser/simple-workflow-store.mjs';
 
 describe('usecases', () => {
 

@@ -1,19 +1,19 @@
 
-import { WorkflowTaskFactory } from '../../fore/usecases/index.mjs';
-import * as tasks from '../../fore/usecases/tasks/index.mjs';
+import { BrowserDisplayTask } from '../../fore/drivers/browser/tasks/display.mjs';
+import { BrowserWorkflowTaskFactory } from '../../fore/drivers/browser/workflow-task-factory.mjs';
 
 describe('usecases', () => {
 
     let factory = null;
 
     beforeEach(() => {
-        factory = new WorkflowTaskFactory();
-        expect(factory instanceof WorkflowTaskFactory).toBeTrue();
+        factory = new BrowserWorkflowTaskFactory();
+        expect(factory instanceof BrowserWorkflowTaskFactory).toBeTrue();
     });
 
     it('should be able to return a workflow task of the correct type', () => {
         const task = factory.createTask('dummy', 'DisplayTask');
-        expect(task instanceof tasks.DisplayTask).toBeTrue();
+        expect(task instanceof BrowserDisplayTask).toBeTrue();
     });
 
     it('should not find a non-existant workflow task', () => {

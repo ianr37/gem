@@ -1,10 +1,10 @@
 
-import { WorkflowStore } from '../domain/workflows.mjs';
+import { WorkflowStore } from '../../domain/workflows.mjs';
 
 const homeWorkflow = `{
     "parameters": [],
     "tasks": [
-        {"taskName": "Home", "taskClass": "DisplayTask", "fields": []}
+        {"taskName": "Home", "taskClass": "BrowserDisplayTask", "fields": []}
     ]
 }`;
 
@@ -17,26 +17,26 @@ const loginWorkflow = `{
         {"name": "userProfile", "storageType": "UserProfile"}
     ],
     "tasks": [
-        {"taskName": "Enter User ID", "taskClass": "DisplayTask",
+        {"taskName": "Enter User ID", "taskClass": "BrowserDisplayTask",
             "fields": [
                 {"parameter": "userName", "label": "User Name", "displayType": "text"},
                 {"parameter": "passPhrase", "label": "Pass Phrase", "displayType": "password"}
             ]
         },
-        {"name": "Request Tokens", "taskClass": "TxRequestTask", "url": "/api/login",
+        {"name": "Request Tokens", "taskClass": "BrowserTxRequestTask", "url": "/api/login",
             "parameters": [
                 {"parameter": "userName", "alias": "userName"},
                 {"parameter": "passPhrase", "alias": "passPhrase"}
             ]
         },
-        {"name": "Receive Tokens", "taskClass": "RxResponsetask",
+        {"name": "Receive Tokens", "taskClass": "BrowserRxResponsetask",
             "parameters": [
                 {"parameter": "accessToken", "alias": "accessToken"},
                 {"parameter": "refreshToken", "alias": "refreshToken"},
                 {"parameter": "userProfile", "alias": "userProfile"}
             ]
         },
-        {"name": "Store Tokens and Profile", "taskClass": "StoreLocallyTask",
+        {"name": "Store Tokens and Profile", "taskClass": "BrowserStoreTask",
             "parameters": [
                 {"parameter": "accessToken", "alias": "accessToken"},
                 {"parameter": "refreshToken", "alias": "refreshToken"},
