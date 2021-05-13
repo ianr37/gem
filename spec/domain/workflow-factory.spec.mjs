@@ -9,9 +9,6 @@ describe('workflow factory', () => {
     let factory = null;
 
     beforeAll(() => {
-        /*
-        const store = new JsonWorkflowStore('/tmp/x.json');
-        */
         const store = new JsonWorkflowStore('./spec/testing/factory-test.json');
         expect(store instanceof WorkflowStore).toBeTrue();
         const taskFactory = new TestTaskFactory();
