@@ -46,7 +46,7 @@ export class WorkflowFactory {
                 flow.parameters.set(parameter.name, this.parameterFactory.createParameter(parameter));
             }
             for (const task of wfd.tasks) {
-                flow.tasks.push(task.name, this.taskFactory.createTask(task));
+                flow.tasks.set(task.name, task);
             }
             result = flow;
         }

@@ -1,23 +1,27 @@
 
-import { BrowserWorkflowTaskFactory } from '../../fore/drivers/browser/workflow-task-factory.mjs';
-import { SimpleWorkflowStore } from '../../fore/drivers/browser/simple-workflow-store.mjs';
-import { Workflow, WorkflowFactory, WorkflowParameterFactory, WorkflowTaskFactory, WorkflowStore } from '../../fore/domain/index.mjs';
+import { TestTaskFactory } from '../testing/task-factory.mjs';
 
-describe('usecases', () => {
+import { Workflow, WorkflowFactory, WorkflowParameterFactory, WorkflowTaskFactory,
+         WorkflowStore, JsonWorkflowStore } from '../../fore/domain/index.mjs';
+
+describe('workflow factory', () => {
 
     let factory = null;
 
-    beforeEach(() => {
-        const store = new SimpleWorkflowStore();
+    beforeAll(() => {
+        /*
+        const store = new JsonWorkflowStore('/tmp/x.json');
+        */
+        const store = new JsonWorkflowStore('./spec/testing/factory-test.json');
         expect(store instanceof WorkflowStore).toBeTrue();
+        const taskFactory = new TestTaskFactory();
+        expect(taskFactory instanceof WorkflowTaskFactory).toBeTrue();
         const parameterFactory = new WorkflowParameterFactory();
         expect(parameterFactory instanceof WorkflowParameterFactory).toBeTrue();
-        const taskFactory = new BrowserWorkflowTaskFactory();
-        expect(taskFactory instanceof WorkflowTaskFactory).toBeTrue();
         factory = new WorkflowFactory(store, parameterFactory, taskFactory);
         expect(factory instanceof WorkflowFactory).toBeTrue();
     });
-    
+
     it('should be able to return a workflow', () => {
         const workflow = factory.createWorkflow('home');
         expect(workflow instanceof Workflow).toBeTrue();

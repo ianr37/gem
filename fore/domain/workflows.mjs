@@ -2,19 +2,18 @@
 export class Workflow {
 
     constructor(name, presenter) {
-        this.flowId = Math.random() * 2**64;
+        this.flowId = Math.round(Math.random() * 2**64);
         this.name = name;
         this.presenter = presenter;
         this.step = 0;
         this.parameters = new Map();
-        this.tasks = new Array();
+        this.tasks = new Map();
     }
 
-    executeAction(action) {
-        /*
-        - update parameters
-        - determine next step from action.action
-        */
+    executeTask(action) {
+    }
+
+    respondToAction(action) {
     }
 
     start(presenter) {
@@ -55,7 +54,7 @@ export class WorkflowParameter {
 export class WorkflowTask {
 
     constructor(name, workflowId) {
-        this.taskId = Math.random() * 2**64;
+        this.taskId = Math.round(Math.random() * 2**64);
         this.name = name;
         this.flowId = workflowId;
     }
@@ -64,21 +63,5 @@ export class WorkflowTask {
         throw Error('execute method not yet implemented');
     }
 
-}
-
-export class WorkflowStore {
-
-    constructor () {
-        this.definitions = new Map();
-    }
-
-    addDefinition(name, jsonString) {
-        const definition = JSON.parse(jsonString);
-        this.definitions.set(name, definition);
-    }
-
-    getDefinition(name) {
-        return this.definitions.get(name) || null;
-    }
 }
 

@@ -1,17 +1,18 @@
 
-import { SimpleWorkflowStore } from '../../fore/drivers/browser/simple-workflow-store.mjs';
+import { JsonWorkflowStore } from '../../fore/domain/index.mjs';
 
 describe('usecases', () => {
 
     let store = null;
+    const jsonFile = './spec/testing/store-test.json';
 
-    beforeEach(() => {
-        store = new SimpleWorkflowStore();
-        expect(store instanceof SimpleWorkflowStore).toBeTrue();
+    beforeAll(() => {
+        store = new JsonWorkflowStore(jsonFile);
+        expect(store instanceof JsonWorkflowStore).toBeTrue();
     });
 
     it('should be able to return a definition', () => {
-        const definition = store.getDefinition('home');
+        const definition = store.getDefinition('test1');
         expect(definition).toBeTruthy();
     });
 
