@@ -1,32 +1,34 @@
 
 export class Controller {
 
-    constructor(presenter) {
+    constructor(workflowFactory, presenter) {
+        this.workflowFactory = workflowFactory;
         this.presenter = presenter;
         this.activeWorkflows = new Map();
         this.activeWorkflowTasks = new Map();
     }
 
-    startWorkflow(workflow) {
-        if (!this.activeWorkflows.has(workflow.flowId)) {
+    startWorkflow(name) {
+        const workflow = this.workflowFactory.createWorkflow(name);
+        if (workflow) {
             this.activeWorkflows.set(workflow.wfid, workflow);
+        } else {
+            console.log(`Controller#startWorkflow: unknown workflow ${name}`);
         }
-        workflow.start(presenter);
     }
 
     executeAction(action) {
-        const task = this.activeWorkflowTasks.get(action.taskId);
-        if (task) {
-            const flow = this.activeWorkflows.get(task.flowId);
-            const outcome = flow.executeAction(action);
-            switch (outcome) {
-            case 'next':
-                
+        if (action) {
+            switch (action.action) {
+            case 'start workflow':
+                this.startWorkflow(action.parameters.name);
                 break;
             default:
-                console.log(`workflow: ${flow.flowId}, task: ${task.taskId}, nothing happened`);
+                console.log('Controller#executeAction: unknown action ${action.action}');
                 break;
             }
+        } else {
+            console.log('Controller#executeAction: null action');
         }
     }
 

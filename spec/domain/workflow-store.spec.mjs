@@ -1,5 +1,5 @@
 
-import { JsonWorkflowStore } from '../../fore/domain/index.mjs';
+import { JsonWorkflowStore } from '../../fore/drivers/node/workflow-store.mjs';
 
 describe('usecases', () => {
 

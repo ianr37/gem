@@ -1,8 +1,9 @@
 
 import { TestTaskFactory } from '../testing/task-factory.mjs';
+import { JsonWorkflowStore } from '../../fore/drivers/node/workflow-store.mjs';
 
 import { Workflow, WorkflowFactory, WorkflowParameterFactory, WorkflowTaskFactory,
-         WorkflowStore, JsonWorkflowStore } from '../../fore/domain/index.mjs';
+         WorkflowStore } from '../../fore/domain/index.mjs';
 
 describe('workflow factory', () => {
 
