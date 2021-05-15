@@ -28,8 +28,8 @@ describe('controller', () => {
         expect(controller instanceof Controller).toBeTrue();
     });
 
-    it('should be able to start the home workflow', () => {
-        const action = new DriverAction(null, 'start workflow', {name: 'home'});
+    it('should be able to start a workflow', () => {
+        const action = new DriverAction(null, 'start workflow', {name: 'start-test'});
         expect(controller.activeWorkflows.size).toEqual(0);
         controller.executeAction(action);
         expect(controller.activeWorkflows.size).toEqual(1);

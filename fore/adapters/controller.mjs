@@ -12,6 +12,7 @@ export class Controller {
         const workflow = this.workflowFactory.createWorkflow(name);
         if (workflow) {
             this.activeWorkflows.set(workflow.wfid, workflow);
+            workflow.start(this.presenter);
         } else {
             console.log(`Controller#startWorkflow: unknown workflow ${name}`);
         }

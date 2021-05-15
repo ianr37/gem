@@ -1,12 +1,15 @@
 [
-    {"home":
+    {"start-test":
         {
-            "parameters": [],
-            "tasks": [
-                {"taskName": "Home", "taskClass": "BrowserDisplayTask", "fields": []}
+            "parameters": [
+                {"name": "p1", "storageType": "number", "value": 0},
+                {"name": "p2", "storageType": "number", "value": 1}
             ],
-            "fsm": [
-                {"step": "start", "task": "Home", "nextMap": {"all": "start"}}
+            "tasks": [
+                {"taskName": "SetParameter", "taskClass": "SetParameter", "fields": ["p1", "p2"]}
+            ],
+            "steps": [
+                {"stepName": "$start", "task": "SetParameter"}
             ]
         }
     },
@@ -48,11 +51,11 @@
                     ]
                 }
             ],
-            "fsm": [
-                {"step": "$start", "task": "Enter User ID", "nextMap": {"ok": "tx"}},
-                {"step": "tx", "task": "Request Tokens", "nextMap": {"ok": "rx"}},
-                {"step": "rx", "task": "Receive Tokens", "nextMap": {"ok": "store"}},
-                {"step": "store", "task": "Store Tokens and Profile", "nextMap": {"ok": "$done"}}
+            "steps": [
+                {"stepName": "$start", "task": "Enter User ID", "next": {"ok": "tx"}},
+                {"stepName": "tx", "task": "Request Tokens", "next": {"ok": "rx"}},
+                {"stepName": "rx", "task": "Receive Tokens", "next": {"ok": "store"}},
+                {"stepName": "store", "task": "Store Tokens and Profile", "next": {"ok": "$done"}}
             ]
         }
     }

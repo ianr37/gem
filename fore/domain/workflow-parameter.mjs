@@ -1,26 +1,4 @@
 
-export class Workflow {
-
-    constructor(name, presenter) {
-        this.flowId = Math.round(Math.random() * 2**64);
-        this.name = name;
-        this.presenter = presenter;
-        this.step = 0;
-        this.parameters = new Map();
-        this.tasks = new Map();
-    }
-
-    executeTask(action) {
-    }
-
-    respondToAction(action) {
-    }
-
-    start(presenter) {
-    }
-
-}
-
 const storageTypeDefaults = new Map([['string', ''], ['number', 0], ['boolean', false], ['object', null] ]);
 
 export class WorkflowParameter {
@@ -51,17 +29,13 @@ export class WorkflowParameter {
 
 }
 
-export class WorkflowTask {
+export class WorkflowParameterFactory {
 
-    constructor(name, workflowId) {
-        this.taskId = Math.round(Math.random() * 2**64);
-        this.name = name;
-        this.flowId = workflowId;
+    constructor() {
     }
 
-    execute(workflow) {
-        throw Error('execute method not yet implemented');
+    createParameter(x) {
+        return new WorkflowParameter(x);
     }
 
 }
-
