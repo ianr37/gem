@@ -6,6 +6,8 @@ export class Controller {
         this.presenter = presenter;
         this.activeWorkflows = new Map();
         this.activeWorkflowTasks = new Map();
+        this.keepFinishedWorkflow = false;
+        this.finishedWorkflows = [];
     }
 
     startWorkflow(name) {
@@ -24,6 +26,7 @@ export class Controller {
             case 'start workflow':
                 this.startWorkflow(action.parameters.name);
                 break;
+
             default:
                 console.log('Controller#executeAction: unknown action ${action.action}');
                 break;

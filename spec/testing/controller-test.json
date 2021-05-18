@@ -6,10 +6,25 @@
                 {"name": "p2", "storageType": "number", "value": 1}
             ],
             "tasks": [
-                {"taskName": "SetParameter", "taskClass": "SetParameter", "fields": ["p1", "p2"]}
+                {"taskName": "set", "taskClass": "SetParameter", "fields": ["p1", "p2"]}
             ],
             "steps": [
-                {"stepName": "$start", "task": "SetParameter"}
+                {"stepName": "$start", "taskName": "set"}
+            ]
+        }
+    },
+
+    {"async-test":
+        {
+            "parameters": [
+                {"name": "url", "storageType": "string", "value": "https://localhost.dev"},
+                {"name": "payload", "storageType": "object", "value": {"command": "echo", "value": "test"}}
+            ],
+            "tasks": [
+                {"taskName": "tx", "taskClass": "TxRequest", "fields": ["url", "payload"]}
+            ],
+            "steps": [
+                {"stepName": "$start", "taskName": "tx"}
             ]
         }
     },
@@ -30,20 +45,20 @@
                         {"parameter": "passPhrase", "label": "Pass Phrase", "displayType": "password"}
                     ]
                 },
-                {"name": "Request Tokens", "taskClass": "BrowserTxRequestTask", "url": "/api/login",
+                {"taskName": "Request Tokens", "taskClass": "BrowserTxRequestTask", "url": "/api/login",
                     "parameters": [
                         {"parameter": "userName", "alias": "userName"},
                         {"parameter": "passPhrase", "alias": "passPhrase"}
                     ]
                 },
-                {"name": "Receive Tokens", "taskClass": "BrowserRxResponsetask",
+                {"taskName": "Receive Tokens", "taskClass": "BrowserRxResponsetask",
                     "parameters": [
                         {"parameter": "accessToken", "alias": "accessToken"},
                         {"parameter": "refreshToken", "alias": "refreshToken"},
                         {"parameter": "userProfile", "alias": "userProfile"}
                     ]
                 },
-                {"name": "Store Tokens and Profile", "taskClass": "BrowserStoreTask",
+                {"taskName": "Store Tokens and Profile", "taskClass": "BrowserStoreTask",
                     "parameters": [
                         {"parameter": "accessToken", "alias": "accessToken"},
                         {"parameter": "refreshToken", "alias": "refreshToken"},
@@ -52,10 +67,10 @@
                 }
             ],
             "steps": [
-                {"stepName": "$start", "task": "Enter User ID", "next": {"ok": "tx"}},
-                {"stepName": "tx", "task": "Request Tokens", "next": {"ok": "rx"}},
-                {"stepName": "rx", "task": "Receive Tokens", "next": {"ok": "store"}},
-                {"stepName": "store", "task": "Store Tokens and Profile", "next": {"ok": "$done"}}
+                {"stepName": "$start", "taskName": "Enter User ID", "next": {"ok": "tx"}},
+                {"stepName": "tx", "taskName": "Request Tokens", "next": {"ok": "rx"}},
+                {"stepName": "rx", "taskName": "Receive Tokens", "next": {"ok": "store"}},
+                {"stepName": "store", "taskName": "Store Tokens and Profile", "next": {"ok": "$done"}}
             ]
         }
     }

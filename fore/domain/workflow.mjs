@@ -25,19 +25,34 @@ export class Workflow {
         }
     }
 
-    start() {
-        this.stepName = '$start';
+    execute() {
         while (this.stepName) {
             const step = this.steps.get(this.stepName);
-            const definition = this.taskDefinitions.get(step.task);
+            const definition = this.taskDefinitions.get(step.taskName);
             const task = this.taskFactory.createTask(definition.name, definition.taskClass);
             const status = task.execute()
+            switch (status.state) {
+                case 'ok':
+                    console.log(`succeeded, result is a ${typeof status.result}`);
+                    break;
+                case 'fail':
+                    console.log(`failed, message is ${status.message}`);
+                    break;
+                default:
+                    console.log(`unknown status ${status.state}`);
+                    break;
+            }
             if ('next' in status) {
                 this.stepName = this.steps.get(status.next);
             } else {
                 break;
             }
         }
+    }
+
+    start() {
+        this.stepName = '$start';
+        this.execute();
     }
 
     respondToAction(action) {
