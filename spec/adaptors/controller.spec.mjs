@@ -28,11 +28,43 @@ describe('controller', () => {
         expect(controller instanceof Controller).toBeTrue();
     });
 
-    it('should be able to start a workflow', () => {
-        const action = new DriverAction(null, 'start workflow', {name: 'start-test'});
+    it('should be able to run a workflow that does not pause', () => {
+        const action = new DriverAction(null, 'run-workflow', {name: 'run-test'});
         expect(controller.activeWorkflows.size).toEqual(0);
+        expect(controller.finishedWorkflows.size).toEqual(0);
         controller.executeAction(action);
-        expect(controller.activeWorkflows.size).toEqual(1);
+        expect(controller.activeWorkflows.size).toEqual(0);
+        expect(controller.finishedWorkflows.size).toEqual(0);
+    });
+
+    it('should be able to run a workflow that does not pause in keep mode', () => {
+        controller.keepFinishedWorkflows = true;
+        const action = new DriverAction(null, 'run-workflow', {name: 'run-test'});
+        expect(controller.activeWorkflows.size).toEqual(0);
+        expect(controller.finishedWorkflows.size).toEqual(0);
+        controller.executeAction(action);
+        expect(controller.activeWorkflows.size).toEqual(0);
+        expect(controller.finishedWorkflows.size).toEqual(1);
+    });
+
+    it('should be able to run a workflow that pauses', () => {
+        controller.keepFinishedWorkflows = false;
+        const action = new DriverAction(null, 'run-workflow', {name: 'pause-test'});
+        expect(controller.activeWorkflows.size).toEqual(0);
+        expect(controller.finishedWorkflows.size).toEqual(0);
+        controller.executeAction(action);
+        expect(controller.activeWorkflows.size).toEqual(0);
+        expect(controller.finishedWorkflows.size).toEqual(0);
+    });
+
+    it('should be able to run a workflow that pauses in keep mode', () => {
+        controller.keepFinishedWorkflows = true;
+        const action = new DriverAction(null, 'run-workflow', {name: 'pause-test'});
+        expect(controller.activeWorkflows.size).toEqual(0);
+        expect(controller.finishedWorkflows.size).toEqual(0);
+        controller.executeAction(action);
+        expect(controller.activeWorkflows.size).toEqual(0);
+        expect(controller.finishedWorkflows.size).toEqual(0);
     });
 
 });

@@ -1,4 +1,14 @@
 
+export class WorklowStepStatus {
+    
+    constructor(state, message) {
+        this.state = state || 'ok';
+        this.message = message || 'it worked';
+        this.nextStep = null;
+    }
+
+}
+
 export class Workflow {
 
     constructor(name, definition, parameterFactory, taskFactory, presenter) {
@@ -25,34 +35,29 @@ export class Workflow {
         }
     }
 
-    execute() {
+    logStepStatus (step, status) {
+        console.log(`${step}: ${status.state} - ${status.message}`);
+    }
+
+    run() {
         while (this.stepName) {
             const step = this.steps.get(this.stepName);
             const definition = this.taskDefinitions.get(step.taskName);
             const task = this.taskFactory.createTask(definition.name, definition.taskClass);
-            const status = task.execute()
-            switch (status.state) {
-                case 'ok':
-                    console.log(`succeeded, result is a ${typeof status.result}`);
-                    break;
-                case 'fail':
-                    console.log(`failed, message is ${status.message}`);
-                    break;
-                default:
-                    console.log(`unknown status ${status.state}`);
-                    break;
-            }
-            if ('next' in status) {
-                this.stepName = this.steps.get(status.next);
+            const status = task.run();
+            this.logStepStatus(status);
+            if (status.state == 'ok' && status.next) {
+                this.stepName = this.steps.get(status.nextStep);
             } else {
                 break;
             }
         }
+        return status;
     }
 
     start() {
         this.stepName = '$start';
-        this.execute();
+        this.run();
     }
 
     respondToAction(action) {
