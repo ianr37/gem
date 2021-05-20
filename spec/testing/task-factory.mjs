@@ -5,6 +5,8 @@ import * as tasks from './tasks/index.mjs';
 const knownTasks = new Map([
     ['Display', tasks.Display],
     ['Done', tasks.Done],
+    ['PauseTest', tasks.PauseTest],
+    ['RunTest', tasks.RunTest],
     ['RxResponse', tasks.RxResponse],
     ['SetParameter', tasks.SetParameter],
     ['Store', tasks.Store],

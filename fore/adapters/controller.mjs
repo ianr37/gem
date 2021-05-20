@@ -7,11 +7,12 @@ export class Controller {
         this.activeWorkflows = new Map();
         this.activeWorkflowTasks = new Map();
         this.keepFinishedWorkflows = false;
-        this.finishedWorkflows = [];
-        this.pausedWorkflows = [];
+        this.finishedWorkflows = new Map();
+        this.pausedWorkflows = new Map();
     }
 
     startWorkflow(name) {
+        console.log(`starting workflow ${name}`);
         const workflow = this.workflowFactory.createWorkflow(name);
         if (workflow) {
             this.activeWorkflows.set(workflow.wfid, workflow);
@@ -19,10 +20,13 @@ export class Controller {
         } else {
             console.log(`Controller#startWorkflow: unknown workflow ${name}`);
         }
+        return workflow;
     }
 
     runWorkflow(workflow) {
-        status = workflow.run(this.presenter);
+        console.log(`running workflow ${workflow.name}`);
+        const status = workflow.run(this.presenter);
+        console.log(`status is ${status.state}`);
         switch (status.state) {
             case 'ok':
                 if (this.keepFinishedWorkflows) {
@@ -46,12 +50,12 @@ export class Controller {
     executeAction(action) {
         if (action) {
             switch (action.action) {
-            case 'start-workflow':
+            case 'run-workflow':
                 this.startWorkflow(action.parameters.name);
                 break;
 
             default:
-                console.log('Controller#executeAction: unknown action ${action.action}');
+                console.log(`Controller#executeAction: unknown action ${action.action}`);
                 break;
             }
         } else {

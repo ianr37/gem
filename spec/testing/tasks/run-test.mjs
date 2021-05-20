@@ -1,9 +1,9 @@
 
 import { WorkflowTask, WorkflowStepStatus } from '../../../fore/domain/index.mjs';
 
-export class Runtest extends WorkflowTask {
+export class RunTest extends WorkflowTask {
 
-    execute() {
+    run() {
         return new WorkflowStepStatus();
     }
 }

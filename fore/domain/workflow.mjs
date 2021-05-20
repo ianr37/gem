@@ -1,5 +1,5 @@
 
-export class WorklowStepStatus {
+export class WorkflowStepStatus {
     
     constructor(state, message) {
         this.state = state || 'ok';
@@ -40,11 +40,13 @@ export class Workflow {
     }
 
     run() {
+        console.log(`running ${this.name}, stepName is ${this.stepName}`);
+        let status = null;
         while (this.stepName) {
             const step = this.steps.get(this.stepName);
             const definition = this.taskDefinitions.get(step.taskName);
             const task = this.taskFactory.createTask(definition.name, definition.taskClass);
-            const status = task.run();
+            status = task.run();
             this.logStepStatus(status);
             if (status.state == 'ok' && status.next) {
                 this.stepName = this.steps.get(status.nextStep);
@@ -55,7 +57,7 @@ export class Workflow {
         return status;
     }
 
-    start() {
+    start(presenter) {
         this.stepName = '$start';
         this.run();
     }

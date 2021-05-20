@@ -7,7 +7,7 @@ export class WorkflowTask {
         this.flowId = workflowId;
     }
 
-    execute(workflow) {
+    run(workflow) {
         throw Error('execute method not yet implemented');
     }
 
