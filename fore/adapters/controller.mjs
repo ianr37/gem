@@ -12,10 +12,11 @@ export class Controller {
     }
 
     startWorkflow(name) {
-        console.log(`starting workflow ${name}`);
+        console.log(`controller: starting workflow ${name}`);
         const workflow = this.workflowFactory.createWorkflow(name);
         if (workflow) {
             this.activeWorkflows.set(workflow.wfid, workflow);
+            workflow.stepName = '$start';
             this.runWorkflow(workflow);
         } else {
             console.log(`Controller#startWorkflow: unknown workflow ${name}`);
@@ -24,9 +25,9 @@ export class Controller {
     }
 
     runWorkflow(workflow) {
-        console.log(`running workflow ${workflow.name}`);
+        console.log(`controller: running workflow ${workflow.name}`);
         const status = workflow.run(this.presenter);
-        console.log(`status is ${status.state}`);
+        console.log(`controller: run status is ${status.state}`);
         switch (status.state) {
             case 'ok':
                 if (this.keepFinishedWorkflows) {

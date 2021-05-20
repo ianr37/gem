@@ -11,11 +11,10 @@ export class WorkflowStepStatus {
 
 export class Workflow {
 
-    constructor(name, definition, parameterFactory, taskFactory, presenter) {
+    constructor(name, factory, presenter) {
         this.flowId = Math.round(Math.random() * 2**64);
         this.name = name;
-        this.parameterFactory = parameterFactory;
-        this.taskFactory = taskFactory;
+        this.factory = factory;
         this.presenter = presenter;
         this.stepName = null;
         this.parameters = new Map();
@@ -40,9 +39,9 @@ export class Workflow {
     }
 
     run() {
-        console.log(`running ${this.name}, stepName is ${this.stepName}`);
         let status = null;
         while (this.stepName) {
+            console.log(`workflow: ${this.name}, stepName: ${this.stepName}`);
             const step = this.steps.get(this.stepName);
             const definition = this.taskDefinitions.get(step.taskName);
             const task = this.taskFactory.createTask(definition.name, definition.taskClass);
