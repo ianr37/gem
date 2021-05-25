@@ -1,59 +1,44 @@
 [
-    {"home":
-        {
-            "parameters": [],
-            "tasks": [
-                {"taskName": "Home", "taskClass": "BrowserDisplayTask", "fields": []}
-            ],
-            "fsm": [
-                {"step": "start", "task": "Home", "nextMap": {"all": "start"}}
-            ]
-        }
+    {
+        "name": "wf1",
+        "parameters": [
+            {"name": "p1", "storage": "string"},
+            {"name": "p2", "storage": "number"},
+            {"name": "p3", "storage": "boolean"},
+            {"name": "p4", "storage": "object"}
+        ],
+        "tasks": [
+            {"name": "t1", "builder": "RunTest", "fields": ["p1", "p3"]},
+            {"name": "t2", "builder": "PauseTest", "fields": ["p2", "p4"]}
+        ],
+        "steps": [
+            {"name": "$start", "task": "t1", "jumps": [{"state": "ok", "target": "step2"}]},
+            {"name": "step2", "task": "t2", "jumps": [{"state": "ok", "target": "$done"}]}
+        ]
     },
 
-    {"login":
-        {
-            "parameters": [
-                {"name": "userName", "storageType": "string"},
-                {"name": "passPhrase", "storageType": "string"},
-                {"name": "accessToken", "storageType": "string"},
-                {"name": "refreshToken", "storageType": "string"},
-                {"name": "userProfile", "storageType": "UserProfile"}
-            ],
-            "tasks": [
-                {"taskName": "Enter User ID", "taskClass": "BrowserDisplayTask",
-                    "fields": [
-                        {"parameter": "userName", "label": "User Name", "displayType": "text"},
-                        {"parameter": "passPhrase", "label": "Pass Phrase", "displayType": "password"}
-                    ]
-                },
-                {"name": "Request Tokens", "taskClass": "BrowserTxRequestTask", "url": "/api/login",
-                    "parameters": [
-                        {"parameter": "userName", "alias": "userName"},
-                        {"parameter": "passPhrase", "alias": "passPhrase"}
-                    ]
-                },
-                {"name": "Receive Tokens", "taskClass": "BrowserRxResponsetask",
-                    "parameters": [
-                        {"parameter": "accessToken", "alias": "accessToken"},
-                        {"parameter": "refreshToken", "alias": "refreshToken"},
-                        {"parameter": "userProfile", "alias": "userProfile"}
-                    ]
-                },
-                {"name": "Store Tokens and Profile", "taskClass": "BrowserStoreTask",
-                    "parameters": [
-                        {"parameter": "accessToken", "alias": "accessToken"},
-                        {"parameter": "refreshToken", "alias": "refreshToken"},
-                        {"parameter": "userProfile", "alias": "userProfile"}
-                    ]
-                }
-            ],
-            "fsm": [
-                {"step": "$start", "task": "Enter User ID", "nextMap": {"ok": "tx"}},
-                {"step": "tx", "task": "Request Tokens", "nextMap": {"ok": "rx"}},
-                {"step": "rx", "task": "Receive Tokens", "nextMap": {"ok": "store"}},
-                {"step": "store", "task": "Store Tokens and Profile", "nextMap": {"ok": "$done"}}
-            ]
-        }
+    {
+        "name": "run-test",
+        "parameters": [ ],
+        "tasks": [
+            {"name": "run", "builder": "RunTest", "fields": [ ]}
+        ],
+        "steps": [
+            {"name": "$start", "task": "run", "jumps": [{"state": "ok", "target": "$done"}]}
+        ]
+    },
+
+    {
+        "name": "pause-test",
+        "parameters": [ ],
+        "tasks": [
+            {"name": "pause", "builder": "PauseTest", "fields": [ ]},
+            {"name": "run", "builder": "RunTest", "fields": [ ]}
+        ],
+        "steps": [
+            {"name": "$start", "task": "pause", "jumps": [{"state": "ok", "target": "resume"}]},
+            {"name": "resume", "task": "run", "jumps": [{"state": "ok", "target": "$done"}]}
+        ]
     }
+
 ]

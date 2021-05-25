@@ -1,31 +1,15 @@
 
 export class WorkflowTask {
 
-    constructor(name, workflowId) {
+    constructor(flowId, name, fields) {
         this.taskId = Math.round(Math.random() * 2**64);
+        this.flowId = flowId;
         this.name = name;
-        this.flowId = workflowId;
+        this.fields = fields;
     }
 
     run(workflow) {
         throw Error('execute method not yet implemented');
-    }
-
-}
-
-export class WorkflowTaskFactory {
-
-    constructor(knownTasks) {
-        this.knownTasks = knownTasks;
-    }
-
-    createTask(name, taskType) {
-        let result = null;
-        if (this.knownTasks.has(taskType)) {
-            const builder = this.knownTasks.get(taskType);
-            result = new builder(name);
-        }
-        return result;
     }
 
 }

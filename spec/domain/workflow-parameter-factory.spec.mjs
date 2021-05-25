@@ -57,7 +57,7 @@ describe('ParameterFactory', () => {
 
     it('should not accept an unrecognised storage type', () => {
         const f = () => {
-            return factory.createParameter({name: 'foo', storageType: 'bar'});
+            return factory.createParameter({name: 'foo', storage: 'bar'});
         }
         expect(f).toThrowError(Error, 'Unrecognised storage type');
     });

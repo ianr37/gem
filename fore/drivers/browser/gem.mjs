@@ -1,9 +1,9 @@
 
-import { WorkflowFactory, WorkflowParameterFactory } from '../../domain/index.mjs';
+import { WorkflowFactory, WorkflowParameterFactory, WorkflowStepfactory } from '../../domain/index.mjs';
 import { Controller, Presenter } from '../../adapters/index.mjs';
 
 import { JsonWorkflowStore } from './workflow-store.mjs';
-import { BrowserWorkflowTaskFactory } from './workflow-task-factory.mjs';
+import { taskBuilders } from './workflow-task-builders.mjs';
 import { GemRoot } from './components/index.mjs';
 import * as tasks from './tasks/index.mjs';
 
@@ -16,14 +16,13 @@ document.body.appendChild(root);
 
 const store = new JsonWorkflowStore('./workflows.json');
 const parameterFactory = new WorkflowParameterFactory();
-const taskFactory = new BrowserWorkflowTaskFactory();
-const wfFactory = new WorkflowFactory(store, parameterFactory, taskFactory);
+const stepFactory = new WorkflowStepFactory();
+const wfFactory = new WorkflowFactory(parameterFactory, taskBuilders, stepFactory);
 
 const presenter = new Presenter(root);
 
 const controller = new Controller(workflowFactory, presenter);
 root.controller = controller;
 
-const startHomeAction = new DriverAction(null, 'start workflow', ['home']);
-controller.executeAction(startHomeAction);
+controller.executeAction(new DriverAction(null, 'run-workflow', {name: 'home'}));
 

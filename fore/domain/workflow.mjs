@@ -4,53 +4,73 @@ export class WorkflowStepStatus {
     constructor(state, message) {
         this.state = state || 'ok';
         this.message = message || 'it worked';
-        this.nextStep = null;
     }
 
 }
 
 export class Workflow {
 
-    constructor(name, factory, presenter) {
+    constructor(definition, factory) {
         this.flowId = Math.round(Math.random() * 2**64);
-        this.name = name;
+        this.definition = definition;
         this.factory = factory;
-        this.presenter = presenter;
+        this.name = definition.name;
+        this.presenter = null;
         this.stepName = null;
         this.parameters = new Map();
-        for (const parameterDefinition in definition.parameters) {
-            const parameter = parameterFactory.createParameter(definition.parameters[parameterDefinition]);
-            this.parameters.set(parameter.name, parameter);
-        }
-        this.taskDefinitions = new Map();
-        for (const index in definition.tasks) {
-            const task = definition.tasks[index];
-            this.taskDefinitions.set(task.taskName, task);
-        }
+        this.taskTemplates = new Map();
         this.steps = new Map();
-        for (const index in definition.steps) {
-            const step = definition.steps[index];
-            this.steps.set(step.stepName, step);
-        }
+        this.log = [];
     }
 
+    addParameter(parameter) {
+        this.parameters.set(parameter.name, parameter);
+    }
+
+    deleteParameter(name) {
+        this.parameters.delete(name);
+    }
+
+    addStep(step) {
+        this.steps.set(step.name, step);
+    }
+
+    deleteStep(name) {
+        this.steps.delete(name);
+    }
+
+    addTaskTemplate(template) {
+        this.taskTemplates.set(template.name, template);
+    }
+
+    deleteTaskTemplate(name) {
+        this.taskTemplates.delete(name);
+    }
+
+
     logStepStatus (step, status) {
-        console.log(`${step}: ${status.state} - ${status.message}`);
+        this.log.push(`${step}: ${status.state} - ${status.message}`);
     }
 
     run() {
         let status = null;
         while (this.stepName) {
-            console.log(`workflow: ${this.name}, stepName: ${this.stepName}`);
             const step = this.steps.get(this.stepName);
-            const definition = this.taskDefinitions.get(step.taskName);
-            const task = this.taskFactory.createTask(definition.name, definition.taskClass);
+            const template = this.taskTemplates.get(step.taskName);
+            const task = new template.builder(this.flowId, template.name, template.fields);
             status = task.run();
-            this.logStepStatus(status);
-            if (status.state == 'ok' && status.next) {
-                this.stepName = this.steps.get(status.nextStep);
-            } else {
-                break;
+            this.logStepStatus(step.name, status);
+            const nextStep = step.jumps.get(status.state) || null;
+            switch (nextStep) {
+                case '$done':
+                    this.stepName = null;
+                    break;
+                case '$fail':
+                    this.stepName = null;
+                    break;
+                default:
+                    this.stepName = nextStep;
+                    break;
             }
         }
         return status;
@@ -68,19 +88,31 @@ export class Workflow {
 
 export class WorkflowFactory {
 
-    constructor(store, parameterFactory, taskFactory) {
-        this.store = store;
+    constructor(parameterFactory, taskBuilders, stepFactory) {
         this.parameterFactory = parameterFactory;
-        this.taskFactory = taskFactory;
+        this.taskBuilders = taskBuilders;
+        this.stepFactory = stepFactory;
     }
 
-    createWorkflow(name) {
-        let workflow = null;
-        const definition = this.store.getDefinition(name);
-        if (definition) {
-            workflow = new Workflow(name, definition, this.parameterFactory, this.taskFactory);
+    createWorkflow(definition) {
+        const workflow = new Workflow(definition, this);
+        for (const [i, parameterDefinition] of definition.parameters.entries()) {
+            const parameter = this.parameterFactory.createParameter(parameterDefinition);
+            workflow.addParameter(parameter);
+        }
+        for (const [i, taskDefinition] of definition.tasks.entries()) {
+            workflow.addTaskTemplate({
+                name: taskDefinition.name,
+                builder: this.taskBuilders.get(taskDefinition.builder),
+                fields: taskDefinition.fields
+            });
+        }
+        for (const [i, stepDefinition] of definition.steps.entries()) {
+            const step = this.stepFactory.createStep(stepDefinition);
+            workflow.addStep(step);
         }
         return workflow;
     }
 
 }
+

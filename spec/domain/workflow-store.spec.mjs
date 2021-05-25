@@ -1,18 +1,21 @@
 
-import { JsonWorkflowStore } from '../../fore/drivers/node/workflow-store.mjs';
+import { readFileSync } from 'fs';
+
+import { JsonWorkflowStore } from '../../fore/drivers/browser/workflow-store.mjs';
 
 describe('usecases', () => {
 
     let store = null;
-    const jsonFile = './spec/testing/store-test.json';
+    const jsonFile = './spec/testing/workflows.json';
 
     beforeAll(() => {
-        store = new JsonWorkflowStore(jsonFile);
+        const jsonString = readFileSync(jsonFile);
+        store = new JsonWorkflowStore(jsonString);
         expect(store instanceof JsonWorkflowStore).toBeTrue();
     });
 
     it('should be able to return a definition', () => {
-        const definition = store.getDefinition('test1');
+        const definition = store.getDefinition('wf1');
         expect(definition).toBeTruthy();
     });
 

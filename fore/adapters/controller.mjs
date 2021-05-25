@@ -1,7 +1,8 @@
 
 export class Controller {
 
-    constructor(workflowFactory, presenter) {
+    constructor(workflowStore, workflowFactory, presenter) {
+        this.workflowStore = workflowStore;
         this.workflowFactory = workflowFactory;
         this.presenter = presenter;
         this.activeWorkflows = new Map();
@@ -12,22 +13,36 @@ export class Controller {
     }
 
     startWorkflow(name) {
-        console.log(`controller: starting workflow ${name}`);
-        const workflow = this.workflowFactory.createWorkflow(name);
-        if (workflow) {
-            this.activeWorkflows.set(workflow.wfid, workflow);
-            workflow.stepName = '$start';
+        let result = null;
+        const definition = this.workflowStore.getDefinition(name);
+        if (definition) {
+            const workflow = this.workflowFactory.createWorkflow(definition);
+            if (workflow) {
+                result = workflow;
+                this.activeWorkflows.set(workflow.flowId, workflow);
+                workflow.stepName = '$start';
+                this.runWorkflow(workflow);
+            } else {
+                console.log(`Controller#startWorkflow: unknown workflow ${name}`);
+            }
+        }
+        return result;
+    }
+
+    resumeWorkflow(flowId) {
+        let workflow = null;
+        if (this.pausedWorkflows.has(flowId)) {
+            workflow = this.pausedWorkflows.get(flowId);
+            this.pausedWorkflows.delete(flowId);
             this.runWorkflow(workflow);
         } else {
-            console.log(`Controller#startWorkflow: unknown workflow ${name}`);
+            console.log(`Controller#resumeWorkflow: unknown workflowId ${flowId}`);
         }
         return workflow;
     }
 
     runWorkflow(workflow) {
-        console.log(`controller: running workflow ${workflow.name}`);
         const status = workflow.run(this.presenter);
-        console.log(`controller: run status is ${status.state}`);
         switch (status.state) {
             case 'ok':
                 if (this.keepFinishedWorkflows) {
@@ -49,12 +64,15 @@ export class Controller {
     }
 
     executeAction(action) {
+        let flowId = null;
         if (action) {
             switch (action.action) {
-            case 'run-workflow':
-                this.startWorkflow(action.parameters.name);
+            case 'start-workflow':
+                flowId = this.startWorkflow(action.parameters.name);
                 break;
-
+            case 'resume-workflow':
+                flowId = this.resumeWorkflow(action.parameters.name);
+                break;
             default:
                 console.log(`Controller#executeAction: unknown action ${action.action}`);
                 break;
@@ -62,6 +80,7 @@ export class Controller {
         } else {
             console.log('Controller#executeAction: null action');
         }
+        return flowId;
     }
 
 }
