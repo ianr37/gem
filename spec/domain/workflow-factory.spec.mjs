@@ -5,7 +5,7 @@ import { Workflow, WorkflowFactory, WorkflowParameterFactory, WorkflowStepFactor
          WorkflowStore } from '../../fore/domain/index.mjs';
 import { JsonWorkflowStore } from '../../fore/drivers/browser/workflow-store.mjs';
 
-import { taskBuilders } from '../testing/workflow-task-builders.mjs';
+import { taskBuilders } from '../testing/index.mjs';
 
 describe('workflow factory', () => {
 

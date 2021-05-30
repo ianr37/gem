@@ -1,9 +1,17 @@
 
-import { WorkflowTask, WorkflowStepStatus } from '../../../fore/domain/index.mjs';
+import { WorkflowTask, WorkflowStepStatus, DriverAction } from '../../../fore/domain/index.mjs';
 
 export class PauseTest extends WorkflowTask {
 
-    run() {
+    constructor(workflow, name, fields) {
+        super(workflow, name, fields);
+    }
+
+    run(presenter) {
+        setTimeout(() => {
+            const resume = new DriverAction(null, 'resume-workflow', {flowId: this.flowId});
+
+        });
         return new WorkflowStepStatus('pause', 'wait for data');
     }
 

@@ -5,7 +5,13 @@ import { ApiGateway } from '../apigw.mjs';
 
 export class TxRequest extends WorkflowTask {
 
-    execute() {
+    constructor(workflow, name, fields) {
+        super(workflow, name, fields);
     }
+
+    run(presenter) {
+        super.run(presenter);
+    }
+
 }
 

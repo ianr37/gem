@@ -52,13 +52,13 @@ export class Workflow {
         this.log.push(`${step}: ${status.state} - ${status.message}`);
     }
 
-    run() {
+    run(presenter) {
         let status = null;
         while (this.stepName) {
             const step = this.steps.get(this.stepName);
             const template = this.taskTemplates.get(step.taskName);
-            const task = new template.builder(this.flowId, template.name, template.fields);
-            status = task.run();
+            const task = new template.builder(this, template.name, template.fields);
+            status = task.run(presenter);
             this.logStepStatus(step.name, status);
             const nextStep = step.jumps.get(status.state) || null;
             switch (nextStep) {

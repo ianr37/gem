@@ -1,4 +1,6 @@
 
+import 'fs';
+
 import { WorkflowFactory, WorkflowParameterFactory, WorkflowStepfactory } from '../../domain/index.mjs';
 import { Controller, Presenter } from '../../adapters/index.mjs';
 
@@ -14,15 +16,17 @@ window.customElements.define('gem-root', GemRoot, {extends: 'div'});
 const root = document.createElement('div', {is: 'gem-root'});
 document.body.appendChild(root);
 
-const store = new JsonWorkflowStore('./workflows.json');
+const jsonString = fs.readFileSync('./workflows.json');
+workflowStore = new JsonWorkflowStore(jsonString);
 const parameterFactory = new WorkflowParameterFactory();
 const stepFactory = new WorkflowStepFactory();
-const wfFactory = new WorkflowFactory(parameterFactory, taskBuilders, stepFactory);
+const workflowFactory = new WorkflowFactory(parameterFactory, taskBuilders, stepFactory);
 
-const presenter = new Presenter(root);
-
-const controller = new Controller(workflowFactory, presenter);
+const controller = new Controller(workflowStore, workflowFactory);
 root.controller = controller;
+
+const presenter = new Presenter(controller, root);
+
 
 controller.executeAction(new DriverAction(null, 'run-workflow', {name: 'home'}));
 

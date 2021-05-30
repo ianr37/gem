@@ -1,14 +1,14 @@
 
 export class WorkflowTask {
 
-    constructor(flowId, name, fields) {
+    constructor(workflow, name, fields) {
         this.taskId = Math.round(Math.random() * 2**64);
-        this.flowId = flowId;
+        this.workflow = workflow;
         this.name = name;
         this.fields = fields;
     }
 
-    run(workflow) {
+    run(presenter) {
         throw Error('execute method not yet implemented');
     }
 

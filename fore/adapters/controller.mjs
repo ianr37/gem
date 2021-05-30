@@ -1,15 +1,36 @@
 
 export class Controller {
 
-    constructor(workflowStore, workflowFactory, presenter) {
+    constructor(workflowStore, workflowFactory) {
         this.workflowStore = workflowStore;
         this.workflowFactory = workflowFactory;
-        this.presenter = presenter;
+        this.presenter = null;
         this.activeWorkflows = new Map();
         this.activeWorkflowTasks = new Map();
         this.keepFinishedWorkflows = false;
         this.finishedWorkflows = new Map();
         this.pausedWorkflows = new Map();
+
+        this.executeAction = (action) => {
+            let flowId = null;
+            if (action) {
+                switch (action.action) {
+                case 'start-workflow':
+                    flowId = this.startWorkflow(action.parameters.name);
+                    break;
+                case 'resume-workflow':
+                    flowId = this.resumeWorkflow(action.parameters.name);
+                    break;
+                default:
+                    console.log(`Controller#executeAction: unknown action ${action.action}`);
+                    break;
+                }
+            } else {
+                console.log('Controller#executeAction: null action');
+            }
+            return flowId;
+        }
+
     }
 
     startWorkflow(name) {
@@ -62,26 +83,5 @@ export class Controller {
                 break;
         }
     }
-
-    executeAction(action) {
-        let flowId = null;
-        if (action) {
-            switch (action.action) {
-            case 'start-workflow':
-                flowId = this.startWorkflow(action.parameters.name);
-                break;
-            case 'resume-workflow':
-                flowId = this.resumeWorkflow(action.parameters.name);
-                break;
-            default:
-                console.log(`Controller#executeAction: unknown action ${action.action}`);
-                break;
-            }
-        } else {
-            console.log('Controller#executeAction: null action');
-        }
-        return flowId;
-    }
-
 }
 
