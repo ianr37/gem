@@ -1,12 +1,12 @@
 
 export class GemRoot {
 
-    constructor(callback) {
-        this.callback = callback;
+    constructor() {
+        this.controllerCallback = null;
     }
 
     fakeEvent(action) {
-        this.callback(action);
+        this.controllerCallback(action);
     }
 
 }

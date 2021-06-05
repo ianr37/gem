@@ -36,24 +36,20 @@ describe('controller', () => {
 
     it('should be able to run a workflow that does not pause', () => {
         expect(controller.activeWorkflows.size).toEqual(0);
-        expect(controller.pausedWorkflows.size).toEqual(0);
         expect(controller.finishedWorkflows.size).toEqual(0);
-        const action = new DriverAction(null, 'start-workflow', {name: 'run-test'});
+        const action = new DriverAction('start-workflow', {name: 'run-test'});
         const flowId = gemRoot.fakeEvent(action);
         expect(controller.activeWorkflows.size).toEqual(0);
-        expect(controller.pausedWorkflows.size).toEqual(0);
         expect(controller.finishedWorkflows.size).toEqual(0);
     });
 
     it('should be able to run a workflow that does not pause in keep mode', () => {
         controller.keepFinishedWorkflows = true;
         expect(controller.activeWorkflows.size).toEqual(0);
-        expect(controller.pausedWorkflows.size).toEqual(0);
         expect(controller.finishedWorkflows.size).toEqual(0);
-        const action = new DriverAction(null, 'start-workflow', {name: 'run-test'});
+        const action = new DriverAction('start-workflow', {name: 'run-test'});
         const flowId = gemRoot.fakeEvent(action);
         expect(controller.activeWorkflows.size).toEqual(0);
-        expect(controller.pausedWorkflows.size).toEqual(0);
         expect(controller.finishedWorkflows.size).toEqual(1);
     });
 

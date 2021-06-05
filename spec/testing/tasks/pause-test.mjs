@@ -7,12 +7,13 @@ export class PauseTest extends WorkflowTask {
         super(workflow, name, fields);
     }
 
-    run(presenter) {
-        setTimeout(() => {
-            const resume = new DriverAction(null, 'resume-workflow', {flowId: this.flowId});
-
-        });
-        return new WorkflowStepStatus('pause', 'wait for data');
+    run() {
+        const callBack = () => { 
+            const resume = new DriverAction('resume-workflow', {workflow: this.workflow, state: 'ok'});
+            this.workflow.actionCallback(resume);
+        };
+        setTimeout(callBack);
+        return new WorkflowStepStatus('paused', 'wait for data');
     }
 
     restart(data) {

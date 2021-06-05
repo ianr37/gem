@@ -1,6 +1,7 @@
 [
     {
         "name": "wf1",
+        "start": "step1",
         "parameters": [
             {"name": "p1", "storage": "string"},
             {"name": "p2", "storage": "number"},
@@ -12,32 +13,34 @@
             {"name": "t2", "builder": "PauseTest", "fields": ["p2", "p4"]}
         ],
         "steps": [
-            {"name": "$start", "task": "t1", "jumps": [{"state": "ok", "target": "step2"}]},
-            {"name": "step2", "task": "t2", "jumps": [{"state": "ok", "target": "$done"}]}
+            {"name": "step1", "task": "t1", "jumps": [{"state": "ok", "target": "step2"}]},
+            {"name": "step2", "task": "t2", "jumps": [{"state": "finished", "target": null}]}
         ]
     },
 
     {
         "name": "run-test",
+        "start": "step1",
         "parameters": [ ],
         "tasks": [
             {"name": "run", "builder": "RunTest", "fields": [ ]}
         ],
         "steps": [
-            {"name": "$start", "task": "run", "jumps": [{"state": "ok", "target": "$done"}]}
+            {"name": "$step1", "task": "run", "jumps": [{"state": "finished", "target": null}]}
         ]
     },
 
     {
         "name": "pause-test",
+        "start": "step1",
         "parameters": [ ],
         "tasks": [
             {"name": "pause", "builder": "PauseTest", "fields": [ ]},
             {"name": "run", "builder": "RunTest", "fields": [ ]}
         ],
         "steps": [
-            {"name": "$start", "task": "pause", "jumps": [{"state": "ok", "target": "resume"}]},
-            {"name": "resume", "task": "run", "jumps": [{"state": "ok", "target": "$done"}]}
+            {"name": "step1", "task": "pause", "jumps": [{"state": "ok", "target": "step2"}]},
+            {"name": "step2", "task": "run", "jumps": [{"state": "finished", "target": null}]}
         ]
     }
 

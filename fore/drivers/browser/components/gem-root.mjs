@@ -49,7 +49,7 @@ export class GemRoot extends HTMLDivElement {
     constructor()
     {
         super();
-        this.controller = null;
+        this.controllerCallback = null;
     }
 
     connectedCallback() {
@@ -66,7 +66,7 @@ export class GemRoot extends HTMLDivElement {
         if (this.controller) {
             const dataset = event.target.dataset;
             if (dataset) {
-                this.controller.executeAction(new Action(dataset.taskId, dataset.command, dataset.parameters));
+                this.controllerCallback(new Action(dataset.taskId, dataset.command, dataset.parameters));
             } else {
                 console.log('no dataset on target');
             }

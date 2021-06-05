@@ -1,21 +1,16 @@
 
-export class WorkflowStepStatus {
-    
-    constructor(state, message) {
-        this.state = state || 'ok';
-        this.message = message || 'it worked';
-    }
-
-}
+import { WorkflowStepStatus } from './workflow-step.mjs';
 
 export class Workflow {
 
-    constructor(definition, factory) {
+    constructor(definition, factory, actionCallback, presenter) {
         this.flowId = Math.round(Math.random() * 2**64);
+        this.state = 'created';
         this.definition = definition;
         this.factory = factory;
+        this.actionCallback = actionCallback;
+        this.presenter = presenter;
         this.name = definition.name;
-        this.presenter = null;
         this.stepName = null;
         this.parameters = new Map();
         this.taskTemplates = new Map();
@@ -47,41 +42,49 @@ export class Workflow {
         this.taskTemplates.delete(name);
     }
 
-
     logStepStatus (step, status) {
         this.log.push(`${step}: ${status.state} - ${status.message}`);
     }
 
-    run(presenter) {
-        let status = null;
-        while (this.stepName) {
+    execute() {
+        let outcome = null;
+        if (this.state == 'created') {
+            this.nextStep = this.definition.start;
+            this.state = 'running';
+        }
+        while (this.state != 'paused' && this.state != 'finished') {
             const step = this.steps.get(this.stepName);
-            const template = this.taskTemplates.get(step.taskName);
-            const task = new template.builder(this, template.name, template.fields);
-            status = task.run(presenter);
-            this.logStepStatus(step.name, status);
-            const nextStep = step.jumps.get(status.state) || null;
-            switch (nextStep) {
-                case '$done':
-                    this.stepName = null;
+            outcome = this._runTask(step);
+            switch (outcome.state) {
+                case 'paused':
+                    this.state = 'paused';
                     break;
-                case '$fail':
-                    this.stepName = null;
+                case 'failed':
+                    this.state = 'failed';
                     break;
                 default:
-                    this.stepName = nextStep;
+                    this.stepName = step.jumps.get(outcome.state);
+                    if (! this.stepName) {
+                        this.state = 'failed';
+                        outcome = new  WorkflowStepStatus('failed', `Unknown step [${outcome.state}]`);
+                    }
                     break;
             }
         }
-        return status;
+        return outcome;
     }
 
-    start(presenter) {
-        this.stepName = '$start';
-        this.run();
-    }
-
-    respondToAction(action) {
+    _runTask(step) {
+        let outcome = null;
+        try {
+            const template = this.taskTemplates.get(step.taskName);
+            const task = new template.builder(this, template.name, template.fields);
+            outcome = task.run();
+        } catch(ex) {
+            outcome = new WorkflowStepStatus('failed', ex);
+        }
+        this.logStepStatus(step.name, outcome);
+        return outcome;
     }
 
 }
@@ -94,8 +97,8 @@ export class WorkflowFactory {
         this.stepFactory = stepFactory;
     }
 
-    createWorkflow(definition) {
-        const workflow = new Workflow(definition, this);
+    createWorkflow(definition, actionCallback, presenter) {
+        const workflow = new Workflow(definition, this, actionCallback, presenter);
         for (const [i, parameterDefinition] of definition.parameters.entries()) {
             const parameter = this.parameterFactory.createParameter(parameterDefinition);
             workflow.addParameter(parameter);

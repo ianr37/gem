@@ -5,25 +5,33 @@ import { Workflow, WorkflowFactory, WorkflowParameterFactory, WorkflowStepFactor
          WorkflowStore } from '../../fore/domain/index.mjs';
 import { JsonWorkflowStore } from '../../fore/drivers/browser/workflow-store.mjs';
 
-import { taskBuilders } from '../testing/index.mjs';
+import { taskBuilders, GemRoot } from '../testing/index.mjs';
 
 describe('workflow factory', () => {
 
-    let workflow = null;
     const jsonFile = './spec/testing/workflows.json';
+    
+    let callback = null;
+    let factory = null;
+    let presenter = null;
+    let store = null;
+    let workflow = null;
 
     beforeAll(() => {
         const jsonString = readFileSync(jsonFile);
-        const store = new JsonWorkflowStore(jsonString);
+        store = new JsonWorkflowStore(jsonString);
         expect(store instanceof WorkflowStore).toBeTrue();
         const stepFactory = new WorkflowStepFactory();
         expect(stepFactory instanceof WorkflowStepFactory).toBeTrue();
         const parameterFactory = new WorkflowParameterFactory();
         expect(parameterFactory instanceof WorkflowParameterFactory).toBeTrue();
-        const factory = new WorkflowFactory(parameterFactory, taskBuilders, stepFactory);
+        factory = new WorkflowFactory(parameterFactory, taskBuilders, stepFactory);
         expect(factory instanceof WorkflowFactory).toBeTrue();
+    });
+
+    beforeEach(() => {
         const definition = store.getDefinition('wf1');
-        workflow = factory.createWorkflow(definition);
+        workflow = factory.createWorkflow(definition, callback, presenter);
     });
 
     it('should be able to return a workflow', () => {

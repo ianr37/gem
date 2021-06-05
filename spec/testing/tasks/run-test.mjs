@@ -7,7 +7,7 @@ export class RunTest extends WorkflowTask {
         super(workflow, name, fields);
     }
 
-    run(presenter) {
+    run() {
         return new WorkflowStepStatus();
     }
 }

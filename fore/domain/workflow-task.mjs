@@ -8,7 +8,7 @@ export class WorkflowTask {
         this.fields = fields;
     }
 
-    run(presenter) {
+    run() {
         throw Error('execute method not yet implemented');
     }
 
