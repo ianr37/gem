@@ -1,5 +1,5 @@
 
-import { WorkflowTask, WorkflowStepStatus, DriverAction } from '../../../fore/domain/index.mjs';
+import { WorkflowTask, DriverAction } from '../../../fore/domain/index.mjs';
 
 export class PauseTest extends WorkflowTask {
 
@@ -8,16 +8,13 @@ export class PauseTest extends WorkflowTask {
     }
 
     run() {
-        const callBack = () => { 
-            const resume = new DriverAction('resume-workflow', {workflow: this.workflow, state: 'ok'});
+        const callBack = () => {
+            const result =  {status: 'finished', rc: 0, msg: 'Succeeded'};
+            const resume = new DriverAction('resume-workflow', {workflow: this.workflow, result: result});
             this.workflow.actionCallback(resume);
         };
         setTimeout(callBack);
-        return new WorkflowStepStatus('paused', 'wait for data');
-    }
-
-    restart(data) {
-        return new WorkflowStepStatus();
+        return {status: 'paused', rc: 0, msg: 'Paused'};
     }
 
 }

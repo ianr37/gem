@@ -1,21 +1,18 @@
 
-import { WorkflowStepStatus } from './workflow-step.mjs';
-
 export class Workflow {
 
     constructor(definition, factory, actionCallback, presenter) {
         this.flowId = Math.round(Math.random() * 2**64);
-        this.state = 'created';
         this.definition = definition;
         this.factory = factory;
         this.actionCallback = actionCallback;
         this.presenter = presenter;
         this.name = definition.name;
-        this.stepName = null;
         this.parameters = new Map();
         this.taskTemplates = new Map();
         this.steps = new Map();
         this.log = [];
+        this.currentStep = null;
     }
 
     addParameter(parameter) {
@@ -34,6 +31,27 @@ export class Workflow {
         this.steps.delete(name);
     }
 
+    _getNextStep(result) {
+        let step = null;
+        const nameOfNextStep = this.currentStep.jumps.get(result.status);
+        if (nameOfNextStep) {
+            step = this._getStep(nameOfNextStep);
+        }
+        return step;
+    }
+
+    _getFirstStep() {
+        return this._getStep(this.definition.firstStep);
+    }
+
+    _getStep(name) {
+        const step = this.steps.get(name);
+        if (!step) {
+            throw new Error(`Unknown step ${name}`);
+        }
+        return step;
+    }
+
     addTaskTemplate(template) {
         this.taskTemplates.set(template.name, template);
     }
@@ -42,49 +60,50 @@ export class Workflow {
         this.taskTemplates.delete(name);
     }
 
-    logStepStatus (step, status) {
-        this.log.push(`${step}: ${status.state} - ${status.message}`);
+    logStepOutcome (step, outcome) {
+        this.log.push(`${step.name}: status: ${outcome.status}, rc: ${outcome.rc}, msg:  ${outcome.msg}`);
     }
 
-    execute() {
-        let outcome = null;
-        if (this.state == 'created') {
-            this.nextStep = this.definition.start;
-            this.state = 'running';
-        }
-        while (this.state != 'paused' && this.state != 'finished') {
-            const step = this.steps.get(this.stepName);
-            outcome = this._runTask(step);
-            switch (outcome.state) {
-                case 'paused':
-                    this.state = 'paused';
-                    break;
-                case 'failed':
-                    this.state = 'failed';
-                    break;
-                default:
-                    this.stepName = step.jumps.get(outcome.state);
-                    if (! this.stepName) {
-                        this.state = 'failed';
-                        outcome = new  WorkflowStepStatus('failed', `Unknown step [${outcome.state}]`);
+    execute(previousResult) {
+        let result = previousResult;
+        let goon = true;
+        do {
+            if (result) {
+                if (result.status == 'paused') {
+                    goon = false;
+                } else {
+                    this.logStepOutcome(this.currentStep, result);
+                    if (result.status == 'failed' || result.status == 'finished') {
+                        goon = false;
+                    } else {
+                        this.currentStep = this._getNextStep(result);
+                        if (!this.currentStep) {
+                            goon = false;
+
+                        }
                     }
-                    break;
+                }
+            } else {
+                this.currentStep = this._getFirstStep();
             }
-        }
-        return outcome;
+            if (goon) {
+                result = this._runTask();
+            }
+        } while (goon);
+        return result;
     }
 
-    _runTask(step) {
-        let outcome = null;
+    _runTask() {
+        let result = null;
         try {
-            const template = this.taskTemplates.get(step.taskName);
+            const template = this.taskTemplates.get(this.currentStep.taskName);
             const task = new template.builder(this, template.name, template.fields);
-            outcome = task.run();
+            /* TTD Pass the task a dictionary of workflow parameters keyed on the names it's expecting*/
+            result = task.run();
         } catch(ex) {
-            outcome = new WorkflowStepStatus('failed', ex);
+            result = {status: 'failed', rc: 0, msg: ex.message}
         }
-        this.logStepStatus(step.name, outcome);
-        return outcome;
+        return result;
     }
 
 }

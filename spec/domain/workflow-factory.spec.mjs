@@ -63,8 +63,8 @@ describe('workflow factory', () => {
         expect(workflow.presenter).toBeNull();
     });
 
-    it('the stepName should be null', () => {
-        expect(workflow.stepName).toBeNull();
+    it('the currentStep should be null', () => {
+        expect(workflow.currentStep).toBeNull();
     });
 
     it('the parameters Map should be populated', () => {

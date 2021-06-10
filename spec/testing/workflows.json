@@ -1,7 +1,7 @@
 [
     {
         "name": "wf1",
-        "start": "step1",
+        "firstStep": "step1",
         "parameters": [
             {"name": "p1", "storage": "string"},
             {"name": "p2", "storage": "number"},
@@ -20,19 +20,19 @@
 
     {
         "name": "run-test",
-        "start": "step1",
+        "firstStep": "step1",
         "parameters": [ ],
         "tasks": [
             {"name": "run", "builder": "RunTest", "fields": [ ]}
         ],
         "steps": [
-            {"name": "$step1", "task": "run", "jumps": [{"state": "finished", "target": null}]}
+            {"name": "step1", "task": "run", "jumps": [{"state": "finished", "target": null}]}
         ]
     },
 
     {
         "name": "pause-test",
-        "start": "step1",
+        "firstStep": "step1",
         "parameters": [ ],
         "tasks": [
             {"name": "pause", "builder": "PauseTest", "fields": [ ]},

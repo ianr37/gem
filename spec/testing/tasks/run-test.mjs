@@ -1,5 +1,5 @@
 
-import { WorkflowTask, WorkflowStepStatus } from '../../../fore/domain/index.mjs';
+import { WorkflowTask } from '../../../fore/domain/index.mjs';
 
 export class RunTest extends WorkflowTask {
 
@@ -8,7 +8,7 @@ export class RunTest extends WorkflowTask {
     }
 
     run() {
-        return new WorkflowStepStatus();
+        return {status: 'finished', rc: 0, msg: 'Succeeded'};
     }
 }
 

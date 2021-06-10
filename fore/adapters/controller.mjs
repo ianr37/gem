@@ -10,10 +10,6 @@ export class Controller {
         this.finishedWorkflows = new Map();
 
         this.executeAction = (action) => {
-            console.log(`\nController#executeAction [${action.action}]:`);
-            for (const k in action.parameters) {
-                console.log(`\tparameter ${k}: ${action.parameters[k]}`);
-            };
             switch (action.action) {
                 case 'start-workflow':
                     this.startWorkflow(action.parameters);
@@ -39,18 +35,17 @@ export class Controller {
             throw new Error(`Controller#startWorkflow: unknown workflow ${parameters.name}`);
         }
         this.activeWorkflows.set(workflow.flowId, workflow);
-        this.executeWorkflow(workflow, parameters);
+        this.executeWorkflow(workflow, null);
     }
 
     resumeWorkflow(parameters) {
-        const workflow = parameters.workflow;
-        this.executeWorkflow(workflow, parameters);
+        this.executeWorkflow(parameters.workflow, parameters.result);
     }
 
-    executeWorkflow(workflow, parameters) {
-        const status = workflow.execute();
-        switch (status.state) {
-            case 'pause':
+    executeWorkflow(workflow, previousOutcome) {
+        const result = workflow.execute(previousOutcome);
+        switch (result.status) {
+            case 'paused':
                 break;
             case 'finished':
                 if (this.keepFinishedWorkflows) {
@@ -58,12 +53,12 @@ export class Controller {
                 }
                 this.activeWorkflows.delete(workflow.flowId);
                 break;
-            case 'fail':
+            case 'failed':
                 this.finishedWorkflows.set(workflow.flowId, workflow);
                 this.activeWorkflows.delete(workflow.flowId);
                 break;
             default:
-                throw new Error(`Unknown step status "${status.state}"`);
+                throw new Error(`Unexpected step status "${result.state}"`);
                 break;
         }
     }

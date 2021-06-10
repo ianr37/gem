@@ -1,13 +1,4 @@
 
-export class WorkflowStepStatus {
-
-    constructor(state, message) {
-        this.state = state || 'ok';
-        this.message = message || 'it worked';
-    }
-
-}
-
 export class WorkflowStep {
 
     constructor(name, taskName, jumps) {
