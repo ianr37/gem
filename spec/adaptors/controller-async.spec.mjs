@@ -6,18 +6,20 @@ import  { DriverAction, WorkflowFactory, WorkflowStore, WorkflowParameterFactory
             } from '../../fore/domain/index.mjs';
 import { JsonWorkflowStore } from '../../fore/drivers/browser/workflow-store.mjs';
 
-import { GemRoot, taskBuilders } from '../testing/index.mjs';
+import { GemRoot, taskBuilders, Waiter } from '../testing/index.mjs';
 
 describe('controller-async', () => {
 
     let controller = null;
     let gemRoot = null;
+    let waiter = null;
     let workflowStore = null;
     let workflowFactory = null;
     const jsonFile = './spec/testing/workflows.json';
     const diary = [];
 
     beforeAll(() => {
+        waiter = new Waiter();
         const stepFactory = new WorkflowStepFactory();
         expect(stepFactory instanceof WorkflowStepFactory).toBeTrue();
         const parameterFactory = new WorkflowParameterFactory();
@@ -46,33 +48,27 @@ describe('controller-async', () => {
         }
     });
 
-    it('should be able to run a workflow that pauses', () => {
+    it('should be able to run a workflow that pauses', async () => {
         controller.keepFinishedWorkflows = false;
         expect(controller.activeWorkflows.size).toEqual(0);
         expect(controller.finishedWorkflows.size).toEqual(0);
         const start = new DriverAction('start-workflow', {name: 'pause-test'});
         const flowId = gemRoot.fakeEvent(start);
-        expect(controller.activeWorkflows.size).toEqual(1);
-        expect(controller.finishedWorkflows.size).toEqual(0);
-        /*
+        await waiter.waitOneTick();
         expect(controller.activeWorkflows.size).toEqual(0);
         expect(controller.finishedWorkflows.size).toEqual(0);
-        */
     });
-/*
-    it('should be able to run a workflow that pauses in keep mode', () => {
+
+    it('should be able to run a workflow that pauses in keep mode', async () => {
         controller.keepFinishedWorkflows = true;
         expect(controller.activeWorkflows.size).toEqual(0);
         expect(controller.finishedWorkflows.size).toEqual(0);
-        const start = new DriverAction('run-workflow', {name: 'pause-test'});
+        const start = new DriverAction('start-workflow', {name: 'pause-test'});
         const flowId = gemRoot.fakeEvent(start);
-        expect(controller.activeWorkflows.size).toEqual(1);
-        expect(controller.finishedWorkflows.size).toEqual(0);
-        const resume = new DriverAction('resume-workflow', {flowId: flowId});
-        gemRoot.fakeEvent(resume);
+        await waiter.waitOneTick();
         expect(controller.activeWorkflows.size).toEqual(0);
         expect(controller.finishedWorkflows.size).toEqual(1);
     });
-*/
+
 });
 
