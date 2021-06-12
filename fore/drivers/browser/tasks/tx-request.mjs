@@ -1,5 +1,5 @@
 
-import { TxRequestTask } from '../../../usecases/index.mjs';
+import { TxRequestTask } from '../../../use-cases/index.mjs';
 
 export class BrowserTxRequestTask extends TxRequestTask {
 

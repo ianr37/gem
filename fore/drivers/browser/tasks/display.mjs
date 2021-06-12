@@ -1,5 +1,5 @@
 
-import { DisplayTask } from '../../../usecases/index.mjs';
+import { DisplayTask } from '../../../use-cases/index.mjs';
 
 export class BrowserDisplayTask extends DisplayTask {
 

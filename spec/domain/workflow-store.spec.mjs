@@ -3,7 +3,7 @@ import { readFileSync } from 'fs';
 
 import { JsonWorkflowStore } from '../../fore/drivers/browser/workflow-store.mjs';
 
-describe('usecases', () => {
+describe('WorkflowStore', () => {
 
     let store = null;
     const jsonFile = './spec/testing/workflows.json';

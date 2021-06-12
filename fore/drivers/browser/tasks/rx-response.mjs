@@ -1,5 +1,5 @@
 
-import { RxResponseTask } from '../../../usecases/index.mjs';
+import { RxResponseTask } from '../../../use-cases/index.mjs';
 
 export class BrowserRxResponseTask extends RxResponseTask {
 

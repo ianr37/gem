@@ -1,5 +1,5 @@
 
-import { StoreTask } from '../../../usecases/index.mjs';
+import { StoreTask } from '../../../use-cases/index.mjs';
 
 export class BrowserStoreTask extends StoreTask {
 
