@@ -4,6 +4,9 @@ Prototype Flask web site using Web Services directly.
 
 This is Work in progress so don't rely on anything being immutable.
 
+Why I started this project.
+---------------------------
+
 The trigger for this project was that, just after reading Domain Driven Design (Eric Evans, Addison Wesley)
 and Clean Architecture (Robert C Martin, Prentice Hall), I came across a bit of a rant (the source for which
 I've forgotten) that I understood as "the Domain shouldn't be in the Browser". That set me thinking.
@@ -33,7 +36,17 @@ Onto my personal foibles for this project:
       of my build process (though I did briefly consider replacing it with a Python script) but I'm deliberately
       excluding React, Vue, etc from the mix as I can't see they bring anything essential to the party.
 
-    - To be continued...
+    - There will probably be more...
+
+Front-end architecture.
+-----------------------
+
+I see an SPA as a Hierarchical Finite State Machine so, following Martin's "Screaming Architecture" principle, I
+should make that blatently obvious from the structure of the code. I'd suggest I should make it obvious to the user
+that they are working with an FSM, even if they're not aware of the concept they will be used to appliances that
+work that way such as central heating controls, coffee vending machines and TVs.
+
+
 
 
 
