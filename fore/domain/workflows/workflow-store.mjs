@@ -1,16 +1,27 @@
 
 export class WorkflowStore {
 
-    constructor () {
-        this.definitions = new Map();
+    constructor (definitions) {
+        this.store = new Map();
+        if (definitions) {
+            this._loadDefinitions(definitions);
+        }
     }
 
     addDefinition(name, definition) {
-        this.definitions.set(name, definition);
+        this.store.set(name, definition);
     }
 
     getDefinition(name) {
-        return this.definitions.get(name) || null;
+        return this.store.get(name) || null;
+    }
+
+    _loadDefinitions(definitions) {
+        for (const [index, wfd] of definitions.entries()) {
+            for (const name in wfd) {
+                this.addDefinition(wfd.name, wfd);
+            }
+        }
     }
 }
 

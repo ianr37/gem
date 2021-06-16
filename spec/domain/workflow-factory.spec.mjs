@@ -3,9 +3,8 @@ import { readFileSync } from 'fs';
 
 import { Workflow, WorkflowFactory, WorkflowParameterFactory, WorkflowStepFactory,
          WorkflowStore } from '../../fore/domain/index.mjs';
-import { JsonWorkflowStore } from '../../fore/drivers/browser/workflow-store.mjs';
 
-import { taskBuilders, GemRoot } from '../testing/index.mjs';
+import { GemRoot, JsonWorkflowStore, taskBuilders } from '../testing/index.mjs';
 
 describe('workflow factory', () => {
 

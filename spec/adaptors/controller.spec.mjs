@@ -4,9 +4,8 @@ import { readFileSync } from 'fs';
 import  { Controller, Presenter } from '../../fore/adapters/index.mjs';
 import  { DriverAction, WorkflowFactory, WorkflowStore, WorkflowParameterFactory, WorkflowStepFactory
             } from '../../fore/domain/index.mjs';
-import { JsonWorkflowStore } from '../../fore/drivers/browser/workflow-store.mjs';
 
-import { GemRoot, taskBuilders } from '../testing/index.mjs';
+import { GemRoot, JsonWorkflowStore, taskBuilders  } from '../testing/index.mjs';
 
 describe('controller', () => {
 

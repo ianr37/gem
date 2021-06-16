@@ -1,7 +1,7 @@
 
 import { readFileSync } from 'fs';
 
-import { JsonWorkflowStore } from '../../fore/drivers/browser/workflow-store.mjs';
+import { WorkflowStore } from '../../fore/domain/index.mjs';
 
 describe('WorkflowStore', () => {
 
@@ -10,8 +10,9 @@ describe('WorkflowStore', () => {
 
     beforeAll(() => {
         const jsonString = readFileSync(jsonFile);
-        store = new JsonWorkflowStore(jsonString);
-        expect(store instanceof JsonWorkflowStore).toBeTrue();
+        const definitions = JSON.parse(jsonString);
+        store = new WorkflowStore(definitions);
+        expect(store instanceof WorkflowStore).toBeTrue();
     });
 
     it('should be able to return a definition', () => {
