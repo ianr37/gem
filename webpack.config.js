@@ -16,7 +16,7 @@ module.exports = {
         new MiniHtmlWebpackPlugin({
             context: {
                 title: 'Gem',
-                head: '<link rel="shortcut icon" href="logo.png"/>',
+                head: '<link rel="shortcut icon" href="logo.png"/>'
             },
         }),
     ],

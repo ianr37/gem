@@ -10,7 +10,7 @@ import './assets/desktop.css';
 import './assets/logo.png';
 import definitions from './workflows.json';
 
-workflowStore = new WorkflowStore(definitions);
+const workflowStore = new WorkflowStore(definitions);
 const parameterFactory = new WorkflowParameterFactory();
 const stepFactory = new WorkflowStepFactory();
 const workflowFactory = new WorkflowFactory(parameterFactory, taskBuilders, stepFactory);
@@ -21,8 +21,5 @@ const root = document.createElement('div', {is: 'gem-root'});
 root.controllerCallback = controller.executeAction;
 document.body.appendChild(root);
 
-controller.presenter = new Presenter(root);
-
-
-controller.executeAction(new DriverAction(null, 'run-workflow', {name: 'home'}));
+console.log('done');
 
