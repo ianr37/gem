@@ -5,6 +5,7 @@ import {
     } from '../../domain/index.mjs';
 import { taskBuilders } from './workflow-task-builders.mjs';
 import { GemRoot } from './components/index.mjs';
+import { HtmlPresenter } from './html-presenter.mjs';
 
 import './assets/desktop.css';
 import './assets/logo.png';
@@ -21,5 +22,7 @@ const root = document.createElement('div', {is: 'gem-root'});
 root.controllerCallback = controller.executeAction;
 document.body.appendChild(root);
 
-console.log('done');
+controller.presenter = new HtmlPresenter(root);
+
+console.log('Gem initialised');
 
