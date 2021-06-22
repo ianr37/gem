@@ -44,7 +44,7 @@ const template = `
     </body>
 `;
 
-export class GemRoot extends HTMLDivElement {
+export class HtmlDesktop extends HTMLDivElement {
 
     constructor()
     {

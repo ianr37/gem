@@ -4,7 +4,7 @@ import {
         DriverAction, WorkflowFactory, WorkflowStore, WorkflowParameterFactory, WorkflowStepFactory
     } from '../../domain/index.mjs';
 import { taskBuilders } from './workflow-task-builders.mjs';
-import { GemRoot } from './components/index.mjs';
+import { HtmlDesktop } from './components/index.mjs';
 import { HtmlPresenter } from './html-presenter.mjs';
 
 import './assets/desktop.css';
@@ -17,7 +17,7 @@ const stepFactory = new WorkflowStepFactory();
 const workflowFactory = new WorkflowFactory(parameterFactory, taskBuilders, stepFactory);
 const controller = new Controller(workflowStore, workflowFactory);
 
-window.customElements.define('gem-root', GemRoot, {extends: 'div'});
+window.customElements.define('gem-root', HtmlDesktop, {extends: 'div'});
 const root = document.createElement('div', {is: 'gem-root'});
 root.controllerCallback = controller.executeAction;
 document.body.appendChild(root);
