@@ -44,7 +44,7 @@ const template = `
     </body>
 `;
 
-export class HtmlDesktop extends HTMLDivElement {
+export class DesktopV1 extends HTMLDivElement {
 
     constructor()
     {
