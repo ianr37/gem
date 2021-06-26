@@ -1,16 +1,14 @@
 
 import { readFileSync } from 'fs';
 
-import  { Controller, Presenter } from '../../fore/adapters/index.mjs';
 import  { DriverAction, WorkflowFactory, WorkflowStore, WorkflowParameterFactory, WorkflowStepFactory
             } from '../../fore/domain/index.mjs';
 
-import { GemRoot, JsonWorkflowStore, taskBuilders  } from '../testing/index.mjs';
+import { JsonWorkflowStore, MockMvcController, taskBuilders  } from '../testing/index.mjs';
 
 describe('controller', () => {
 
     let controller = null;
-    let gemRoot = null;
     let workflowStore = null;
     let workflowFactory = null;
     const jsonFile = './spec/testing/workflows.json';
@@ -28,16 +26,14 @@ describe('controller', () => {
     });
 
     beforeEach(() => {
-        controller = new Controller(workflowStore, workflowFactory);
-        expect(controller instanceof Controller).toBeTrue();
-        gemRoot = new GemRoot(controller.executeAction);
+        controller = new MockMvcController(workflowStore, workflowFactory);
     });
 
     it('should be able to run a workflow that does not pause', () => {
         expect(controller.activeWorkflows.size).toEqual(0);
         expect(controller.finishedWorkflows.size).toEqual(0);
         const action = new DriverAction('start-workflow', {name: 'run-test'});
-        const flowId = gemRoot.fakeEvent(action);
+        const flowId = controller.executeAction(action);
         expect(controller.activeWorkflows.size).toEqual(0);
         expect(controller.finishedWorkflows.size).toEqual(0);
     });
@@ -47,7 +43,7 @@ describe('controller', () => {
         expect(controller.activeWorkflows.size).toEqual(0);
         expect(controller.finishedWorkflows.size).toEqual(0);
         const action = new DriverAction('start-workflow', {name: 'run-test'});
-        const flowId = gemRoot.fakeEvent(action);
+        const flowId = controller.executeAction(action);
         expect(controller.activeWorkflows.size).toEqual(0);
         expect(controller.finishedWorkflows.size).toEqual(1);
     });

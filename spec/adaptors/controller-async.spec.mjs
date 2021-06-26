@@ -1,16 +1,14 @@
 
 import { readFileSync } from 'fs';
 
-import  { Controller, Presenter } from '../../fore/adapters/index.mjs';
 import  { DriverAction, WorkflowFactory, WorkflowStore, WorkflowParameterFactory, WorkflowStepFactory
             } from '../../fore/domain/index.mjs';
 
-import { GemRoot, JsonWorkflowStore, taskBuilders, Waiter } from '../testing/index.mjs';
+import { JsonWorkflowStore, MockMvcController, taskBuilders, Waiter } from '../testing/index.mjs';
 
 describe('controller-async', () => {
 
     let controller = null;
-    let gemRoot = null;
     let waiter = null;
     let workflowStore = null;
     let workflowFactory = null;
@@ -31,10 +29,7 @@ describe('controller-async', () => {
     });
 
     beforeEach(() => {
-        controller = new Controller(workflowStore, workflowFactory);
-        expect(controller instanceof Controller).toBeTrue();
-        gemRoot = new GemRoot();
-        gemRoot.controllerCallback = controller.executeAction;
+        controller = new MockMvcController(workflowStore, workflowFactory);
     });
 
     afterAll(() => {
@@ -52,7 +47,7 @@ describe('controller-async', () => {
         expect(controller.activeWorkflows.size).toEqual(0);
         expect(controller.finishedWorkflows.size).toEqual(0);
         const start = new DriverAction('start-workflow', {name: 'pause-test'});
-        const flowId = gemRoot.fakeEvent(start);
+        const flowId = controller.executeAction(start);
         await waiter.waitOneTick();
         expect(controller.activeWorkflows.size).toEqual(0);
         expect(controller.finishedWorkflows.size).toEqual(0);
@@ -63,7 +58,7 @@ describe('controller-async', () => {
         expect(controller.activeWorkflows.size).toEqual(0);
         expect(controller.finishedWorkflows.size).toEqual(0);
         const start = new DriverAction('start-workflow', {name: 'pause-test'});
-        const flowId = gemRoot.fakeEvent(start);
+        const flowId = controller.executeAction(start);
         await waiter.waitOneTick();
         expect(controller.activeWorkflows.size).toEqual(0);
         expect(controller.finishedWorkflows.size).toEqual(1);
