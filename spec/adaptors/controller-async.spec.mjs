@@ -4,7 +4,7 @@ import { readFileSync } from 'fs';
 import  { DriverAction, WorkflowFactory, WorkflowStore, WorkflowParameterFactory, WorkflowStepFactory
             } from '../../fore/domain/index.mjs';
 
-import { JsonWorkflowStore, MockMvcController, taskBuilders, Waiter } from '../testing/index.mjs';
+import { JsonWorkflowStore, MockMvcController, taskBuilders, Waiter } from '../support/index.mjs';
 
 describe('controller-async', () => {
 
@@ -12,7 +12,7 @@ describe('controller-async', () => {
     let waiter = null;
     let workflowStore = null;
     let workflowFactory = null;
-    const jsonFile = './spec/testing/workflows.json';
+    const jsonFile = './spec/support/use-cases/workflows.json';
     const diary = [];
 
     beforeAll(() => {

@@ -1,5 +1,5 @@
 
-import { MvcController } from '../../fore/adapters/index.mjs';
+import { MvcController } from '../../../fore/adapters/index.mjs';
 
 export class MockMvcController extends MvcController {
 

@@ -1,5 +1,5 @@
 
-import { MockGuiNode, MockMvcView } from '../testing/index.mjs';
+import { MockGuiNode, MockMvcView } from '../support/index.mjs';
 
 describe('view', () => {
 

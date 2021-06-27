@@ -1,5 +1,5 @@
 
-import { WorkflowTask } from '../../../fore/domain/index.mjs';
+import { WorkflowTask } from '../../../../fore/domain/index.mjs';
 
 export class RunTest extends WorkflowTask {
 
