@@ -1,5 +1,5 @@
 
-import { WorkflowStore } from '../../../fore/domain/index.mjs';
+import { WorkflowStore } from '../../../domain/index.mjs';
 
 export class JsonWorkflowStore extends WorkflowStore {
 

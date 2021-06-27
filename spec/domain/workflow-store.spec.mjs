@@ -6,7 +6,7 @@ import { WorkflowStore } from '../../fore/domain/index.mjs';
 describe('WorkflowStore', () => {
 
     let store = null;
-    const jsonFile = './spec/support/use-cases/workflows.json';
+    const jsonFile = './fore/drivers/testing/use-cases/workflows.json';
 
     beforeAll(() => {
         const jsonString = readFileSync(jsonFile);

@@ -4,11 +4,11 @@ import { readFileSync } from 'fs';
 import { Workflow, WorkflowFactory, WorkflowParameterFactory, WorkflowStepFactory,
          WorkflowStore } from '../../fore/domain/index.mjs';
 
-import { JsonWorkflowStore, taskBuilders } from '../support/index.mjs';
+import { JsonWorkflowStore, taskBuilders } from '../../fore/drivers/testing/index.mjs';
 
 describe('workflow factory', () => {
 
-    const jsonFile = './spec/support/use-cases/workflows.json';
+    const jsonFile = './fore/drivers/testing/use-cases/workflows.json';
     
     let callback = null;
     let factory = null;

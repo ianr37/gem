@@ -4,14 +4,14 @@ import { readFileSync } from 'fs';
 import  { DriverAction, WorkflowFactory, WorkflowStore, WorkflowParameterFactory, WorkflowStepFactory
             } from '../../fore/domain/index.mjs';
 
-import { JsonWorkflowStore, MockMvcController, taskBuilders  } from '../support/index.mjs';
+import { JsonWorkflowStore, MockMvcController, taskBuilders  } from '../../fore/drivers/testing/index.mjs';
 
 describe('controller', () => {
 
     let controller = null;
     let workflowStore = null;
     let workflowFactory = null;
-    const jsonFile = './spec/support/use-cases/workflows.json';
+    const jsonFile = './fore/drivers/testing/use-cases/workflows.json';
 
     beforeAll(() => {
         const stepFactory = new WorkflowStepFactory();

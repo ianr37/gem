@@ -1,5 +1,5 @@
 
-import { MockGuiNode, MockMvcView } from '../support/index.mjs';
+import { MockGuiNode, MockMvcView } from '../../fore/drivers/testing/index.mjs';
 
 describe('view', () => {
 
