@@ -1,9 +1,10 @@
 
-import { Node } from './node.js';
+import { Node } from './node.mjs';
 
 export class Desktop extends Node {
 
     constructor() {
+        super();
         this.header = null;
         this.navbar = null;
         this.main = null;

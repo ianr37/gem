@@ -1,11 +1,10 @@
 
 import { Node } from './node.mjs';
 
-export class Header extends Node {
+export class Form extends Node {
 
     constructor() {
         super();
-        this.legend = null;
     }
 
 }
