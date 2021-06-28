@@ -20,6 +20,7 @@ describe('Body', () => {
         const button = new MockButton();
         body.addChild('sole', button);
         expect(body.children.size).toBe(1);
+        expect(body.children.get('sole')).toEqual(button);
     });
 
 });
