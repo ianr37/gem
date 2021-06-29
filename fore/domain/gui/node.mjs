@@ -1,12 +1,21 @@
 
 export class Node {
 
-    constructor() {
-        this.children = new Map();
+    constructor(parent) {
+        this.children = [];
+        this.htmlElement = null;
+        this.parent = parent;
+        if (parent) {
+           this.build(); 
+        }
     }
 
-    addChild(position, child) {
-        this.children.set(position, child);
+    appendChild(child) {
+        this.children.push(child);
+    }
+
+    build() {
+        throw Error('Not implemented');
     }
 
 }

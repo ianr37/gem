@@ -16,11 +16,11 @@ describe('Body', () => {
     });
 
     it('should be able to attach a child node', () => {
-        expect(body.children.size).toBe(0);
+        expect(body.children.length).toBe(0);
         const button = new MockButton();
-        body.addChild('sole', button);
-        expect(body.children.size).toBe(1);
-        expect(body.children.get('sole')).toEqual(button);
+        body.appendChild(button);
+        expect(body.children.length).toBe(1);
+        expect(body.children[0]).toEqual(button);
     });
 
 });
