@@ -1,17 +1,11 @@
 
-export class Node {
+export class GemNode {
 
-    constructor(parent) {
-        this.children = [];
-        this.htmlElement = null;
+    constructor(parent, htmlParent) {
         this.parent = parent;
-        if (parent) {
-           this.build(); 
-        }
-    }
-
-    appendChild(child) {
-        this.children.push(child);
+        this.htmlParent = htmlParent;
+        this.children = [];
+        this.build(); 
     }
 
     build() {

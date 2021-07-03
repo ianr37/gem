@@ -15,8 +15,7 @@ const parameterFactory = new WorkflowParameterFactory();
 const stepFactory = new WorkflowStepFactory();
 const workflowFactory = new WorkflowFactory(parameterFactory, taskBuilders, stepFactory);
 
-const body = new Body();
-body.htmlElement = document.querySelector('body');
+const body = document.querySelector('body');
 const desktop = new Desktop(body);
 
 console.log('Gem initialised');
