@@ -1,5 +1,5 @@
 
-import { WorkflowParameter, WorkflowParameterFactory } from '../../fore/domain/index.mjs';
+import { WorkflowParameter, WorkflowParameterFactory } from '../../../fore/domain/index.mjs';
 
 describe('ParameterFactory', () => {
 

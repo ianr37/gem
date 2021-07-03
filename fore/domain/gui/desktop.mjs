@@ -1,5 +1,5 @@
 
-import { GemNode } from './node.mjs';
+import { GemNode } from './gem-node.mjs';
 
 export class Desktop extends GemNode {
 

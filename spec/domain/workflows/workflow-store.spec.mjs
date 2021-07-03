@@ -1,7 +1,7 @@
 
 import { readFileSync } from 'fs';
 
-import { WorkflowStore } from '../../fore/domain/index.mjs';
+import { WorkflowStore } from '../../../fore/domain/index.mjs';
 
 describe('WorkflowStore', () => {
 
