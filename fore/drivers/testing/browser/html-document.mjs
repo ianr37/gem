@@ -2,6 +2,7 @@
 import { Node } from './node.mjs';
 import { HTMLBodyElement } from './html-body-element.mjs';
 import { HTMLDivElement } from './html-div-element.mjs';
+import { HTMLElement } from './html-element.mjs';
 
 export class HTMLDocument extends Node {
 
@@ -12,6 +13,7 @@ export class HTMLDocument extends Node {
 
     createElement(tagName) {
         let result = null;
+        this.validateTagName(tagName);
         switch (tagName) {
             case 'body':
                 result = new HTMLBodyElement();
@@ -20,10 +22,16 @@ export class HTMLDocument extends Node {
                 result = new HTMLDivElement();
                 break;
             default:
-                throw new Error(`HTML element "${tagName}" not yet implemented`);
+                result = new HTMLElement()
+                break;
         } 
         result.ownerDocument = this;
+        result.tagName = tagName;
         return result; 
+    }
+
+    validateTagName(tagName) {
+        /*TODO throw exception if unknown tag*/
     }
 
 }
