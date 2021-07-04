@@ -5,10 +5,10 @@ export class GemNode {
         this.parent = parent;
         this.htmlParent = htmlParent;
         this.children = [];
-        this.build(); 
+        this.build(htmlParent.ownerDocument); 
     }
 
-    build() {
+    build(document) {
         throw Error('Not implemented');
     }
 
