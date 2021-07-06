@@ -1,7 +1,6 @@
 
 import {
-        DriverAction, WorkflowFactory, WorkflowStore, WorkflowParameterFactory, WorkflowStepFactory,
-        Body, Desktop
+        DriverAction, WorkflowFactory, WorkflowStore, WorkflowParameterFactory, WorkflowStepFactory
     } from '../../domain/index.mjs';
 
 import { taskBuilders } from './workflow-task-builders.mjs';
@@ -14,9 +13,9 @@ const workflowStore = new WorkflowStore(definitions);
 const parameterFactory = new WorkflowParameterFactory();
 const stepFactory = new WorkflowStepFactory();
 const workflowFactory = new WorkflowFactory(parameterFactory, taskBuilders, stepFactory);
-
+/*
 const body = document.querySelector('body');
 const desktop = new Desktop(body);
-
-console.log('Gem initialised');
+*/
+console.log('Gem initialised - sans desktop');
 

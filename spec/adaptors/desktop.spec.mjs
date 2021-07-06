@@ -1,7 +1,7 @@
 
-import { Desktop, Body } from '../../../fore/domain/index.mjs';
+import { Desktop } from '../../fore/adapters/index.mjs';
 
-import { HTMLDocument, HTMLBodyElement } from  '../../../fore/drivers/testing/browser/index.mjs';
+import { HTMLDocument, HTMLBodyElement } from  '../../fore/drivers/testing/browser/index.mjs';
 
 describe('desktop', () => {
 

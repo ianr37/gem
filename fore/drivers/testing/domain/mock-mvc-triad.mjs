@@ -1,5 +1,5 @@
 
-import { MvcTriad } from '../../../adapters/index.mjs';
+import { MvcTriad } from '../../../domain/index.mjs';
 
 export class MockMvcTriad extends MvcTriad {
 

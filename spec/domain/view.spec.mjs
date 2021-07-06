@@ -1,5 +1,5 @@
 
-import { MockMvcView } from '../../fore/drivers/testing/adapters/index.mjs';
+import { MockMvcView } from '../../fore/drivers/testing/domain/index.mjs';
 
 describe('view', () => {
 

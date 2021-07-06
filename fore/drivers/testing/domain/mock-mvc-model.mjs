@@ -1,5 +1,5 @@
 
-import { MvcModel } from '../../../adapters/index.mjs';
+import { MvcModel } from '../../../domain/index.mjs';
 
 export class MockMvcModel extends MvcModel {
 

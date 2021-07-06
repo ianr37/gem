@@ -1,12 +1,10 @@
 
-import { ChildNode } from './child-node.mjs';
-
-export class Desktop extends ChildNode {
+export class Desktop {
 
     constructor(parent, htmlParent) {
         const document = parent.htmlparent.ownerDocument;
         this.htmlElement = document.createElement('div');
-        super(parent, htmlParent, htmlElement);
+        /*super(parent, htmlParent, htmlElement);*/
         this.build();
     }
 
