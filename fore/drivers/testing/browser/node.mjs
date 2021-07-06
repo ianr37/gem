@@ -18,6 +18,19 @@ export class Node extends EventTarget {
         return child;
     }
 
+    contains(otherNode) {
+        let result = false;
+        let current = otherNode;
+        while (current) {
+            if (current == this) {
+                result = true;
+                break;
+            }
+            current = current.parent;
+        }
+        return result;
+    }
+
     removeChild(child) {
         const removed = this.children.delete(child);
         if (! removed) {

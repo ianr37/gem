@@ -1,7 +1,7 @@
 
-import { Desktop } from '../../../fore/domain/index.mjs';
+import { Desktop, Body } from '../../../fore/domain/index.mjs';
 
-import { HTMLDocument } from  '../../../fore/drivers/testing/browser/index.mjs';
+import { HTMLDocument, HTMLBodyElement } from  '../../../fore/drivers/testing/browser/index.mjs';
 
 describe('desktop', () => {
 
@@ -9,11 +9,16 @@ describe('desktop', () => {
     let desktop = null;
 
     beforeEach(() => {
-        const body = document.createElement('body');
+        const bodyElement = document.createElement('body');
+        expect(bodyElement).toBeInstanceOf(HTMLBodyElement);
+        const body = new Body(bodyElement);
+        expect(body.htmlElement).toEqual(bodyElement);
+        expect(body.htmlElement.ownerDocument).toBeInstanceOf(HTMLDocument);
+        expect(body).toBeInstanceOf(Body);
         desktop = new Desktop(body);
     });
 
-    it('should exist', () => {
+    xit('should exist', () => {
         expect(desktop).toBeInstanceOf(Desktop);
     });
 

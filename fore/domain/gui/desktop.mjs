@@ -1,30 +1,27 @@
 
-import { GemNode } from './gem-node.mjs';
+import { ChildNode } from './child-node.mjs';
 
-export class Desktop extends GemNode {
+export class Desktop extends ChildNode {
 
-    constructor(htmlParent) {
-        super(null, htmlParent);
-        this.htmlElement = null;
+    constructor(parent, htmlParent) {
+        const document = parent.htmlparent.ownerDocument;
+        this.htmlElement = document.createElement('div');
+        super(parent, htmlParent, htmlElement);
+        this.build();
+    }
+
+    build() {
+        const document = this.htmlElement.ownerDocument;
         this.headerElement = null;
         this.navbarElement = null;
         this.mainElement = null;
         this.asideElement = null;
         this.footerElement = null;
-    }
-
-    build(document) {
-        this.buildRoot(document);
         this.buildHeader(document);
         this.buildNavbar(document);
         this.buildMain(document);
         this.buildAside(document);
         this.buildFooter(document);
-    }
-
-    buildRoot(document) {
-        this.htmlElement = document.createElement('div');
-        this.htmlParent.appendChild(this.htmlElement);
     }
 
     buildHeader(document) {
