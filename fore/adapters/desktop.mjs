@@ -1,13 +1,13 @@
 
-export class Desktop {
+import { MvcTriad } from '../domain/index.mjs';
 
-    constructor(parent, htmlParent) {
-        const document = parent.htmlparent.ownerDocument;
-        this.htmlElement = document.createElement('div');
-        /*super(parent, htmlParent, htmlElement);*/
-        this.build();
+export class Desktop extends MvcTriad {
+
+    constructor(model, view, controller) {
+        super(model, view, controller);
     }
 
+/*
     build() {
         const document = this.htmlElement.ownerDocument;
         this.headerElement = null;
@@ -57,6 +57,6 @@ export class Desktop {
         span.innerText = '\xA9 Your Name Here';
         this.footerElement.appendChild(span);
     }
-
+*/
 }
 

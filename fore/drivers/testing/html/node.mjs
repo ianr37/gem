@@ -15,6 +15,7 @@ export class Node extends EventTarget {
             child.parent.removeChild(child);
         }
         this.children.add(child);
+        child.parent = this;
         return child;
     }
 
@@ -36,6 +37,7 @@ export class Node extends EventTarget {
         if (! removed) {
             throw new Error('Not my child');
         }
+        child.parent = null;
         return child;
     }
 

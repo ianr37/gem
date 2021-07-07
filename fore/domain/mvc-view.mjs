@@ -7,8 +7,8 @@ export class MvcView {
         this.root = null;
     }
 
-    attach(root) {
-        this.root = root;
+    build(document) {
+        throw new Error('NotYetImplemented');
     }
 
 }

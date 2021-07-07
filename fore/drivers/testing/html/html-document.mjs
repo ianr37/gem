@@ -36,7 +36,6 @@ export class HTMLDocument extends Node {
     }
 
     createElement(tagName) {
-        console.log(`Building tag "${tagName}"`);
         let result = null;
         const builder = builders.get(tagName);
         if (builder) {
