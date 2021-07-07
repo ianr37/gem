@@ -3,6 +3,10 @@ import {
         DriverAction, WorkflowFactory, WorkflowStore, WorkflowParameterFactory, WorkflowStepFactory
     } from '../../domain/index.mjs';
 
+import {
+        Desktop, DesktopModel, DesktopView, DesktopController
+    } from '../../adapters/index.mjs';
+
 import { taskBuilders } from './workflow-task-builders.mjs';
 
 import './assets/desktop.css';
@@ -13,9 +17,13 @@ const workflowStore = new WorkflowStore(definitions);
 const parameterFactory = new WorkflowParameterFactory();
 const stepFactory = new WorkflowStepFactory();
 const workflowFactory = new WorkflowFactory(parameterFactory, taskBuilders, stepFactory);
-/*
+
+const model = new DesktopModel();
+const view = new DesktopView();
+const controller = new DesktopController();
+const desktop = new Desktop(model, view, controller);
 const body = document.querySelector('body');
-const desktop = new Desktop(body);
-*/
-console.log('Gem initialised - sans desktop');
+desktop.attachTo(body);
+
+console.log('Gem initialised');
 

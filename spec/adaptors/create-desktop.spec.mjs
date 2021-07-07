@@ -21,6 +21,11 @@ describe('desktop', () => {
         expect(desktop).toBeInstanceOf(Desktop);
     });
 
+    it('should have a div as the root', () => {
+        const root = desktop.view.root;
+        expect(root.tagName).toEqual('div');
+    });
+
     it('should be attached to the DOM', () => {
         const root = desktop.view.root;
         expect(root.parent.tagName).toEqual('body');
