@@ -9,13 +9,6 @@ describe('desktop', () => {
     let desktop = null;
 
     beforeEach(() => {
-        const bodyElement = document.createElement('body');
-        expect(bodyElement.tagName).toEqual('body');
-        const body = new Body(bodyElement);
-        expect(body.htmlElement).toEqual(bodyElement);
-        expect(body.htmlElement.ownerDocument).toBeInstanceOf(HTMLDocument);
-        expect(body).toBeInstanceOf(Body);
-        desktop = new Desktop(body);
     });
 
     xit('should exist', () => {

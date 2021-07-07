@@ -1,8 +1,32 @@
 
 import { Node } from './node.mjs';
-import { HTMLBodyElement } from './html-body-element.mjs';
-import { HTMLDivElement } from './html-div-element.mjs';
 import { HTMLElement } from './html-element.mjs';
+import { HTMLImageElement } from './html-image-element.mjs';
+import { HTMLInputElement } from './html-input-element.mjs';
+import { HTMLLabelElement } from './html-label-element.mjs';
+
+const builders = new Map([
+    ['article', HTMLElement],
+    ['aside', HTMLElement],
+    ['body', HTMLElement],
+    ['div', HTMLElement],
+    ['footer', HTMLElement],
+    ['h1', HTMLElement],
+    ['h2', HTMLElement],
+    ['h3', HTMLElement],
+    ['h4', HTMLElement],
+    ['h5', HTMLElement],
+    ['h6', HTMLElement],
+    ['head', HTMLElement],
+    ['header', HTMLElement],
+    ['img', HTMLImageElement],
+    ['input', HTMLInputElement],
+    ['label', HTMLLabelElement],
+    ['main', HTMLElement],
+    ['menu', HTMLElement],
+    ['nav', HTMLElement],
+    ['span', HTMLElement]
+]);
 
 export class HTMLDocument extends Node {
 
@@ -12,26 +36,17 @@ export class HTMLDocument extends Node {
     }
 
     createElement(tagName) {
+        console.log(`Building tag "${tagName}"`);
         let result = null;
-        this.validateTagName(tagName);
-        switch (tagName) {
-            case 'body':
-                result = new HTMLBodyElement();
-                break;
-            case 'div':
-                result = new HTMLDivElement();
-                break;
-            default:
-                result = new HTMLElement()
-                break;
-        } 
-        result.ownerDocument = this;
-        result.tagName = tagName;
+        const builder = builders.get(tagName);
+        if (builder) {
+            result = new builder();
+            result.ownerDocument = this;
+            result.tagName = tagName;
+        } else {
+            throw new Error(`Unrecognised tag "${tagName}"`);
+        }
         return result; 
-    }
-
-    validateTagName(tagName) {
-        /*TODO throw exception if unknown tag*/
     }
 
 }

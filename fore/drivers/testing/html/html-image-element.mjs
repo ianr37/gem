@@ -1,12 +1,11 @@
 
 import { HTMLElement } from './html-element.mjs';
 
-export class HTMLDivElement extends HTMLElement {
+export class HTMLImageElement extends HTMLElement {
 
     constructor() {
         super();
     }
-
 
 }
 

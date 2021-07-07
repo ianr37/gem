@@ -1,7 +1,7 @@
 
 import { HTMLElement } from './html-element.mjs';
 
-export class HTMLBodyElement extends HTMLElement {
+export class HTMLLabelElement extends HTMLElement {
 
     constructor() {
         super();
