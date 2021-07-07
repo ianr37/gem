@@ -1,7 +1,7 @@
 
 import { Desktop } from '../../fore/adapters/index.mjs';
 
-import { HTMLDocument, HTMLBodyElement } from  '../../fore/drivers/testing/browser/index.mjs';
+import { HTMLDocument } from  '../../fore/drivers/testing/html/index.mjs';
 
 describe('desktop', () => {
 
@@ -10,7 +10,7 @@ describe('desktop', () => {
 
     beforeEach(() => {
         const bodyElement = document.createElement('body');
-        expect(bodyElement).toBeInstanceOf(HTMLBodyElement);
+        expect(bodyElement.tagName).toEqual('body');
         const body = new Body(bodyElement);
         expect(body.htmlElement).toEqual(bodyElement);
         expect(body.htmlElement.ownerDocument).toBeInstanceOf(HTMLDocument);
