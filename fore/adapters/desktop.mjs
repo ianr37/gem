@@ -7,6 +7,14 @@ export class Desktop extends MvcTriad {
         super(model, view, controller);
     }
 
+    setHeaderText(phrase) {
+        this.view.setHeaderText(phrase);
+    }
+
+    setFooterText(phrase) {
+        this.view.setFooterText(phrase);
+    }
+
 /*
     build() {
         const document = this.htmlElement.ownerDocument;

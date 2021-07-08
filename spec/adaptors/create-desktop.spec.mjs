@@ -31,5 +31,21 @@ describe('desktop', () => {
         expect(root.parent.tagName).toEqual('body');
     });
 
+    it('should be able to set the header', () => {
+        const headerText = desktop.view.headerText;
+        expect(headerText.innerText).toEqual('Gem');
+        const phrase = 'Mary had a little lamb';
+        desktop.setHeaderText(phrase);
+        expect(headerText.innerText).toEqual(phrase);
+    });
+
+    it('should be able to set the footer', () => {
+        const footerText = desktop.view.footerText;
+        expect(footerText.innerText).toEqual('\xA9 Your Name Here');
+        const phrase = 'Mary had a little lamb';
+        desktop.setFooterText(phrase);
+        expect(footerText.innerText).toEqual(phrase);
+    });
+
 });
 
