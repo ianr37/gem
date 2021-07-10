@@ -3,7 +3,7 @@ import { Desktop, DesktopModel, DesktopView, DesktopController } from '../../for
 
 import { HTMLDocument } from  '../../fore/drivers/testing/html/index.mjs';
 
-describe('desktop', () => {
+describe('the desktop', () => {
 
     let desktop = null;
 
@@ -32,19 +32,24 @@ describe('desktop', () => {
     });
 
     it('should be able to set the header', () => {
-        const headerText = desktop.view.headerText;
-        expect(headerText.innerText).toEqual('Gem');
         const phrase = 'Mary had a little lamb';
         desktop.setHeaderText(phrase);
+        const headerText = desktop.view.headerText;
         expect(headerText.innerText).toEqual(phrase);
     });
 
     it('should be able to set the footer', () => {
-        const footerText = desktop.view.footerText;
-        expect(footerText.innerText).toEqual('\xA9 Your Name Here');
         const phrase = 'Mary had a little lamb';
         desktop.setFooterText(phrase);
+        const footerText = desktop.view.footerText;
         expect(footerText.innerText).toEqual(phrase);
+    });
+
+    it('should be able to set the logo', () => {
+        const path = '/logo.png';
+        desktop.setLogo(path);
+        const img = desktop.view.logo;
+        expect(img.src).toEqual(path);
     });
 
 });
