@@ -5,6 +5,7 @@ export class DesktopView extends MvcView {
 
     constructor() {
         super();
+        this.buttons = new Map();
     }
 
     build(document) {
@@ -48,6 +49,26 @@ export class DesktopView extends MvcView {
 
     setLogo(path) {
         this.logo.src = path;
+    }
+
+    addNavCommand(legend, command, jsonData) {
+        if (this.buttons.has(legend)) {
+            throw new Error(`Button ${legend} already exists`);
+        }
+        const button = this.root.ownerDocument.createElement('button');
+        button.innerText = legend;
+        button.dataset.command = command;
+        button.dataset.jsonData = jsonData;
+        this.buttons.set(legend, button);
+        this.menu.appendChild(button);
+    }
+
+    removeNavCommand(legend) {
+        const button = this.buttons.get(legend);
+        if (button) {
+            this.buttons.delete(legend);
+            this.menu.removeChild(button)
+        }
     }
 
 }

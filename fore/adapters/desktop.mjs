@@ -19,5 +19,13 @@ export class Desktop extends MvcTriad {
         this.view.setLogo(path);
     }
 
+    addNavCommand(legend, command, parameters) {
+        this.view.addNavCommand(legend, command, parameters);
+    }
+
+    removeNavCommand(legend) {
+        this.view.removeNavCommand(legend);
+    }
+
 }
 

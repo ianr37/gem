@@ -52,5 +52,20 @@ describe('the desktop', () => {
         expect(img.src).toEqual(path);
     });
 
+    it('should be able to add a command to the menu', () => {
+        const legend = 'Test Button';
+        const command = 'Test Command';
+        const parameters = '{"a": "A", "b": "B"}';
+        desktop.addNavCommand(legend, command, parameters);
+        const menu = desktop.view.menu;
+        expect(menu.childCount()).toEqual(1);
+        const button = [...menu.children][0];
+        expect(button).toBeDefined();
+        expect(button.tagName).toEqual('button');
+        expect(button.innerText).toEqual(legend);
+        expect(button.dataset.command).toEqual(command);
+        expect(button.dataset.jsonData).toEqual(parameters);
+    });
+
 });
 

@@ -19,6 +19,10 @@ export class Node extends EventTarget {
         return child;
     }
 
+    childCount() {
+        return this.children.size;
+    }
+
     contains(otherNode) {
         let result = false;
         let current = otherNode;

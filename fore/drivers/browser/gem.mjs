@@ -28,6 +28,7 @@ desktop.attachTo(body);
 desktop.setHeaderText('Gem');
 desktop.setFooterText('\xA9 Your Name Here');
 desktop.setLogo(logo);
+desktop.addNavCommand('Test Button', 'Test Command', '{"a": "A", "b": "B"}');
 
 console.log('Gem initialised');
 

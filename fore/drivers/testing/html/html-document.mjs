@@ -1,6 +1,7 @@
 
 import { Node } from './node.mjs';
 import { HTMLElement } from './html-element.mjs';
+import { HTMLButtonElement } from './html-button-element.mjs';
 import { HTMLImageElement } from './html-image-element.mjs';
 import { HTMLInputElement } from './html-input-element.mjs';
 import { HTMLLabelElement } from './html-label-element.mjs';
@@ -9,6 +10,7 @@ const builders = new Map([
     ['article', HTMLElement],
     ['aside', HTMLElement],
     ['body', HTMLElement],
+    ['button', HTMLButtonElement],
     ['div', HTMLElement],
     ['footer', HTMLElement],
     ['h1', HTMLElement],
