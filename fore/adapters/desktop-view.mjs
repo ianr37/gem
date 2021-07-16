@@ -12,7 +12,7 @@ export class DesktopView extends MvcView {
         const dataset = event.target.dataset;
         if (dataset) {
             const action = new DriverAction(dataset.command, dataset.jsonData);
-            this.controllerCallback(action);
+            this.actionHandler(action);
         } else {
             console.log('no dataset on target');
         }

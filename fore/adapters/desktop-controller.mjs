@@ -5,9 +5,10 @@ export class DesktopController extends MvcController {
 
     constructor(workflowStore, workflowFactory) {
         super(workflowStore, workflowFactory);
+        this.actionHandler = this.handleAction.bind(this);
     }
 
-    actionHandler(action) {
+    handleAction(action) {
         const command = action.action;
         const parameters = action.parameters ? JSON.parse(action.parameters) : {};
         switch (action.action) {

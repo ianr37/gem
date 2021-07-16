@@ -1,7 +1,7 @@
 
 import { readFileSync } from 'fs';
 
-import { Workflow, WorkflowFactory, WorkflowParameterFactory, WorkflowStepFactory,
+import { WorkflowFactory, WorkflowParameterFactory, WorkflowStepFactory,
          WorkflowStore } from '../../../fore/domain/index.mjs';
 
 import { JsonWorkflowStore, taskBuilders } from '../../../fore/drivers/testing/index.mjs';
@@ -19,13 +19,13 @@ describe('workflow factory', () => {
     beforeAll(() => {
         const jsonString = readFileSync(jsonFile);
         store = new JsonWorkflowStore(jsonString);
-        expect(store instanceof WorkflowStore).toBeTrue();
+        expect(store).toBeDefined();
         const stepFactory = new WorkflowStepFactory();
-        expect(stepFactory instanceof WorkflowStepFactory).toBeTrue();
+        expect(stepFactory).toBeDefined();
         const parameterFactory = new WorkflowParameterFactory();
-        expect(parameterFactory instanceof WorkflowParameterFactory).toBeTrue();
+        expect(parameterFactory).toBeDefined();
         factory = new WorkflowFactory(parameterFactory, taskBuilders, stepFactory);
-        expect(factory instanceof WorkflowFactory).toBeTrue();
+        expect(factory).toBeDefined();
     });
 
     beforeEach(() => {
@@ -34,7 +34,7 @@ describe('workflow factory', () => {
     });
 
     it('should be able to return a workflow', () => {
-        expect(workflow instanceof Workflow).toBeTrue();
+        expect(workflow).toBeDefined();
         expect(workflow.parameters.size).toEqual(4);
         expect(workflow.taskTemplates.size).toEqual(2);
     });

@@ -1,11 +1,11 @@
 
 export class Workflow {
 
-    constructor(definition, factory, actionCallback, presenter) {
+    constructor(definition, factory, actionHandler, presenter) {
         this.flowId = Math.round(Math.random() * 2**64);
         this.definition = definition;
         this.factory = factory;
-        this.actionCallback = actionCallback;
+        this.actionHandler = actionHandler;
         this.presenter = presenter;
         this.name = definition.name;
         this.parameters = new Map();
@@ -104,36 +104,6 @@ export class Workflow {
             result = {status: 'failed', rc: 0, msg: ex.message}
         }
         return result;
-    }
-
-}
-
-export class WorkflowFactory {
-
-    constructor(parameterFactory, taskBuilders, stepFactory) {
-        this.parameterFactory = parameterFactory;
-        this.taskBuilders = taskBuilders;
-        this.stepFactory = stepFactory;
-    }
-
-    createWorkflow(definition, actionCallback, presenter) {
-        const workflow = new Workflow(definition, this, actionCallback, presenter);
-        for (const [i, parameterDefinition] of definition.parameters.entries()) {
-            const parameter = this.parameterFactory.createParameter(parameterDefinition);
-            workflow.addParameter(parameter);
-        }
-        for (const [i, taskDefinition] of definition.tasks.entries()) {
-            workflow.addTaskTemplate({
-                name: taskDefinition.name,
-                builder: this.taskBuilders.get(taskDefinition.builder),
-                fields: taskDefinition.fields
-            });
-        }
-        for (const [i, stepDefinition] of definition.steps.entries()) {
-            const step = this.stepFactory.createStep(stepDefinition);
-            workflow.addStep(step);
-        }
-        return workflow;
     }
 
 }

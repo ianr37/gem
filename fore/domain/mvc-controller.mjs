@@ -6,13 +6,10 @@ export class MvcController {
         this.view = null;
         this.workflowStore = workflowStore;
         this.workflowFactory = workflowFactory;
+        this.actionHandler = null;
         this.activeWorkflows = new Map();
         this.keepFinishedWorkflows = false;
         this.finishedWorkflows = new Map();
-    }
-
-    actionHandler(action) {
-        throw new Error('NotYetImplemented');
     }
 
     startWorkflow(parameters) {

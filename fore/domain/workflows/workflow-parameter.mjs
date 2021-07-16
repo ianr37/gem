@@ -29,10 +29,3 @@ export class WorkflowParameter {
 
 }
 
-export class WorkflowParameterFactory {
-
-    createParameter(definition) {
-        return new WorkflowParameter(definition);
-    }
-
-}
