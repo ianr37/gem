@@ -4,7 +4,6 @@ export class MvcController {
     constructor(workflowStore, workflowFactory) {
         this.model = null;
         this.view = null;
-        this.executeAction = (action) => { this._actionHandler(action) };
         this.workflowStore = workflowStore;
         this.workflowFactory = workflowFactory;
         this.activeWorkflows = new Map();
@@ -12,18 +11,8 @@ export class MvcController {
         this.finishedWorkflows = new Map();
     }
 
-    _actionHandler(action) {
-        switch (action.action) {
-            case 'start-workflow':
-                this.startWorkflow(action.parameters);
-                break;
-            case 'resume-workflow':
-                this.resumeWorkflow(action.parameters);
-                break;
-            default:
-                throw new Error(`Controller#_actionHandler: unknown action ${action.action}`);
-                break;
-        }
+    actionHandler(action) {
+        throw new Error('NotYetImplemented');
     }
 
     startWorkflow(parameters) {

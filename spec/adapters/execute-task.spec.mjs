@@ -1,19 +1,21 @@
 
 import { readFileSync } from 'fs';
 
-import  { DriverAction, WorkflowFactory, WorkflowStore, WorkflowParameterFactory, WorkflowStepFactory
-            } from '../../fore/domain/index.mjs';
+import { DriverAction, WorkflowFactory, WorkflowStore, WorkflowParameterFactory, WorkflowStepFactory
+       } from '../../fore/domain/index.mjs';
 
-import { JsonWorkflowStore, MockMvcController, taskBuilders, Waiter } from '../../fore/drivers/testing/index.mjs';
+import { DesktopController } from '../../fore/adapters/desktop-controller.mjs';
 
-describe('controller-async', () => {
+import { JsonWorkflowStore, taskBuilders, Waiter  } from '../../fore/drivers/testing/index.mjs';
+
+describe('controller', () => {
 
     let controller = null;
+    const diary = [];
     let waiter = null;
     let workflowStore = null;
     let workflowFactory = null;
     const jsonFile = './fore/drivers/testing/use-cases/workflows.json';
-    const diary = [];
 
     beforeAll(() => {
         waiter = new Waiter();
@@ -29,7 +31,7 @@ describe('controller-async', () => {
     });
 
     beforeEach(() => {
-        controller = new MockMvcController(workflowStore, workflowFactory);
+        controller = new DesktopController(workflowStore, workflowFactory);
     });
 
     afterAll(() => {
@@ -42,12 +44,28 @@ describe('controller-async', () => {
         }
     });
 
+    it('should be able to run a workflow that does not pause', () => {
+        expect(controller.activeWorkflows.size).toEqual(0);
+        expect(controller.finishedWorkflows.size).toEqual(0);
+        controller.startWorkflow({name: 'run-test'});
+        expect(controller.activeWorkflows.size).toEqual(0);
+        expect(controller.finishedWorkflows.size).toEqual(0);
+    });
+
+    it('should be able to run a workflow that does not pause in keep mode', () => {
+        controller.keepFinishedWorkflows = true;
+        expect(controller.activeWorkflows.size).toEqual(0);
+        expect(controller.finishedWorkflows.size).toEqual(0);
+        controller.startWorkflow({name: 'run-test'});
+        expect(controller.activeWorkflows.size).toEqual(0);
+        expect(controller.finishedWorkflows.size).toEqual(1);
+    });
+    
     it('should be able to run a workflow that pauses', async () => {
         controller.keepFinishedWorkflows = false;
         expect(controller.activeWorkflows.size).toEqual(0);
         expect(controller.finishedWorkflows.size).toEqual(0);
-        const start = new DriverAction('start-workflow', {name: 'pause-test'});
-        const flowId = controller.executeAction(start);
+        controller.startWorkflow({name: 'pause-test'});
         await waiter.waitOneTick();
         expect(controller.activeWorkflows.size).toEqual(0);
         expect(controller.finishedWorkflows.size).toEqual(0);
@@ -57,8 +75,7 @@ describe('controller-async', () => {
         controller.keepFinishedWorkflows = true;
         expect(controller.activeWorkflows.size).toEqual(0);
         expect(controller.finishedWorkflows.size).toEqual(0);
-        const start = new DriverAction('start-workflow', {name: 'pause-test'});
-        const flowId = controller.executeAction(start);
+        controller.startWorkflow({name: 'pause-test'});
         await waiter.waitOneTick();
         expect(controller.activeWorkflows.size).toEqual(0);
         expect(controller.finishedWorkflows.size).toEqual(1);

@@ -26,9 +26,10 @@ const desktop = new Desktop(model, view, controller);
 const body = document.querySelector('body');
 desktop.attachTo(body);
 desktop.setHeaderText('Gem');
+desktop.setFooterStatus('OK');
 desktop.setFooterText('\xA9 Your Name Here');
 desktop.setLogo(logo);
-desktop.addNavCommand('Test Button', 'Test Command', '{"a": "A", "b": "B"}');
+desktop.addNavCommand('Change Status', 'set-status', '{"status": "not OK"}');
 
 console.log('Gem initialised');
 

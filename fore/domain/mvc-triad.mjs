@@ -10,6 +10,8 @@ export class MvcTriad {
         this.view.controller = this.controller;
         this.controller.model = this.model;
         this.controller.view = this.view;
+        const callback = controller.actionHandler.bind(controller);
+        this.view.setControllerCallback(callback);
     }
 
     attachTo(parent) {

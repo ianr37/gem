@@ -1,11 +1,21 @@
 
-import { MvcView } from '../domain/index.mjs';
+import { DriverAction, MvcView } from '../domain/index.mjs';
 
 export class DesktopView extends MvcView {
 
     constructor() {
         super();
         this.buttons = new Map();
+    }
+
+    handleEvent(event) {
+        const dataset = event.target.dataset;
+        if (dataset) {
+            const action = new DriverAction(dataset.command, dataset.jsonData);
+            this.controllerCallback(action);
+        } else {
+            console.log('no dataset on target');
+        }
     }
 
     addNavCommand(legend, command, jsonData) {
@@ -28,6 +38,10 @@ export class DesktopView extends MvcView {
         }
     }
 
+    setFooterStatus(phrase) {
+        this.footerStatus.innerText = phrase;
+    }
+
     setFooterText(phrase) {
         this.footerText.innerText = phrase;
     }
@@ -47,6 +61,7 @@ export class DesktopView extends MvcView {
         this.build_main(document);
         this.build_aside(document);
         this.build_footer(document);
+        this.root.addEventListener('click', this.handleEvent.bind(this));
         return this.root;
     }
 
@@ -83,7 +98,9 @@ export class DesktopView extends MvcView {
     build_footer(document) {
         const footer = document.createElement('footer');
         this.root.appendChild(footer);
-        this.footerText = document.createElement('span');
+        this.footerStatus = document.createElement('div');
+        footer.appendChild(this.footerStatus);
+        this.footerText = document.createElement('div');
         footer.appendChild(this.footerText);
     }
 

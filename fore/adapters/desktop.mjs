@@ -7,6 +7,10 @@ export class Desktop extends MvcTriad {
         super(model, view, controller);
     }
 
+    setFooterStatus(phrase) {
+        this.view.setFooterStatus(phrase);
+    }
+
     setFooterText(phrase) {
         this.view.setFooterText(phrase);
     }
