@@ -5,7 +5,6 @@ export class MvcView {
         this.model = null;
         this.controller = null;
         this.root = null;
-        this.actionHandler = null;
     }
 
     build(document) {

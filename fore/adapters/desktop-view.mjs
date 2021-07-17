@@ -11,21 +11,23 @@ export class DesktopView extends MvcView {
     handleEvent(event) {
         const dataset = event.target.dataset;
         if (dataset) {
-            const action = new DriverAction(dataset.command, dataset.jsonData);
-            this.actionHandler(action);
+            const action = new DriverAction(dataset.command, dataset);
+            this.controller.handleAction(action);
         } else {
             console.log('no dataset on target');
         }
     }
 
-    addNavCommand(legend, command, jsonData) {
+    addNavCommand(legend, command, parameters) {
         if (this.buttons.has(legend)) {
             throw new Error(`Button ${legend} already exists`);
         }
         const button = this.root.ownerDocument.createElement('button');
         button.innerText = legend;
         button.dataset.command = command;
-        button.dataset.jsonData = jsonData;
+        for (const p in parameters) {
+            button.dataset[p] = parameters[p];
+        }
         this.buttons.set(legend, button);
         this.menu.appendChild(button);
     }

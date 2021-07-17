@@ -6,10 +6,13 @@ export class MvcController {
         this.view = null;
         this.workflowStore = workflowStore;
         this.workflowFactory = workflowFactory;
-        this.actionHandler = null;
         this.activeWorkflows = new Map();
         this.keepFinishedWorkflows = false;
         this.finishedWorkflows = new Map();
+    }
+
+    handleAction(action) {
+        throw new Error('NotImplemented');
     }
 
     startWorkflow(parameters) {
@@ -17,8 +20,7 @@ export class MvcController {
         if (! definition) {
             throw new Error(`Controller#startWorkflow: unknown workflow ${parameters.name}`);
         }
-        const dummyPresenter = null;
-        const workflow = this.workflowFactory.createWorkflow(definition, this.executeAction, dummyPresenter);
+        const workflow = this.workflowFactory.createWorkflow(definition, this);
         if (! workflow) {
             throw new Error(`Controller#startWorkflow: unknown workflow ${parameters.name}`);
         }

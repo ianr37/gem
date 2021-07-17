@@ -11,7 +11,7 @@ export class PauseTest extends WorkflowTask {
         const callBack = () => {
             const result =  {status: 'finished', rc: 0, msg: 'Succeeded'};
             const resume = new DriverAction('resume-workflow', {workflow: this.workflow, result: result});
-            this.workflow.actionHandler(resume);
+            this.workflow.controller.handleAction(resume);
         };
         setTimeout(callBack);
         return {status: 'paused', rc: 0, msg: 'Paused'};

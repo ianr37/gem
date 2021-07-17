@@ -12,7 +12,6 @@ describe('workflow factory', () => {
     
     let callback = null;
     let factory = null;
-    let presenter = null;
     let store = null;
     let workflow = null;
 
@@ -30,7 +29,7 @@ describe('workflow factory', () => {
 
     beforeEach(() => {
         const definition = store.getDefinition('wf1');
-        workflow = factory.createWorkflow(definition, callback, presenter);
+        workflow = factory.createWorkflow(definition, callback);
     });
 
     it('should be able to return a workflow', () => {
@@ -56,10 +55,6 @@ describe('workflow factory', () => {
     it('the name should be set', () => {
         expect(typeof workflow.name).toEqual('string');
         expect(workflow.name).toBeTruthy();
-    });
-
-    it('the presenter should be null', () => {
-        expect(workflow.presenter).toBeNull();
     });
 
     it('the currentStep should be null', () => {

@@ -19,8 +19,8 @@ describe('the desktop', () => {
 
     it('should be able execute a command by clicking on a menu button', () => {
         const legend = 'Change Status';
-        const command = 'change-status';
-        const parameters = JSON.stringify({status: "test succeeded"});
+        const command = 'set-status';
+        const parameters = {status: "test succeeded"};
         desktop.addNavCommand(legend, command, parameters);
         const button = desktop.view.buttons.get(legend);
         button.click();

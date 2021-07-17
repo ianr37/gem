@@ -1,12 +1,11 @@
 
 export class Workflow {
 
-    constructor(definition, factory, actionHandler, presenter) {
+    constructor(definition, factory, controller) {
         this.flowId = Math.round(Math.random() * 2**64);
         this.definition = definition;
         this.factory = factory;
-        this.actionHandler = actionHandler;
-        this.presenter = presenter;
+        this.controller = controller;
         this.name = definition.name;
         this.parameters = new Map();
         this.taskTemplates = new Map();

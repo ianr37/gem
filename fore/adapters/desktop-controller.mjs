@@ -5,12 +5,11 @@ export class DesktopController extends MvcController {
 
     constructor(workflowStore, workflowFactory) {
         super(workflowStore, workflowFactory);
-        this.actionHandler = this.handleAction.bind(this);
     }
 
     handleAction(action) {
         const command = action.action;
-        const parameters = action.parameters ? JSON.parse(action.parameters) : {};
+        const parameters = action.parameters ? action.parameters : {};
         switch (action.action) {
             case 'start-workflow':
                 this.startWorkflow(parameters);
@@ -18,11 +17,11 @@ export class DesktopController extends MvcController {
             case 'resume-workflow':
                 this.resumeWorkflow(parameters);
                 break;
-            case 'change-status':
+            case 'set-status':
                 this.view.setFooterStatus(parameters.status);
                 break;
             default:
-                throw new Error(`Controller#actionHandler: unknown action ${action.action}`);
+                throw new Error(`Controller#handleAction: unknown action ${action.action}`);
                 break;
         }
     }

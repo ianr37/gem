@@ -10,7 +10,6 @@ export class MvcTriad {
         this.view.controller = this.controller;
         this.controller.model = this.model;
         this.controller.view = this.view;
-        this.view.actionHandler = this.controller.actionHandler;
     }
 
     attachTo(parent) {

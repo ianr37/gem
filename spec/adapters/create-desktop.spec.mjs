@@ -55,7 +55,7 @@ describe('the desktop', () => {
     it('should be able to add a command to the menu', () => {
         const legend = 'Test Button';
         const command = 'Test Command';
-        const parameters = '{"a": "A", "b": "B"}';
+        const parameters = {a: "A", b: "B"};
         desktop.addNavCommand(legend, command, parameters);
         const menu = desktop.view.menu;
         expect(menu.childCount()).toEqual(1);
@@ -64,7 +64,8 @@ describe('the desktop', () => {
         expect(button.tagName).toEqual('button');
         expect(button.innerText).toEqual(legend);
         expect(button.dataset.command).toEqual(command);
-        expect(button.dataset.jsonData).toEqual(parameters);
+        expect(button.dataset.a).toEqual("A");
+        expect(button.dataset.b).toEqual("B");
     });
 
 });

@@ -9,8 +9,8 @@ export class WorkflowFactory {
         this.stepFactory = stepFactory;
     }
 
-    createWorkflow(definition, actionHandler, presenter) {
-        const workflow = new Workflow(definition, this, actionHandler, presenter);
+    createWorkflow(definition, controller) {
+        const workflow = new Workflow(definition, this, controller);
         for (const [i, parameterDefinition] of definition.parameters.entries()) {
             const parameter = this.parameterFactory.createParameter(parameterDefinition);
             workflow.addParameter(parameter);

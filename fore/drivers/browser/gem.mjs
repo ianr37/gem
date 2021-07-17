@@ -29,7 +29,7 @@ desktop.setHeaderText('Gem');
 desktop.setFooterStatus('OK');
 desktop.setFooterText('\xA9 Your Name Here');
 desktop.setLogo(logo);
-desktop.addNavCommand('Change Status', 'set-status', '{"status": "not OK"}');
+desktop.addNavCommand('Change Status', 'set-status', {status: 'not OK'});
 
 console.log('Gem initialised');
 
