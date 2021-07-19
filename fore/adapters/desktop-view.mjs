@@ -60,7 +60,6 @@ export class DesktopView extends MvcView {
         this.root = document.createElement('div');
         this.build_header(document);
         this.build_navbar(document);
-        this.build_main(document);
         this.build_aside(document);
         this.build_footer(document);
         this.root.addEventListener('click', this.handleEvent.bind(this));
@@ -81,15 +80,6 @@ export class DesktopView extends MvcView {
         navbar.appendChild(this.logo);
         this.menu = document.createElement('menu');
         navbar.appendChild(this.menu);
-    }
-
-    build_main(document) {
-        const main = document.createElement('main');
-        this.root.appendChild(main);
-        this.mainMenu = document.createElement('menu');
-        main.appendChild(this.mainMenu);
-        this.mainArticle = document.createElement('article');
-        main.appendChild(this.mainArticle);
     }
 
     build_aside(document) {
