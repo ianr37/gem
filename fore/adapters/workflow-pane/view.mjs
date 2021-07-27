@@ -1,5 +1,5 @@
 
-import { DriverAction, MvcView } from '../domain/index.mjs';
+import { DriverAction, MvcView } from '../../domain/index.mjs';
 
 export class WorkflowPaneView extends MvcView {
 
