@@ -1,37 +1,34 @@
 
 import { readFileSync } from 'fs';
 
-import { DriverAction, WorkflowFactory, WorkflowStore, WorkflowParameterFactory, WorkflowStepFactory
-       } from '../../fore/domain/index.mjs';
+import { DriverAction } from '../../fore/domain/index.mjs';
 
-import { DesktopController } from '../../fore/adapters/desktop-controller.mjs';
+import { DesktopFactory } from '../../fore/adapters/index.mjs';
 
-import { JsonWorkflowStore, taskBuilders, Waiter  } from '../../fore/drivers/testing/index.mjs';
+import { HTMLDocument, taskBuilders, Waiter  } from '../../fore/drivers/testing/index.mjs';
 
 describe('controller', () => {
 
     let controller = null;
+    let desktop = null;
+    let desktopFactory = null;
     const diary = [];
-    let waiter = null;
-    let workflowStore = null;
-    let workflowFactory = null;
     const jsonFile = './fore/drivers/testing/use-cases/workflows.json';
+    let waiter = null;
 
     beforeAll(() => {
         waiter = new Waiter();
-        const stepFactory = new WorkflowStepFactory();
-        expect(stepFactory instanceof WorkflowStepFactory).toBeTrue();
-        const parameterFactory = new WorkflowParameterFactory();
-        expect(parameterFactory instanceof WorkflowParameterFactory).toBeTrue();
-        workflowFactory = new WorkflowFactory(parameterFactory, taskBuilders, stepFactory);
-        expect(workflowFactory instanceof WorkflowFactory).toBeTrue();
         const jsonString = readFileSync(jsonFile);
-        workflowStore = new JsonWorkflowStore(jsonString);
-        expect(workflowStore instanceof WorkflowStore).toBeTrue();
+        const workflowDefinitions = JSON.parse(jsonString);
+        desktopFactory = new DesktopFactory(workflowDefinitions, taskBuilders);
     });
 
     beforeEach(() => {
-        controller = new DesktopController(workflowStore, workflowFactory);
+        desktop = desktopFactory.createDesktop();   
+        const document = new HTMLDocument();
+        const body = document.createElement('body');
+        desktop.attachTo(body);
+        controller = desktop.controller;
     });
 
     afterAll(() => {

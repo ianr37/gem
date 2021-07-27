@@ -1,17 +1,24 @@
 
-import { Desktop, DesktopModel, DesktopView, DesktopController } from '../../fore/adapters/index.mjs';
+import { readFileSync } from 'fs';
 
-import { HTMLDocument } from  '../../fore/drivers/testing/html/index.mjs';
+import { DesktopFactory } from '../../fore/adapters/index.mjs';
+
+import { HTMLDocument, taskBuilders } from  '../../fore/drivers/testing/index.mjs';
 
 describe('the desktop', () => {
 
     let desktop = null;
+    let desktopFactory = null;
+    const jsonFile = './fore/drivers/testing/use-cases/workflows.json';
+
+    beforeAll(() => {
+        const jsonString = readFileSync(jsonFile);
+        const workflowDefinitions = JSON.parse(jsonString);
+        desktopFactory = new DesktopFactory(workflowDefinitions, taskBuilders);
+    });
 
     beforeEach(() => {
-        const model = new DesktopModel();
-        const view = new DesktopView();
-        const controller = new DesktopController();
-        desktop = new Desktop(model, view, controller);
+        desktop = desktopFactory.createDesktop();
         const document = new HTMLDocument();
         const body = document.createElement('body');
         desktop.attachTo(body);
