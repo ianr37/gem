@@ -1,5 +1,5 @@
 
-import { MvcTriad } from '../domain/index.mjs';
+import { MvcTriad } from '../../domain/index.mjs';
 
 export class Desktop extends MvcTriad {
 

@@ -1,12 +1,12 @@
 
 import {
     WorkflowFactory, WorkflowParameterFactory, WorkflowStepFactory, WorkflowStore
-} from '../domain/index.mjs';
+} from '../../domain/index.mjs';
 
-import { Desktop } from './desktop.mjs';
-import { DesktopController } from './desktop-controller.mjs';
-import { DesktopModel } from './desktop-model.mjs';
-import { DesktopView } from './desktop-view.mjs';
+import { Desktop } from './triad.mjs';
+import { DesktopController } from './controller.mjs';
+import { DesktopModel } from './model.mjs';
+import { DesktopView } from './view.mjs';
 
 export class DesktopFactory {
 

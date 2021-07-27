@@ -1,5 +1,5 @@
 
-import { MvcController } from '../domain/index.mjs';
+import { MvcController } from '../../domain/index.mjs';
 
 export class DesktopController extends MvcController {
 
