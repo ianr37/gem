@@ -2,14 +2,15 @@
 import { readFileSync } from 'fs';
 
 import { DesktopFactory } from '../../fore/adapters/index.mjs';
+import { taskBuilders } from '../../fore/use-cases/index.mjs';
 
-import { HTMLDocument, taskBuilders } from  '../../fore/drivers/testing/index.mjs';
+import { HTMLDocument } from  '../../fore/drivers/testing/index.mjs';
 
 describe('the desktop', () => {
 
     let desktop = null;
     let desktopFactory = null;
-    const jsonFile = './fore/drivers/testing/use-cases/workflows.json';
+    const jsonFile = './fore/use-cases/workflow-definitions.json';
 
     beforeAll(() => {
         const jsonString = readFileSync(jsonFile);

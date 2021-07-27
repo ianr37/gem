@@ -3,11 +3,11 @@ import { DriverAction } from '../../domain/index.mjs';
 
 import { DesktopFactory } from '../../adapters/index.mjs';
 
-import { taskBuilders } from './workflow-task-builders.mjs';
+import { taskBuilders } from '../../use-cases/task-builders.mjs';
 
 import './assets/desktop.css';
 import logo from './assets/logo.png';
-import workflowDefinitions from './workflow-definitions.json';
+import workflowDefinitions from '../../use-cases/workflow-definitions.json';
 
 const desktopFactory = new DesktopFactory(workflowDefinitions, taskBuilders);
 const desktop = desktopFactory.createDesktop();

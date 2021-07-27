@@ -1,5 +1,5 @@
 
-import { WorkflowTask, DriverAction } from '../../../../domain/index.mjs';
+import { WorkflowTask, DriverAction } from '../../domain/index.mjs';
 
 export class PauseTest extends WorkflowTask {
 

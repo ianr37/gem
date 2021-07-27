@@ -2,10 +2,10 @@
 import { readFileSync } from 'fs';
 
 import { DriverAction } from '../../fore/domain/index.mjs';
-
 import { DesktopFactory } from '../../fore/adapters/index.mjs';
+import { taskBuilders } from '../../fore/use-cases/index.mjs';
 
-import { HTMLDocument, taskBuilders, Waiter  } from '../../fore/drivers/testing/index.mjs';
+import { HTMLDocument, Waiter  } from '../../fore/drivers/testing/index.mjs';
 
 describe('controller', () => {
 
@@ -13,7 +13,7 @@ describe('controller', () => {
     let desktop = null;
     let desktopFactory = null;
     const diary = [];
-    const jsonFile = './fore/drivers/testing/use-cases/workflows.json';
+    const jsonFile = './fore/use-cases/workflow-definitions.json';
     let waiter = null;
 
     beforeAll(() => {
