@@ -44,61 +44,46 @@
         ]
     },
 
-    {"home":
-        {
-            "parameters": [],
-            "tasks": [
-                {"taskName": "Home", "taskClass": "BrowserDisplayTask", "fields": []}
-            ],
-            "fsm": [
-                {"step": "start", "task": "Home", "nextMap": {"all": "start"}}
-            ]
-        }
+    {
+        "name": "home",
+        "firstStep": "step1",
+        "parameters": [ ],
+        "tasks": [
+            {"name": "home", "builder": "HomePage", "fields": [ ]}
+        ],
+        "steps": [
+            {"name": "step1", "task": "home", "jumps": [{"state": "ok", "target": "step1"}]}
+        ]
     },
 
-    {"login":
-        {
-            "parameters": [
-                {"name": "userName", "storageType": "string"},
-                {"name": "passPhrase", "storageType": "string"},
-                {"name": "accessToken", "storageType": "string"},
-                {"name": "refreshToken", "storageType": "string"},
-                {"name": "userProfile", "storageType": "UserProfile"}
-            ],
-            "tasks": [
-                {"taskName": "Enter User ID", "taskClass": "BrowserDisplayTask",
-                    "fields": [
-                        {"parameter": "userName", "label": "User Name", "displayType": "text"},
-                        {"parameter": "passPhrase", "label": "Pass Phrase", "displayType": "password"}
-                    ]
-                },
-                {"name": "Request Tokens", "taskClass": "BrowserTxRequestTask", "url": "/api/login",
-                    "parameters": [
-                        {"parameter": "userName", "alias": "userName"},
-                        {"parameter": "passPhrase", "alias": "passPhrase"}
-                    ]
-                },
-                {"name": "Receive Tokens", "taskClass": "BrowserRxResponsetask",
-                    "parameters": [
-                        {"parameter": "accessToken", "alias": "accessToken"},
-                        {"parameter": "refreshToken", "alias": "refreshToken"},
-                        {"parameter": "userProfile", "alias": "userProfile"}
-                    ]
-                },
-                {"name": "Store Tokens and Profile", "taskClass": "BrowserStoreTask",
-                    "parameters": [
-                        {"parameter": "accessToken", "alias": "accessToken"},
-                        {"parameter": "refreshToken", "alias": "refreshToken"},
-                        {"parameter": "userProfile", "alias": "userProfile"}
-                    ]
-                }
-            ],
-            "fsm": [
-                {"step": "$start", "task": "Enter User ID", "nextMap": {"ok": "tx"}},
-                {"step": "tx", "task": "Request Tokens", "nextMap": {"ok": "rx"}},
-                {"step": "rx", "task": "Receive Tokens", "nextMap": {"ok": "store"}},
-                {"step": "store", "task": "Store Tokens and Profile", "nextMap": {"ok": "$done"}}
-            ]
-        }
+    {
+        "name": "login",
+        "firstStep": "step1",
+        "parameters": [
+            {"name": "userName", "storageType": "string"},
+            {"name": "passPhrase", "storageType": "string"},
+            {"name": "accessToken", "storageType": "string"},
+            {"name": "refreshToken", "storageType": "string"},
+            {"name": "userProfile", "storageType": "UserProfile"}
+        ],
+        "tasks": [
+            {"name": "display", "builder": "DisplayForm", "fields": ["userName", "passPhrase"]},
+            {"taskName": "display", "taskClass": "DisplayForm",
+                "fields": [
+                    {"parameter": "userName", "label": "User Name", "displayType": "text"},
+                    {"parameter": "passPhrase", "label": "Pass Phrase", "displayType": "password"}
+                ]
+            },
+            {"taskName": "store", "taskClass": "Store",
+                "fields": [
+                    {"parameter": "accessToken", "label": "User Name", "displayType": "text"},
+                    {"parameter": "passPhrase", "label": "Pass Phrase", "displayType": "password"}
+                ]
+            }
+        ],
+        "steps": [
+            {"name": "step1", "task": "display", "jumps": [{"state": "ok", "target": "step2"}]},
+            {"name": "store", "task": "store", "jumps": [{"state": "ok", "target": null}]}
+        ]
     }
 ]

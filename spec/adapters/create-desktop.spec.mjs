@@ -76,5 +76,9 @@ describe('the desktop', () => {
         expect(button.dataset.b).toEqual("B");
     });
 
+    it('should display the home page by default', () => {
+        expect(desktop.controller.workflowStack.length).toEqual(1);
+    });
+
 });
 
