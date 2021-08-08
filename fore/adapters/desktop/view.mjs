@@ -10,11 +10,9 @@ export class DesktopView extends MvcView {
 
     handleEvent(event) {
         const dataset = event.target.dataset;
-        if (dataset) {
+        if ('command' in dataset) {
             const action = new DriverAction(dataset.command, dataset);
             this.controller.handleAction(action);
-        } else {
-            console.log('no dataset on target');
         }
     }
 
