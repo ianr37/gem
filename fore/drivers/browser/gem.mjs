@@ -1,7 +1,7 @@
 
 import { DriverAction } from '../../domain/index.mjs';
 
-import { DesktopFactory } from '../../adapters/index.mjs';
+import { createDesktop } from '../../adapters/index.mjs';
 
 import { taskBuilders } from '../../use-cases/task-builders.mjs';
 
@@ -9,8 +9,7 @@ import './assets/desktop.css';
 import logo from './assets/logo.png';
 import workflowDefinitions from '../../use-cases/workflow-definitions.json';
 
-const desktopFactory = new DesktopFactory(workflowDefinitions, taskBuilders);
-const desktop = desktopFactory.createDesktop();
+const desktop = createDesktop(workflowDefinitions, taskBuilders);
 const body = document.querySelector('body');
 desktop.attachTo(body);
 desktop.setHeaderText('Gem');
