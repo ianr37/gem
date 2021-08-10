@@ -1,7 +1,7 @@
 
 import { DriverAction, MvcView } from '../../domain/index.mjs';
 
-export class WorkflowPaneView extends MvcView {
+export class WorkpaneView extends MvcView {
 
     constructor() {
         super();

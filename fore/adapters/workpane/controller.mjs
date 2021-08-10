@@ -1,7 +1,7 @@
 
 import { MvcController } from '../../domain/index.mjs';
 
-export class WorkflowPaneController extends MvcController {
+export class WorkpaneController extends MvcController {
 
     constructor() {
         super();
