@@ -13,7 +13,11 @@ export class WorkflowStore {
     }
 
     getDefinition(name) {
-        return this.store.get(name) || null;
+        const workflow = this.store.get(name);
+        if (! workflow) {
+            throw new Error(`Unknown workflow '${name}'`);
+        }
+        return workflow;
     }
 
     _loadDefinitions(definitions) {

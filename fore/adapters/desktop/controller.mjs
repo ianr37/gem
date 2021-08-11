@@ -3,9 +3,8 @@ import { MvcController } from '../../domain/index.mjs';
 
 export class DesktopController extends MvcController {
 
-    constructor(workflowStore, workflowFactory) {
+    constructor(workflowFactory) {
         super();
-        this.workflowStore = workflowStore;
         this.workflowFactory = workflowFactory;
         this.activeWorkflows = new Map();
         this.workflowStack = [];
@@ -33,14 +32,7 @@ export class DesktopController extends MvcController {
     }
     
     startWorkflow(parameters) {
-        const definition = this.workflowStore.getDefinition(parameters.name);
-        if (! definition) {
-            throw new Error(`Controller#startWorkflow: unknown workflow ${parameters.name}`);
-        }
-        const workflow = this.workflowFactory.createWorkflow(definition, this);
-        if (! workflow) {
-            throw new Error(`Controller#startWorkflow: unknown workflow ${parameters.name}`);
-        }
+        const workflow = this.workflowFactory.createWorkflow(parameters.name, this);
         this.pushWorkflow(workflow);
         this.executeWorkflow(workflow, null);
     }

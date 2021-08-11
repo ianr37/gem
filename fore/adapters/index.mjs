@@ -14,8 +14,8 @@ export function createDesktop(workflowDefinitions, taskBuilders) {
     const parameterFactory = new WorkflowParameterFactory();
     const taskFactory = new WorkflowTaskFactory(taskBuilders);
     const stepFactory = new WorkflowStepFactory();
-    const workflowFactory = new WorkflowFactory(parameterFactory, taskFactory, stepFactory);
-    const controller = new DesktopController(workflowStore, workflowFactory);
+    const workflowFactory = new WorkflowFactory(workflowStore, parameterFactory, taskFactory, stepFactory);
+    const controller = new DesktopController(workflowFactory);
     return new Desktop(model, view, controller);
 }
 

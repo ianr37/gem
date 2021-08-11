@@ -21,8 +21,10 @@ describe('WorkflowStore', () => {
     });
 
     it('should not find a non-existant definition', () => {
-        const definition = store.getDefinition('does not exist');
-        expect(definition).toEqual(null);
+        const f = () => {
+            return store.getDefinition('does not exist');
+        }
+        expect(f).toThrowError(Error, "Unknown workflow 'does not exist'");
     });
 
 });

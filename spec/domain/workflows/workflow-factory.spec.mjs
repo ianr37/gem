@@ -12,27 +12,25 @@ describe('workflow factory', () => {
     
     let callback = null;
     let factory = null;
-    let store = null;
     let workflow = null;
 
     beforeAll(() => {
         const jsonString = readFileSync(jsonFile);
         const workflowDefinitions = JSON.parse(jsonString);
-        store = new WorkflowStore(workflowDefinitions);
-        expect(store).toBeDefined();
+        const workflowStore = new WorkflowStore(workflowDefinitions);
+        expect(workflowStore).toBeDefined();
         const parameterFactory = new WorkflowParameterFactory();
         expect(parameterFactory).toBeDefined();
         const stepFactory = new WorkflowStepFactory();
         expect(stepFactory).toBeDefined();
         const taskFactory = new WorkflowTaskFactory(taskBuilders);
         expect(taskFactory).toBeDefined();
-        factory = new WorkflowFactory(parameterFactory, taskFactory, stepFactory);
+        factory = new WorkflowFactory(workflowStore, parameterFactory, taskFactory, stepFactory);
         expect(factory).toBeDefined();
     });
 
     beforeEach(() => {
-        const definition = store.getDefinition('wf1');
-        workflow = factory.createWorkflow(definition, callback);
+        workflow = factory.createWorkflow('wf1', callback);
     });
 
     it('should be able to return a workflow', () => {

@@ -3,13 +3,15 @@ import { Workflow } from './workflow.mjs';
 
 export class WorkflowFactory {
 
-    constructor(parameterFactory, taskFactory, stepFactory) {
+    constructor(workflowStore, parameterFactory, taskFactory, stepFactory) {
+        this.workflowStore = workflowStore;
         this.parameterFactory = parameterFactory;
         this.taskFactory = taskFactory;
         this.stepFactory = stepFactory;
     }
 
-    createWorkflow(definition, controller) {
+    createWorkflow(name, controller) {
+        const definition = this.workflowStore.getDefinition(name);
         const workflow = new Workflow(definition, this, controller);
         for (const [i, parameterDefinition] of definition.parameters.entries()) {
             const parameter = this.parameterFactory.createParameter(parameterDefinition);
