@@ -2,7 +2,7 @@
 import { readFileSync } from 'fs';
 
 import { WorkflowFactory, WorkflowParameterFactory, WorkflowStepFactory,
-         WorkflowStore } from '../../../fore/domain/index.mjs';
+         WorkflowStore, WorkflowTaskFactory } from '../../../fore/domain/index.mjs';
 
 import { taskBuilders } from '../../../fore/use-cases/index.mjs';
 
@@ -20,11 +20,13 @@ describe('workflow factory', () => {
         const workflowDefinitions = JSON.parse(jsonString);
         store = new WorkflowStore(workflowDefinitions);
         expect(store).toBeDefined();
-        const stepFactory = new WorkflowStepFactory();
-        expect(stepFactory).toBeDefined();
         const parameterFactory = new WorkflowParameterFactory();
         expect(parameterFactory).toBeDefined();
-        factory = new WorkflowFactory(parameterFactory, taskBuilders, stepFactory);
+        const stepFactory = new WorkflowStepFactory();
+        expect(stepFactory).toBeDefined();
+        const taskFactory = new WorkflowTaskFactory(taskBuilders);
+        expect(taskFactory).toBeDefined();
+        factory = new WorkflowFactory(parameterFactory, taskFactory, stepFactory);
         expect(factory).toBeDefined();
     });
 

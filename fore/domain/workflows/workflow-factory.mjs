@@ -3,9 +3,9 @@ import { Workflow } from './workflow.mjs';
 
 export class WorkflowFactory {
 
-    constructor(parameterFactory, taskBuilders, stepFactory) {
+    constructor(parameterFactory, taskFactory, stepFactory) {
         this.parameterFactory = parameterFactory;
-        this.taskBuilders = taskBuilders;
+        this.taskFactory = taskFactory;
         this.stepFactory = stepFactory;
     }
 
@@ -18,7 +18,7 @@ export class WorkflowFactory {
         for (const [i, taskDefinition] of definition.tasks.entries()) {
             workflow.addTaskTemplate({
                 name: taskDefinition.name,
-                builder: this.taskBuilders.get(taskDefinition.builder),
+                builder: this.taskFactory.createTask(taskDefinition.builder),
                 fields: taskDefinition.fields
             });
         }
