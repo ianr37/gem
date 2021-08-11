@@ -1,5 +1,5 @@
 
-import { WorkflowStep } from './workflow-step.mjs';
+import { WorkflowStep } from './step.mjs';
 
 export class WorkflowStepFactory {
 
