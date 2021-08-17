@@ -12,11 +12,5 @@ export class MvcTriad {
         this.controller.view = this.view;
     }
 
-    attachTo(parent) {
-        const document = parent.ownerDocument;
-        const viewRoot = this.view.build(document);
-        parent.appendChild(viewRoot);
-    }
-
 }
 

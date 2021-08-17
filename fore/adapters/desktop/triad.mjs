@@ -3,8 +3,11 @@ import { MvcTriad } from '../../domain/index.mjs';
 
 export class Desktop extends MvcTriad {
 
-    constructor(model, view, controller) {
+    constructor(env, model, view, controller) {
         super(model, view, controller);
+        this.environment = env;
+        const viewRoot = this.view.build(env.document);
+        env.parent.appendChild(viewRoot);
     }
 
     setFooterStatus(phrase) {

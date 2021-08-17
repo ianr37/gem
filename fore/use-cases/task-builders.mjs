@@ -1,7 +1,7 @@
 
 import * as tasks from './tasks/index.mjs';
 
-export const taskBuilders = new Map([
+export const tasklets = new Map([
     ['RunTest', tasks.RunTest],
     ['PauseTest', tasks.PauseTest],
     ['DisplayTask', tasks.DisplayTask],

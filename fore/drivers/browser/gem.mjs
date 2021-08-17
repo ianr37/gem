@@ -1,17 +1,18 @@
 
-import { DriverAction } from '../../domain/index.mjs';
+import { DriverAction, ExecutionEnvironment } from '../../domain/index.mjs';
 
 import { createDesktop } from '../../adapters/index.mjs';
 
-import { taskBuilders } from '../../use-cases/task-builders.mjs';
+import { tasklets } from '../../use-cases/index.mjs';
 
 import './assets/desktop.css';
 import logo from './assets/logo.png';
-import workflowDefinitions from '../../use-cases/workflow-definitions.json';
+import workflows from '../../use-cases/workflow-definitions.json';
 
-const desktop = createDesktop(workflowDefinitions, taskBuilders);
-const body = document.querySelector('body');
-desktop.attachTo(body);
+
+const parent = document.querySelector('body');
+const env = new ExecutionEnvironment(document, parent, workflows, tasklets, logo);
+const desktop = createDesktop(env);
 desktop.setHeaderText('Gem');
 desktop.setFooterStatus('OK');
 desktop.setFooterText('\xA9 Your Name Here');

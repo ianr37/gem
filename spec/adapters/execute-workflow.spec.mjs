@@ -1,9 +1,9 @@
 
 import { readFileSync } from 'fs';
 
-import { DriverAction } from '../../fore/domain/index.mjs';
+import { DriverAction, ExecutionEnvironment } from '../../fore/domain/index.mjs';
 import { createDesktop } from '../../fore/adapters/index.mjs';
-import { taskBuilders } from '../../fore/use-cases/index.mjs';
+import { tasklets } from '../../fore/use-cases/index.mjs';
 
 import { HTMLDocument, Waiter  } from '../../fore/drivers/testing/index.mjs';
 
@@ -11,7 +11,7 @@ describe('controller', () => {
 
     let controller = null;
     let desktop = null;
-    let workflowDefinitions = null;
+    let workflows = null;
     const diary = [];
     const jsonFile = './fore/use-cases/workflow-definitions.json';
     let waiter = null;
@@ -19,14 +19,15 @@ describe('controller', () => {
     beforeAll(() => {
         waiter = new Waiter();
         const jsonString = readFileSync(jsonFile);
-        workflowDefinitions = JSON.parse(jsonString);
+        workflows = JSON.parse(jsonString);
     });
 
     beforeEach(() => {
-        desktop = createDesktop(workflowDefinitions, taskBuilders);   
         const document = new HTMLDocument();
-        const body = document.createElement('body');
-        desktop.attachTo(body);
+        const parent = document.createElement('body');
+        const logo = null;
+        const env = new ExecutionEnvironment(document, parent, workflows, tasklets, logo);
+        desktop = createDesktop(env);
         controller = desktop.controller;
     });
 
