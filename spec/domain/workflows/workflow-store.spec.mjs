@@ -2,16 +2,18 @@
 import { readFileSync } from 'fs';
 
 import { WorkflowStore } from '../../../fore/domain/index.mjs';
+import { Configuration } from '../../../fore/drivers/configuration.mjs';
 
 describe('WorkflowStore', () => {
 
     let store = null;
-    const jsonFile = './fore/use-cases/workflow-definitions.json';
+    const jsonFile = './fore/drivers/testing/configurations/full.json'
 
     beforeAll(() => {
         const jsonString = readFileSync(jsonFile);
-        const definitions = JSON.parse(jsonString);
-        store = new WorkflowStore(definitions);
+        const rawConfiguration = JSON.parse(jsonString);
+        const cfg = new Configuration(rawConfiguration);
+        store = new WorkflowStore(cfg.getWorkflows());
         expect(store instanceof WorkflowStore).toBeTrue();
     });
 

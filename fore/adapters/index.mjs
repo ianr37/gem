@@ -10,9 +10,9 @@ import {
 export function createDesktop(env) {
     const model = new DesktopModel();
     const view = new DesktopView();
-    const workflowStore = new WorkflowStore(env.workflows);
+    const workflowStore = new WorkflowStore(env.getConfigurationValue('workflows'));
     const parameterFactory = new WorkflowParameterFactory();
-    const taskFactory = new WorkflowTaskFactory(env.tasks);
+    const taskFactory = new WorkflowTaskFactory(env.getTasklets());
     const stepFactory = new WorkflowStepFactory();
     const workflowFactory = new WorkflowFactory(workflowStore, parameterFactory, taskFactory, stepFactory);
     const controller = new DesktopController(workflowFactory);

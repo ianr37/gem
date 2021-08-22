@@ -1,13 +1,39 @@
 
 export class ExecutionEnvironment {
 
-    constructor(document, parent, workflows, tasks, logo) {
+    constructor(cfg, logo, tasklets, document, parent) {
+        this.cfg = cfg.cfg;
+        this.logo = logo;
+        this.tasklets = tasklets;
         this.document = document;
         this.parent = parent;
-        this.workflows = workflows;
-        this.tasks = tasks;
-        this.logo = logo;
     }
+
+    getConfigurationValue(name) {
+        const result = this.cfg[name];
+        if (! result) {
+            throw new Error(`Unknown configuration parameter ${name}`);
+        }
+        return result;
+    }
+
+    getLogo() {
+        return this.logo;
+    }
+
+    getTasklets() {
+        return this.tasklets;
+    }
+
+    getDocument() {
+        return this.document;
+    }
+
+    getParent() {
+        return this.parent;
+    }
+
+
 
 }
 

@@ -1,0 +1,94 @@
+{
+    "headerText": "The header text",
+    "footerText": "The footer text",
+    "workflows": [
+        {
+            "name": "wf1",
+            "firstStep": "step1",
+            "parameters": [
+                {"name": "p1", "storage": "string"},
+                {"name": "p2", "storage": "number"},
+                {"name": "p3", "storage": "boolean"},
+                {"name": "p4", "storage": "object"}
+            ],
+            "tasks": [
+                {"name": "t1", "builder": "RunTest", "fields": ["p1", "p3"]},
+                {"name": "t2", "builder": "PauseTest", "fields": ["p2", "p4"]}
+            ],
+            "steps": [
+                {"name": "step1", "task": "t1", "jumps": [{"state": "ok", "target": "step2"}]},
+                {"name": "step2", "task": "t2", "jumps": [{"state": "finished", "target": null}]}
+            ]
+        },
+
+        {
+            "name": "run-test",
+            "firstStep": "step1",
+            "parameters": [ ],
+            "tasks": [
+                {"name": "run", "builder": "RunTest", "fields": [ ]}
+            ],
+            "steps": [
+                {"name": "step1", "task": "run", "jumps": [{"state": "finished", "target": null}]}
+            ]
+        },
+
+        {
+            "name": "pause-test",
+            "firstStep": "step1",
+            "parameters": [ ],
+            "tasks": [
+                {"name": "pause", "builder": "PauseTest", "fields": [ ]},
+                {"name": "run", "builder": "RunTest", "fields": [ ]}
+            ],
+            "steps": [
+                {"name": "step1", "task": "pause", "jumps": [{"state": "ok", "target": "step2"}]},
+                {"name": "step2", "task": "run", "jumps": [{"state": "finished", "target": null}]}
+            ]
+        },
+
+        {
+            "name": "home",
+            "firstStep": "step1",
+            "parameters": [ ],
+            "tasks": [
+                {"name": "home", "builder": "HomePage", "fields": [ ]}
+            ],
+            "steps": [
+                {"name": "step1", "task": "home", "jumps": [{"state": "ok", "target": "step1"}]}
+            ]
+        },
+
+        {
+            "name": "login",
+            "firstStep": "step1",
+            "parameters": [
+                {"name": "userName", "storageType": "string"},
+                {"name": "passPhrase", "storageType": "string"},
+                {"name": "accessToken", "storageType": "string"},
+                {"name": "refreshToken", "storageType": "string"},
+                {"name": "userProfile", "storageType": "UserProfile"}
+            ],
+            "tasks": [
+                {"name": "display", "builder": "DisplayForm", "fields": ["userName", "passPhrase"]},
+                {"taskName": "display", "taskClass": "DisplayForm",
+                    "fields": [
+                        {"parameter": "userName", "label": "User Name", "displayType": "text"},
+                        {"parameter": "passPhrase", "label": "Pass Phrase", "displayType": "password"}
+                    ]
+                },
+                {"taskName": "store", "taskClass": "Store",
+                    "fields": [
+                        {"parameter": "accessToken", "label": "User Name", "displayType": "text"},
+                        {"parameter": "passPhrase", "label": "Pass Phrase", "displayType": "password"}
+                    ]
+                }
+            ],
+            "steps": [
+                {"name": "step1", "task": "display", "jumps": [{"state": "ok", "target": "step2"}]},
+                {"name": "store", "task": "store", "jumps": [{"state": "ok", "target": null}]}
+            ]
+        }
+    ]
+}
+

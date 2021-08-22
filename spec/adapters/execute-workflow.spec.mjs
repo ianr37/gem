@@ -4,29 +4,32 @@ import { readFileSync } from 'fs';
 import { DriverAction, ExecutionEnvironment } from '../../fore/domain/index.mjs';
 import { createDesktop } from '../../fore/adapters/index.mjs';
 import { tasklets } from '../../fore/use-cases/index.mjs';
+import { Configuration } from '../../fore/drivers/configuration.mjs';
 
 import { HTMLDocument, Waiter  } from '../../fore/drivers/testing/index.mjs';
 
 describe('controller', () => {
 
+    let cfg = null;
     let controller = null;
     let desktop = null;
     let workflows = null;
     const diary = [];
-    const jsonFile = './fore/use-cases/workflow-definitions.json';
+    const jsonFile = './fore/drivers/testing/configurations/full.json';
     let waiter = null;
 
     beforeAll(() => {
         waiter = new Waiter();
         const jsonString = readFileSync(jsonFile);
-        workflows = JSON.parse(jsonString);
+        const rawConfiguration = JSON.parse(jsonString);
+        cfg = new Configuration(rawConfiguration);
     });
 
     beforeEach(() => {
         const document = new HTMLDocument();
         const parent = document.createElement('body');
         const logo = null;
-        const env = new ExecutionEnvironment(document, parent, workflows, tasklets, logo);
+        const env = new ExecutionEnvironment(cfg, logo, tasklets, document, parent);
         desktop = createDesktop(env);
         controller = desktop.controller;
     });

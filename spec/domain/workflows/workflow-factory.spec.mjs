@@ -3,21 +3,22 @@ import { readFileSync } from 'fs';
 
 import { WorkflowFactory, WorkflowParameterFactory, WorkflowStepFactory,
          WorkflowStore, WorkflowTaskFactory } from '../../../fore/domain/index.mjs';
-
 import { tasklets } from '../../../fore/use-cases/index.mjs';
+import { Configuration } from '../../../fore/drivers/configuration.mjs';
 
 describe('workflow factory', () => {
 
-    const jsonFile = './fore/use-cases/workflow-definitions.json';
-    
+    let cfg = null;
     let callback = null;
     let factory = null;
     let workflow = null;
+    const jsonFile = './fore/drivers/testing/configurations/full.json';
 
     beforeAll(() => {
         const jsonString = readFileSync(jsonFile);
-        const workflowDefinitions = JSON.parse(jsonString);
-        const workflowStore = new WorkflowStore(workflowDefinitions);
+        const rawConfiguration = JSON.parse(jsonString);
+        cfg = new Configuration(rawConfiguration);
+        const workflowStore = new WorkflowStore(cfg.getWorkflows());
         expect(workflowStore).toBeDefined();
         const parameterFactory = new WorkflowParameterFactory();
         expect(parameterFactory).toBeDefined();
