@@ -1,7 +1,7 @@
 
 import { DriverAction, ExecutionEnvironment } from '../../domain/index.mjs';
 
-import { createDesktop } from '../../adapters/index.mjs';
+import { createDesktop, createWorkpane } from '../../adapters/index.mjs';
 
 import { tasklets } from '../../use-cases/index.mjs';
 
@@ -12,10 +12,11 @@ import logo from './assets/logo.png';
 import rawConfiguration from './configuration.json';
 
 const cfg = new Configuration(rawConfiguration);
-const parent = document.querySelector('body');
-const env = new ExecutionEnvironment(cfg, logo, tasklets, document, parent);
+const body = document.querySelector('body');
+const env = new ExecutionEnvironment(cfg, logo, tasklets, document);
 
 const desktop = createDesktop(env);
+desktop.attachTo(body);
 
 desktop.setHeaderText('Gem');
 desktop.setFooterStatus('OK');

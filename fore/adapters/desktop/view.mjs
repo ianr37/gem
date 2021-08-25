@@ -56,22 +56,22 @@ export class DesktopView extends MvcView {
 
     build(document) {
         this.root = document.createElement('div');
-        this.build_header(document);
-        this.build_navbar(document);
-        this.build_aside(document);
-        this.build_footer(document);
+        this.buildHeader(document);
+        this.buildNavbar(document);
+        this.buildAside(document);
+        this.buildFooter(document);
         this.root.addEventListener('click', this.handleEvent.bind(this));
         return this.root;
     }
 
-    build_header(document) {
+    buildHeader(document) {
         const header = document.createElement('header');
         this.root.appendChild(header);
         this.headerText = document.createElement('h1');
         header.appendChild(this.headerText);
     }
 
-    build_navbar(document) {
+    buildNavbar(document) {
         const navbar = document.createElement('nav');
         this.root.appendChild(navbar);
         this.logo = document.createElement('img');
@@ -80,12 +80,12 @@ export class DesktopView extends MvcView {
         navbar.appendChild(this.menu);
     }
 
-    build_aside(document) {
+    buildAside(document) {
         const aside = document.createElement('aside');
         this.root.appendChild(aside);
     }
 
-    build_footer(document) {
+    buildFooter(document) {
         const footer = document.createElement('footer');
         this.root.appendChild(footer);
         this.footerStatus = document.createElement('div');

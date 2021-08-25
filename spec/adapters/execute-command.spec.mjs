@@ -23,10 +23,11 @@ describe('the desktop', () => {
 
     beforeEach(() => {
         const document = new HTMLDocument();
-        const parent = document.createElement('body');
+        const body = document.createElement('body');
         const logo = null;
-        const env = new ExecutionEnvironment(cfg, logo, tasklets, document, parent);
+        const env = new ExecutionEnvironment(cfg, logo, tasklets, document);
         desktop = createDesktop(env);
+        desktop.attachTo(body);
     });
 
     it('should be able execute a command by clicking on a menu button', () => {

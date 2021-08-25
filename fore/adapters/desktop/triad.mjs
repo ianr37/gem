@@ -6,8 +6,15 @@ export class Desktop extends MvcTriad {
     constructor(env, model, view, controller) {
         super(model, view, controller);
         this.environment = env;
-        const viewRoot = this.view.build(env.document);
-        env.parent.appendChild(viewRoot);
+        this.view.build(env.document);
+    }
+
+    getDocument() {
+        return this.environment.document;
+    }
+
+    getRoot() {
+        return this.view.root;
     }
 
     setFooterStatus(phrase) {

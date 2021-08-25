@@ -12,5 +12,9 @@ export class MvcTriad {
         this.controller.view = this.view;
     }
 
+    attachTo(parent) {
+        parent.appendChild(this.view.root);
+    }
+
 }
 

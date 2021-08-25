@@ -1,7 +1,7 @@
 
 import { MvcModel } from '../../domain/index.mjs';
 
-export class DesktopModel extends MvcModel {
+export class WorkpaneModel extends MvcModel {
 
     constructor() {
         super();

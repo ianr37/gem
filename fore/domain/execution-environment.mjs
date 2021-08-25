@@ -1,12 +1,11 @@
 
 export class ExecutionEnvironment {
 
-    constructor(cfg, logo, tasklets, document, parent) {
+    constructor(cfg, logo, tasklets, document) {
         this.cfg = cfg.cfg;
         this.logo = logo;
         this.tasklets = tasklets;
         this.document = document;
-        this.parent = parent;
     }
 
     getConfigurationValue(name) {
@@ -28,12 +27,6 @@ export class ExecutionEnvironment {
     getDocument() {
         return this.document;
     }
-
-    getParent() {
-        return this.parent;
-    }
-
-
 
 }
 
