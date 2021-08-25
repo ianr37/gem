@@ -28,20 +28,16 @@ describe('view', () => {
         expect(triad.controller).toBeInstanceOf(MvcController);
     });
 
-    it('should have connected the model to the view', () => {
-        expect(triad.view.model).toEqual(triad.model);
+    it('should have connected the model to the triad', () => {
+        expect(triad.model.triad).toEqual(triad);
     });
 
-    it('should have connected the model to the controller', () => {
-        expect(triad.controller.model).toEqual(triad.model);
+    it('should have connected the controller to the triad', () => {
+        expect(triad.controller.triad).toEqual(triad);
     });
 
-    it('should have connected the view to the controller', () => {
-        expect(triad.controller.view).toEqual(triad.view);
-    });
-
-    it('should have connected the controller to the view', () => {
-        expect(triad.view.controller).toEqual(triad.controller);
+    it('should have connected the view to the triad', () => {
+        expect(triad.view.triad).toEqual(triad);
     });
 
 });

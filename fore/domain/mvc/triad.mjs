@@ -4,12 +4,11 @@ export class MvcTriad {
     constructor(model, view, controller)
     {
         this.model = model;
+        model.triad = this;
         this.view = view;
+        view.triad = this;
         this.controller = controller;
-        this.view.model = this.model;
-        this.view.controller = this.controller;
-        this.controller.model = this.model;
-        this.controller.view = this.view;
+        controller.triad = this;
     }
 
     attachTo(parent) {

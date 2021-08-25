@@ -19,16 +19,25 @@ export class DesktopController extends MvcController {
             case 'start-workflow':
                 this.startWorkflow(parameters);
                 break;
+            case 'start-workpane':
+                this.startWorkpane(parameters);
+                break;
             case 'resume-workflow':
                 this.resumeWorkflow(parameters);
                 break;
             case 'set-status':
-                this.view.setFooterStatus(parameters.status);
+                this.triad.setFooterStatus(parameters.status);
                 break;
             default:
                 throw new Error(`Controller#handleAction: unknown action ${action.action}`);
                 break;
         }
+    }
+
+    startWorkpane(parameters) {
+        const workflow = this.workflowFactory.createWorkflow(parameters.name, this);
+        this.pushWorkflow(workflow);
+        this.executeWorkflow(workflow, null);
     }
     
     startWorkflow(parameters) {

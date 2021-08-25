@@ -28,13 +28,10 @@ describe('The workflow pane', () => {
         const env = new ExecutionEnvironment(cfg, logo, tasklets, document);
         desktop = createDesktop(env);
         desktop.attachTo(body);
-        pane = createWorkpane(desktop);
-        const desktopRoot = desktop.getRoot();
-        pane.attachTo(desktopRoot);
     });
 
-    it('should exist', () => {
-        expect(pane).toBeDefined();
+    it('should run the HomePage workflow', () => {
+        desktop.controller.startWorkpane({name: 'home-page'});
     });
 
 });

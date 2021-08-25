@@ -2,8 +2,7 @@
 export class MvcController {
 
     constructor() {
-        this.model = null;
-        this.view = null;
+        this.triad = null;
     }
 
     handleAction(action) {

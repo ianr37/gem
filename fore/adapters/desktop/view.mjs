@@ -12,7 +12,7 @@ export class DesktopView extends MvcView {
         const dataset = event.target.dataset;
         if ('command' in dataset) {
             const action = new DriverAction(dataset.command, dataset);
-            this.controller.handleAction(action);
+            this.triad.controller.handleAction(action);
         }
     }
 
