@@ -46,49 +46,6 @@
                 {"name": "step1", "task": "pause", "jumps": [{"state": "ok", "target": "step2"}]},
                 {"name": "step2", "task": "run", "jumps": [{"state": "finished", "target": null}]}
             ]
-        },
-
-        {
-            "name": "home",
-            "firstStep": "step1",
-            "parameters": [ ],
-            "tasks": [
-                {"name": "home", "builder": "HomePage", "fields": [ ]}
-            ],
-            "steps": [
-                {"name": "step1", "task": "home", "jumps": [{"state": "ok", "target": "step1"}]}
-            ]
-        },
-
-        {
-            "name": "login",
-            "firstStep": "step1",
-            "parameters": [
-                {"name": "userName", "storageType": "string"},
-                {"name": "passPhrase", "storageType": "string"},
-                {"name": "accessToken", "storageType": "string"},
-                {"name": "refreshToken", "storageType": "string"},
-                {"name": "userProfile", "storageType": "UserProfile"}
-            ],
-            "tasks": [
-                {"name": "display", "builder": "DisplayForm", "fields": ["userName", "passPhrase"]},
-                {"taskName": "display", "taskClass": "DisplayForm",
-                    "fields": [
-                        {"parameter": "userName", "label": "User Name", "displayType": "text"},
-                        {"parameter": "passPhrase", "label": "Pass Phrase", "displayType": "password"}
-                    ]
-                },
-                {"taskName": "store", "taskClass": "Store",
-                    "fields": [
-                        {"parameter": "accessToken", "label": "User Name", "displayType": "text"},
-                        {"parameter": "passPhrase", "label": "Pass Phrase", "displayType": "password"}
-                    ]
-                }
-            ],
-            "steps": [
-                {"name": "step1", "task": "display", "jumps": [{"state": "ok", "target": "step2"}]},
-                {"name": "store", "task": "store", "jumps": [{"state": "ok", "target": null}]}
-            ]
         }
     ]
 }
