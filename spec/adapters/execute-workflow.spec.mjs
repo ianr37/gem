@@ -46,40 +46,40 @@ describe('controller', () => {
     });
 
     it('should be able to run a workflow that does not pause', () => {
-        expect(controller.activeWorkflows.size).toEqual(0);
-        expect(controller.finishedWorkflows.size).toEqual(0);
-        controller.startWorkflow({name: 'run-test'});
-        expect(controller.activeWorkflows.size).toEqual(0);
-        expect(controller.finishedWorkflows.size).toEqual(0);
+        expect(controller.activeWorkpanes.size).toEqual(0);
+        expect(controller.finishedWorkpanes.size).toEqual(0);
+        controller.startWorkpane({name: 'run-test'});
+        expect(controller.activeWorkpanes.size).toEqual(0);
+        expect(controller.finishedWorkpanes.size).toEqual(0);
     });
 
     it('should be able to run a workflow that does not pause in keep mode', () => {
-        controller.keepFinishedWorkflows = true;
-        expect(controller.activeWorkflows.size).toEqual(0);
-        expect(controller.finishedWorkflows.size).toEqual(0);
-        controller.startWorkflow({name: 'run-test'});
-        expect(controller.activeWorkflows.size).toEqual(0);
-        expect(controller.finishedWorkflows.size).toEqual(1);
+        controller.keepFinishedWorkpanes = true;
+        expect(controller.activeWorkpanes.size).toEqual(0);
+        expect(controller.finishedWorkpanes.size).toEqual(0);
+        controller.startWorkpane({name: 'run-test'});
+        expect(controller.activeWorkpanes.size).toEqual(0);
+        expect(controller.finishedWorkpanes.size).toEqual(1);
     });
     
     it('should be able to run a workflow that pauses', async () => {
-        controller.keepFinishedWorkflows = false;
-        expect(controller.activeWorkflows.size).toEqual(0);
-        expect(controller.finishedWorkflows.size).toEqual(0);
-        controller.startWorkflow({name: 'pause-test'});
+        controller.keepFinishedWorkpanes = false;
+        expect(controller.activeWorkpanes.size).toEqual(0);
+        expect(controller.finishedWorkpanes.size).toEqual(0);
+        controller.startWorkpane({name: 'pause-test'});
         await waiter.waitOneTick();
-        expect(controller.activeWorkflows.size).toEqual(0);
-        expect(controller.finishedWorkflows.size).toEqual(0);
+        expect(controller.activeWorkpanes.size).toEqual(0);
+        expect(controller.finishedWorkpanes.size).toEqual(0);
     });
 
     it('should be able to run a workflow that pauses in keep mode', async () => {
-        controller.keepFinishedWorkflows = true;
-        expect(controller.activeWorkflows.size).toEqual(0);
-        expect(controller.finishedWorkflows.size).toEqual(0);
-        controller.startWorkflow({name: 'pause-test'});
+        controller.keepFinishedWorkpanes = true;
+        expect(controller.activeWorkpanes.size).toEqual(0);
+        expect(controller.finishedWorkpanes.size).toEqual(0);
+        controller.startWorkpane({name: 'pause-test'});
         await waiter.waitOneTick();
-        expect(controller.activeWorkflows.size).toEqual(0);
-        expect(controller.finishedWorkflows.size).toEqual(1);
+        expect(controller.activeWorkpanes.size).toEqual(0);
+        expect(controller.finishedWorkpanes.size).toEqual(1);
     });
 
 });
